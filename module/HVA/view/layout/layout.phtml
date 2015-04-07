@@ -98,7 +98,14 @@
     </body>
 </html>
 <script type="text/javascript">
-   
+    
+    var windowsHeigh = $(window).outerHeight(true);
+    var containerHeigh = $("#main-container").outerHeight(true);
+
+    if(windowsHeigh>containerHeigh){
+        $("div#footer-container").css('position','absolute');
+    }
+    
     
     $('.navbar_dropdown').dropdown({
       inDuration: 300,
