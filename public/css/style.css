@@ -47,10 +47,15 @@ body{
 #logo-navbar{
  height: 5.833em;      
 }
-
+#workspace-container{
+    margin: 0;
+}
+#main-container{
+    margin: 0;
+}
 #topmenu-container{
+    margin: 0;
     padding: 0;
-    height: 5.833em;
     background: #FFF;
 }
 
@@ -59,25 +64,28 @@ body{
 }
 
 
-#topmenu-container ul{
+#module_list ul{
     margin: 0px;
     padding: 0px;
 }
 
-#topmenu-container ul li{
-    padding: 3% 2% 3% 2%;
+#module_list ul li{
+    padding: 4% 2% 2% 2%;
     float: left;
     height: 5.833em;
-
 }
 
 #topmenu-container ul li a{ 
   font-size: 13px;
 }
 
+/*Navbar container*/
+#navbar_profile-container{
+    padding-top: 1%;
+}
 
 #footer-container{
-    position: absolute; width: 100%; bottom: 0; margin: 0;
+    position: relative; width: 100%; bottom: 0; margin: 0; margin-top: 20px;
 }
 
 #footer p{
