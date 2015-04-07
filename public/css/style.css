@@ -50,6 +50,10 @@ body{
 #workspace-container{
     margin: 0;
 }
+#workspace-container div.col{
+    padding: 0 20px 0 20px;
+}
+
 #main-container{
     margin: 0;
 }
@@ -77,6 +81,7 @@ body{
 
 #topmenu-container ul li a{ 
   font-size: 13px;
+  color: #E1F5FE;
 }
 
 /*Navbar container*/
@@ -100,3 +105,100 @@ body{
 .dropdown-content li{
     font-size: 1em;
 }
+
+h3{
+    color: #05086E;
+    font-weight: bold;
+}
+
+/*Table styles*/
+table thead{
+    color: #05086E;
+}
+
+th.header { 
+    background-image: url(/img/table/bg.gif); 
+    cursor: pointer; 
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: center right; 
+    padding-left: 20px; 
+    margin-left: -1px; 
+} 
+
+th.headerSortUp { 
+    background-image: url(/img/table/asc.gif); 
+} 
+
+th.headerSortDown { 
+    background-image: url(/img/table/desc.gif); 
+} 
+
+table.striped td:not(:last-child){
+    padding-left: 20px;
+}
+
+table.striped tr{
+    line-height: 5px;
+}
+
+table.striped td a i.mdi-action-delete{
+    color: #b71c1c;
+}
+
+table.striped td a i.mdi-image-remove-red-eye{
+    color: #1b5e20;
+}
+
+table.striped td a i.mdi-action-assignment{
+    color: #039be5;
+}
+
+table.striped tbody tr:nth-child(2n+1){
+    background: #e1f5fe;
+}
+
+#table-header{
+    margin-bottom: 0;
+    
+}
+
+#table-header div.row{
+    margin-bottom: 0;
+}
+
+#search-container{
+    
+    float: right;
+}
+
+#search-container label{
+    font-size: 12px;
+    
+}
+
+
+
+#search-container input[type="text"]:focus{
+    border-bottom: 1px solid #E1F5FE;
+    box-shadow: 0 1px 0 0 #00086E;
+}
+
+#search-container i{
+    color: #5CC7F7;
+}
+
+#search-container i.active{
+    color: #00086E;
+}
+
+#search-container label.active{
+    color: #00086E;
+}
+
+
+#new-container{
+    position: absolute;
+    bottom: 15px;
+}
+
