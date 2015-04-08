@@ -86,8 +86,6 @@ class MedicoController extends AbstractActionController
             'medicos' => $dataCollection,
         ));
         
-        //$medico = new \Medico();
-        //$medico->getEspecialidad()->getEspecialidadNombre();
     }
 
     public function editarAction()
