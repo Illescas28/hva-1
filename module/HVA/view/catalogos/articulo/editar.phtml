@@ -25,14 +25,6 @@ if(!$Error){
     echo $this->formRow($ArticuloForm->get('articulo_nombre'));
     echo $this->formRow($ArticuloForm->get('articulo_descripcion'));
     echo $this->formRow($ArticuloForm->get('articulo_tipopresentacion'));
-<<<<<<< HEAD
-    ?>
-    <select class="browser-default">
-    <option value="<?php echo $this->formRow($ArticuloForm->get('articulo_tipopresentacion')) ?></option>
-    </select>
-    <?php
-=======
->>>>>>> da14c52b62b2081dbe132fb0f5e8153d23711326
     echo $this->formRow($ArticuloForm->get('articulo_cantidadpresentacion'));
     echo $this->formSubmit($ArticuloForm->get('submit'));
     //echo $this->formCollection($ArticuloForm);
@@ -41,9 +33,6 @@ if(!$Error){
     foreach ($Error as $errorValue){
         echo $errorValue;
     }
-<<<<<<< HEAD
-}
-=======
 }
 ?>
 <script>
@@ -51,4 +40,3 @@ $(document).ready(function() {
     $('select').material_select();
 });
 </script>
->>>>>>> da14c52b62b2081dbe132fb0f5e8153d23711326
