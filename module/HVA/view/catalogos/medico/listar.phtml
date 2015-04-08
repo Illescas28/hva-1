@@ -39,21 +39,104 @@
             <td><?php echo $medico->getMedicoApellidomaterno() ?></td>
             <td><?php echo $medico->getEspecialidad()->getEspecialidadNombre() ?></td>
             <td>
-                <a class="tooltipped" data-position="left" data-tooltip="Visualizar" href='<?php echo "/catalogos/medico/ver/".$medico->getIdMedico()?>'><i class="tiny mdi-image-remove-red-eye"></i></a>
+                <a class="tooltipped modal-trigger" data-position="left" data-tooltip="Visualizar" href='<?php echo "#modal-medico-".$medico->getIdMedico()?>'><i class="tiny mdi-image-remove-red-eye"></i></a>
                 &nbsp;&nbsp;
                 <a class="tooltipped" data-position="right" data-tooltip="Editar" href='<?php echo "/catalogos/medico/editar/".$medico->getIdMedico()?>'><i class="tiny mdi-action-assignment"></i></a>
                 &nbsp;&nbsp;    
                 <a class="tooltipped" data-position="right" data-tooltip="Eliminar" href='<?php echo "/catalogos/medico/eliminar/".$medico->getIdMedico()?>'><i class="tiny mdi-action-delete"></i></a>
             </td>
         </tr>
-    <?php endforeach; ?>
-
-    </tbody>
+         <!-- Modal Structure -->
+        <div id="modal-medico-<?php echo $medico->getIdMedico()?>" class="modal ">
+          <div class="modal-content">
+            <h4><?php echo "Dr. ". $medico->getMedicoNombre(). " ". $medico->getMedicoApellidopaterno(). " ". $medico->getMedicoApellidomaterno() ?></h4>
+            <div class="row">
+                <fieldset>
+                    <legend>Datos Generales:</legend>
+                <div class="col s4">
+                    <div class="label-container">
+                        <label>Calle:</label>
+                        <p><?php echo $medico->getMedicoCalle()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>No. Exterior:</label>
+                        <p><?php echo $medico->getMedicoNoexterior()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>No. Interior:</label>
+                        <p><?php echo $medico->getMedicoNoInterior()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Colonia:</label>
+                        <p><?php echo $medico->getMedicoColonia()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Codigo Postal:</label>
+                        <p><?php echo $medico->getMedicoCodigopostal()?></p>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="label-container">
+                        <label>Ciudad:</label>
+                        <p><?php echo $medico->getMedicoCiudad()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Estado:</label>
+                        <p><?php echo $medico->getMedicoEstado()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Pais:</label>
+                        <p><?php echo $medico->getMedicoPais()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Telefono:</label>
+                        <p><?php echo $medico->getMedicoTelefono()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Celular:</label>
+                        <p><?php echo $medico->getMedicoTelefonocelular()?></p>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="label-container">
+                        <label>Especialidad:</label>
+                        <p><?php echo $medico->getEspecialidad()->getEspecialidadNombre()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>Clave:</label>
+                        <p><?php echo $medico->getMedicoClave()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>D.G.P:</label>
+                        <p><?php echo $medico->getMedicoDgp()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>S.S.A:</label>
+                        <p><?php echo $medico->getMedicoSsa()?></p>
+                    </div>
+                    <div class="label-container">
+                        <label>A.E:</label>
+                        <p><?php echo $medico->getMedicoAe()?></p>
+                    </div>
+                </div>
+                </fieldset>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-light btn cerrar"><i class="mdi-navigation-close left"></i>Cerrar</a>
+            
+            <a href="#!" class="modal-action modal-close waves-effect waves-light btn editar"><i class="mdi-action-assignment left"></i>Editar</a>
+          </div>
+        </div>
     
+        <!-- End Modal Structure -->
+    <?php endforeach; ?>
+    </tbody>
 </table>
 <script>
 $(document).ready(function(){
         $("#tabla-medicos").tablesorter({headers:{4:{sorter:false}}});
-        $("#tabla-medicos").filterTable({inputSelector: '#search-container input',minRows:2});  
+        $("#tabla-medicos").filterTable({inputSelector: '#search-container input',minRows:2});
+        $('.modal-trigger').leanModal();
 }); 
 </script>

@@ -200,5 +200,8 @@ class MedicoController extends AbstractActionController
             'id'    => $id,
             'medico' => $provedorEntity->toArray(BasePeer::TYPE_FIELDNAME)
         );
+        
+        $medico = new Medico();
+//        $medico->
     }
 }
