@@ -21,7 +21,6 @@ class ArticuloController extends AbstractActionController
     public function nuevoAction()
     {
         $ArticuloForm = new ArticuloForm();
-        $ArticuloForm->get('submit')->setValue('Nuevo');
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -32,25 +31,34 @@ class ArticuloController extends AbstractActionController
             if ($ArticuloForm->isValid()) {
                 $Articulo = new Articulo();
                 foreach($ArticuloForm->getData() as $ArticuloKey => $ArticuloValue){
+
+                    if($ArticuloKey == 'idtipo'){
+                        $tipoExists =  \TipoQuery::create()->filterByIdtipo($ArticuloKey)->exists();
+                        // Validamos que exista el idtipo.
+                        if(!$tipoExists){
+                            return array(
+                                'productoFotoForm' => $ArticuloForm,
+                                'Error' => 'Invalid idproduct.'
+                            );
+                        }
+                    }
+                    if($ArticuloKey == 'idudm'){
+                        $udmExists =  \UdmQuery::create()->filterByIdudm($ArticuloKey)->exists();
+                        // Validamos que exista el idtipo.
+                        if(!$udmExists){
+                            return array(
+                                'productoFotoForm' => $ArticuloForm,
+                                'Error' => 'Invalid idproduct.'
+                            );
+                        }
+                    }
+
                     if($ArticuloKey != 'idarticulo' && $ArticuloKey != 'submit'){
                         $Articulo->setByName($ArticuloKey, $ArticuloValue, BasePeer::TYPE_FIELDNAME);
                     }
                 }
                 $Articulo->save();
                 return $this->redirect()->toRoute('articulo');
-            }else{
-                $messageArray = array();
-                foreach ($ArticuloForm->getMessages() as $key => $value){
-                    foreach($value as $val){
-                        //Obtenemos el valor de la columna con error
-                        $message = $key.' '.$val;
-                        array_push($messageArray, $message);
-                    }
-                }
-
-                return new ViewModel(array(
-                    'Error' => $messageArray,
-                ));
             }
         }
         return array('ArticuloForm' => $ArticuloForm);
@@ -83,9 +91,39 @@ class ArticuloController extends AbstractActionController
         // Obtenemos el filtrado por medio del idcompany del recurso.
         $result = $articuloQuery->paginate($page,$limit);
 
+
         $data = $result->getResults()->toArray(null,false,BasePeer::TYPE_FIELDNAME);
 
+        //<--->
+        // Instanciamos nuestro formulario articulovarianteForm
+        $articulovarianteForm = new \Catalogos\Articulovariante\Form\ArticulovarianteForm();
+
+        // Guardamos en un arrglo los campos a los que el usuario va poder tener acceso de acuerdo a su nivel
+        $allowedColumns = array();
+        foreach ($articulovarianteForm->getElements() as $key=>$value){
+            array_push($allowedColumns, $key);
+        }
+        //Verificamos que si nos envian filtros  si no ponemos valores por default
+        $limit = (int) $this->params()->fromQuery('limit') ? (int)$this->params()->fromQuery('limit')  : 10;
+        if($limit > 100) $limit = 100; //Si el limit es mayor a 100 lo establece en 100 como maximo valor permitido
+        $dir = $this->params()->fromQuery('dir') ? $this->params()->fromQuery('dir')  : 'asc';
+        $order = in_array($this->params()->fromQuery('order'), $allowedColumns) ? $this->params()->fromQuery('order')  : 'idarticulovariante';
+        $page = (int) $this->params()->fromQuery('page') ? (int)$this->params()->fromQuery('page')  : 1;
+
+        $articulovarianteQuery = new \ArticulovarianteQuery();
+
+        //Order y Dir
+        if($order !=null || $dir !=null){
+            $articulovarianteQuery->orderBy($order, $dir);
+        }
+
+        // Obtenemos el filtrado por medio del idcompany del recurso.
+        $result = $articulovarianteQuery->filterByIdarticulo()->paginate($page,$limit);
+
+        $dataVariante = $result->getResults()->toArray(null,false,BasePeer::TYPE_FIELDNAME);
+
         return new ViewModel(array(
+            'Articulovariantes' => $dataVariante,
             'Articulos' => $data,
         ));
     }

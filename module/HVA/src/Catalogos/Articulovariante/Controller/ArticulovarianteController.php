@@ -27,17 +27,17 @@ class ArticulovarianteController extends AbstractActionController
         if ($request->isPost()) {
             $ArticulovarianteFilter = new ArticulovarianteFilter();
             $ArticulovarianteForm->setInputFilter($ArticulovarianteFilter->getInputFilter());
-            $data = $request->getPost()->toArray();
-            $upload = new \Zend\File\Transfer\Adapter\Http();
-            $files  = $upload->getFileInfo();
 
-            foreach($files as $file => $fileInfo) {
-                $fileName = $fileInfo['name'];
-            }
+            // Almacenamos en una variable de tipo array los datos que nos mandan por post (no almacena archivos)
+            $nonFile = $request->getPost()->toArray();
+            // Obtenemos los detalles del archivo
+            $File = $this->params()->fromFiles('articulovariante_imagen');
+            // Creamos un array conjuntando los datos del post y el archivo
             $data = array_merge(
-                $data, //POST
-                array('articulovariante_imagen'=> $fileName) //Guardamos el nombre del archivo...
+                $nonFile, //POST
+                array('articulovariante_imagen'=> $File['name']) //FILE...
             );
+
             $ArticulovarianteForm->setData($data);
 
             foreach($data as $key => $value){
@@ -57,36 +57,35 @@ class ArticulovarianteController extends AbstractActionController
 
             if ($ArticulovarianteForm->isValid()) {
 
-                $size = new \Zend\Validator\File\Size(array('max'=>5000000)); //maximo de bytes permitidos tamañpo de imagen
-                $uploads = new \Zend\File\Transfer\Adapter\Http();
-                $files  = $uploads->getFileInfo();
+                $size = new \Zend\Validator\File\Size(array('max'=>2000000)); //maximo bytes filesize
+                $adapter = new \Zend\File\Transfer\Adapter\Http();
+                $adapter->setValidators(array($size), $File['name']);
 
-                foreach($files as $file => $fileInfo) {
-                    $fileName = $fileInfo['name'];
-                    $uploads->setValidators(array($size), $fileName);
-                    if ($uploads->isUploaded($file)) {
-                        if (!$uploads->isValid($file)){
-                            $dataError = $uploads->getMessages();
-                            $error = array();
-                            foreach($dataError as $key=>$row)
-                            {
-                                $error[] = $row;
-                            } //seteamos formElementErrors
-                            $ArticulovarianteForm->setMessages(array('articulovariante_imagen'=>$error ));
-                        } else {
-                            // dirname(__DIR__) = /Applications/AMPPS/www/Project/HVA/module/HVA/src/Catalogos/Articulovariante
-                            $uploads->setDestination(dirname(__DIR__).'/images');
-                            if ($uploads->receive($file)) {
-                                // Guardamos la imagen en /Applications/AMPPS/www/Project/HVA/module/HVA/src/Catalogos/Articulovariante/images
-                            }
-                        }
+                if (!$adapter->isValid()){
+                    $dataError = $adapter->getMessages();
+                    $error = array();
+                    foreach($dataError as $key=>$row)
+                    {
+                        $error[] = $row;
+                    } //seteamos formElementErrors
+                    $ArticulovarianteForm->setMessages(array('articulovariante_imagen'=>$error ));
+                } else {
+
+                    $adapter->setDestination('/Applications/AMPPS/www/Project/HVA/public/img/articulovariante');
+                    if ($adapter->receive($File['name'])) {
+                        // Guardamos la imagen en /Applications/AMPPS/www/Project/HVA/public/img/articulovariante
                     }
                 }
 
                 $Articulovariante = new Articulovariante();
                 foreach($ArticulovarianteForm->getData() as $ArticulovarianteKey => $ArticulovarianteValue){
                     if($ArticulovarianteKey != 'idarticulovariante' && $ArticulovarianteKey != 'submit'){
-                        $Articulovariante->setByName($ArticulovarianteKey, $ArticulovarianteValue, BasePeer::TYPE_FIELDNAME);
+                        if($ArticulovarianteKey == 'articulovariante_imagen'){
+                            $Articulovariante->setArticulovarianteImagen('/img/articulovariante/'.$ArticulovarianteValue);
+                        }else{
+                            $Articulovariante->setByName($ArticulovarianteKey, $ArticulovarianteValue, BasePeer::TYPE_FIELDNAME);
+
+                        }
                     }
                 }
                 $Articulovariante->save();
@@ -168,46 +167,35 @@ class ArticulovarianteController extends AbstractActionController
             $ArticulovarianteForm = new ArticulovarianteForm();
             $ElementsArticulovarianteForm = $ArticulovarianteForm->getElements();
 
+            $ArticulovarianteArray = array();
             if ($request->isPost()){
-                $upload = new \Zend\File\Transfer\Adapter\Http();
-                $files  = $upload->getFileInfo();
 
-                foreach($files as $file => $fileInfo) {
-                    $fileName = $fileInfo['name'];
-                }
-
-                if($fileName != null){
-                    $size = new \Zend\Validator\File\Size(array('max'=>5000000)); //maximo de bytes permitidos tamañpo de imagen
-                    $uploads = new \Zend\File\Transfer\Adapter\Http();
-                    $files  = $uploads->getFileInfo();
-
-                    foreach($files as $file => $fileInfo) {
-                        $fileName = $fileInfo['name'];
-                        $uploads->setValidators(array($size), $fileName);
-                        if ($uploads->isUploaded($file)) {
-                            if (!$uploads->isValid($file)){
-                                $dataError = $uploads->getMessages();
-                                $error = array();
-                                foreach($dataError as $key=>$row)
-                                {
-                                    $error[] = $row;
-                                } //seteamos formElementErrors
-                                $ArticulovarianteForm->setMessages(array('articulovariante_imagen'=>$error ));
-                            } else {
-                                // dirname(__DIR__) = /Applications/AMPPS/www/Project/HVA/module/HVA/src/Catalogos/Articulovariante
-                                $uploads->setDestination(dirname(__DIR__).'/images');
-                                if ($uploads->receive($file)) {
-                                    // Guardamos la imagen en /Applications/AMPPS/www/Project/HVA/module/HVA/src/Catalogos/Articulovariante/images
-                                }
-                            }
+                // Validamos que el idarticulo
+                foreach($request->getPost() as $key => $value){
+                    if($key == 'idarticulo'){
+                        $articuloQuery = \ArticuloQuery::create()->filterByIdarticulo($value)->findOne();
+                        // Validamos que exista el idarticulo.
+                        if(!$articuloQuery){
+                            return new ViewModel(array(
+                                'Error' => array(
+                                    'Invalid idarticulo.' => 'Invalid idarticulo.'
+                                ),
+                            ));
                         }
                     }
                 }
-                $ArticulovarianteArray = array();
+
                 foreach($ElementsArticulovarianteForm as $key=>$value){
                     if($key != 'submit'){
                         $ArticulovarianteArray[$key] = $request->getPost()->$key ? $request->getPost()->$key : $articulovarianteQueryArray[$key];
                     }
+                }
+                // Obtenemos los detalles del archivo
+                $File = $this->params()->fromFiles('articulovariante_imagen');
+                if($File != null){
+                    $ArticulovarianteArray['articulovariante_imagen'] = $File['name'];
+                }else{
+                    $ArticulovarianteArray['articulovariante_imagen'] = $articulovarianteQueryArray['articulovariante_imagen'];
                 }
             }else{
                 foreach($articulovarianteQueryArray as $articulovarianteQueryKey => $articulovarianteQueryValue){
@@ -216,37 +204,60 @@ class ArticulovarianteController extends AbstractActionController
                 }
             }
 
-            $ArticulovarianteArray = array_merge(
-                $ArticulovarianteArray, //POST
-                array('articulovariante_imagen'=> $fileName) //Guardamos el nombre del archivo...
-            );
-
-            foreach($request->getPost() as $key => $value){
-                if($key == 'idarticulo'){
-                    $articuloQuery = \ArticuloQuery::create()->filterByIdarticulo($value)->findOne();
-                    // Validamos que exista el idarticulo.
-                    if(!$articuloQuery){
-                        return new ViewModel(array(
-                            'Error' => array(
-                                'Invalid idarticulo.' => 'Invalid idarticulo.'
-                            ),
-                        ));
-                    }
-                }
-            }
-
             $ArticulovarianteFilter = new ArticulovarianteFilter();
             $ArticulovarianteForm->setInputFilter($ArticulovarianteFilter->getInputFilter());
             $ArticulovarianteForm->setData($ArticulovarianteArray);
 
             if ($ArticulovarianteForm->isValid()) {
-                foreach($ArticulovarianteForm->getData() as $ArticulovarianteKey => $ArticulovarianteValue){
-                    if($ArticulovarianteKey != 'submit'){
-                        $articulovariantePKQuery->setByName($ArticulovarianteKey, $ArticulovarianteValue, BasePeer::TYPE_FIELDNAME);
+                if ($request->isPost()){
+                    foreach($ArticulovarianteForm->getData() as $ArticulovarianteKey => $ArticulovarianteValue){
+                        if($ArticulovarianteKey != 'submit'){
+                            if($ArticulovarianteKey == 'articulovariante_imagen'){
+                                if($ArticulovarianteValue){
+                                    $articulovariantePKQuery->setArticulovarianteImagen('/img/articulovariante/'.$ArticulovarianteValue);
+                                }else{
+                                    // Almacenamos la ruta en donde se encuentra el archivo que eliminaremos.
+                                    $dirFile = '/Applications/AMPPS/www/Project/HVA/public'.$articulovarianteQueryArray['articulovariante_imagen'];
+                                    if(unlink($dirFile))//El archivo fue borrado.
+                                    $articulovariantePKQuery->setArticulovarianteImagen($ArticulovarianteValue);
+                                }
+                            }else{
+                                $articulovariantePKQuery->setByName($ArticulovarianteKey, $ArticulovarianteValue, BasePeer::TYPE_FIELDNAME);
+                            }
+                        }
                     }
                 }
                 // Si no modifican nada, permanecemos en el formulario.
                 if($articulovariantePKQuery->isModified()){
+
+                    if($File != null){
+
+                        $size = new \Zend\Validator\File\Size(array('max'=>2000000)); //maximo bytes filesize
+                        $adapter = new \Zend\File\Transfer\Adapter\Http();
+                        $adapter->setValidators(array($size), $File['name']);
+
+                        if (!$adapter->isValid()){
+                            $dataError = $adapter->getMessages();
+                            $error = array();
+                            foreach($dataError as $key=>$row)
+                            {
+                                $error[] = $row;
+                            } //seteamos formElementErrors
+                            $ArticulovarianteForm->setMessages(array('articulovariante_imagen'=>$error ));
+                        } else {
+
+                            // Almacenamos la ruta en donde se encuentra el archivo que eliminaremos.
+                            $dirFile = '/Applications/AMPPS/www/Project/HVA/public/img/articulovariante'.$articulovarianteQueryArray['articulovariante_imagen'];
+                            if(unlink($dirFile))//El archivo fue borrado.
+
+                            // Seteamos la ruta en donde deseamos almacenar la imagen
+                            $adapter->setDestination('/Applications/AMPPS/www/Project/HVA/public/img/articulovariante');
+                            if ($adapter->receive($File['name'])) {
+                                // Guardamos la imagen en /Applications/AMPPS/www/Project/HVA/public/img/articulovariante
+                            }
+                        }
+                    }
+
                     $articulovariantePKQuery->save();
                     return $this->redirect()->toRoute('articulovariante');
                 }
@@ -285,7 +296,14 @@ class ArticulovarianteController extends AbstractActionController
 
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                ArticulovarianteQuery::create()->filterByIdarticulovariante($id)->delete();
+                $ArticulovarianteQuery = ArticulovarianteQuery::create()->filterByIdarticulovariante($id)->findOne();
+                // Almacenamos la ruta en donde se encuentra el archivo que remplasaremos.
+                $dirFile = '/Applications/AMPPS/www/Project/HVA/public'.$ArticulovarianteQuery->getArticulovarianteImagen();
+                if(unlink($dirFile)){//El archivo fue borrado.
+                    ArticulovarianteQuery::create()->filterByIdarticulovariante($id)->delete();
+                }else{
+                    ArticulovarianteQuery::create()->filterByIdarticulovariante($id)->delete();
+                }
             }
 
             // Redireccionamos a los provedores

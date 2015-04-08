@@ -23,6 +23,7 @@ if(!$Error){
     echo $this->formRow($ArticulovarianteForm->get('articulovariante_codigobarras'));
     echo $this->formRow($ArticulovarianteForm->get('articulovariante_costo'));
     echo $this->formRow($ArticulovarianteForm->get('articulovariante_precio'));
+<<<<<<< HEAD
     ?>
     <label>IVA</label>
     <select class="browser-default">
@@ -32,6 +33,9 @@ if(!$Error){
     <hr class="textarea materialize-textarea">
     <br>
     <?php
+=======
+    echo $this->formRow($ArticulovarianteForm->get('articulovariante_iva'));
+>>>>>>> da14c52b62b2081dbe132fb0f5e8153d23711326
     echo $this->formRow($ArticulovarianteForm->get('articulovariante_imagen'));
     echo "<hr class='textarea materialize-textarea'>";
     echo "<br>";
@@ -45,4 +49,14 @@ if(!$Error){
     foreach ($Error as $errorValue){
         echo $errorValue;
     }
+<<<<<<< HEAD
 }
+=======
+}
+?>
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
+>>>>>>> da14c52b62b2081dbe132fb0f5e8153d23711326
