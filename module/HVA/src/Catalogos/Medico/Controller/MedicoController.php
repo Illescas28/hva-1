@@ -65,10 +65,7 @@ class MedicoController extends AbstractActionController
                 return $this->redirect()->toRoute('medico');
                 
             }else{
-                //Si ocurrio algun error al validar el formulario
-                foreach ($medicoForm->getMessages() as $message){
-                    $this->flashMessenger()->addMessage('Error: ' .$message);
-                }
+                
             }
         }
         
@@ -158,10 +155,7 @@ class MedicoController extends AbstractActionController
                     return $this->redirect()->toRoute('medico');
 
                 }else{
-                    //Si ocurrio algun error al validar el formulario
-                    foreach ($medicoForm->getMessages() as $message){
-                        $this->flashMessenger()->addMessage('Error: ' .$message);
-                    }
+                    
                 }  
             }
             
@@ -175,31 +169,28 @@ class MedicoController extends AbstractActionController
 
     public function eliminarAction()
     {
+        //Cachamos el valor desde nuestro params
         $id = (int) $this->params()->fromRoute('id', 0);
+        //Si es incorrecto redireccionavos al action nuevo
         if (!$id) {
             return $this->redirect()->toRoute('medico');
         }
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost('del', 'No');
-
-            if ($del == 'Yes') {
-                $id = (int) $request->getPost('id');
-                MedicoQuery::create()->filterByIdmedico($id)->delete();
-            }
-
-            // Redireccionamos a los provedores
-            return $this->redirect()->toRoute('medico');
-        }
-
-        $provedorEntity = MedicoQuery::create()->filterByIdmedico($id)->findOne();
-        return array(
-            'id'    => $id,
-            'medico' => $provedorEntity->toArray(BasePeer::TYPE_FIELDNAME)
-        );
         
-        $medico = new Medico();
+        //Verificamos que el Id medico que se quiere eliminar exista
+        if(MedicoQuery::create()->filterByIdmedico($id)->exists()){
+            
+            //Instanciamos nuestro medico
+            $medico = MedicoQuery::create()->findPk($id);
+            
+            $medico->delete();
+            
+            //Agregamos un mensaje
+            $this->flashMessenger()->addMessage('Medico eliminado exitosamente!');
+
+            //Redireccionamos a nuestro list
+            return $this->redirect()->toRoute('medico');
+            
+        }
 
     }
 }

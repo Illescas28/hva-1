@@ -228,8 +228,12 @@ table.striped tbody tr:nth-child(2n+1){
     padding-bottom: 0 !important;
 }
 
-.modal-footer a.cerrar{
+.modal-footer a.eliminar{
     background: #b71c1c
+}
+
+.modal-footer a.cerrar{
+    background: #424242;
 }
 
 .modal-footer a.editar{
@@ -261,4 +265,26 @@ form.hva-form .input-field input[type="text"]:focus + label, form.hva-form .inpu
     color: #039be5;
 }
 
+/* Delete Modal Styles*/
+#delete-modal-container{
+    padding: 0;
+}
 
+#delete-modal-container {
+    padding: 0;
+}
+
+#delete-modal-header-container {
+    background: #b71c1c;
+}
+
+#delete-modal-container p{
+    font-weight: bolder;
+    font-size: 12px;
+}
+
+#delete-modal-header-container h4{
+    color: white;
+    font-weight: bold;
+    
+}
