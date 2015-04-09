@@ -15,59 +15,67 @@ use Catalogos\Medico\Filter\MedicoFilter;
 use Medico;
 use MedicoQuery;
 use BasePeer;
+use EspecialidadQuery;
 
 class MedicoController extends AbstractActionController
 {
     public function nuevoAction()
     {
-        $MedicoForm = new MedicoForm();
-        $MedicoForm->get('submit')->setValue('Nuevo');
-
         $request = $this->getRequest();
-        if ($request->isPost()) {
-            $MedicoFilter = new MedicoFilter();
-            $MedicoForm->setInputFilter($MedicoFilter->getInputFilter());
-            $MedicoForm->setData($request->getPost());
+        
+        //Almacenamos en un arreglo todas las especialidades
+        $especialidadCollection = \EspecialidadQuery::create()->find();
+        $especialidadArray = array();
+        foreach ($especialidadCollection as $especialidad){
+            $especialidadArray[$especialidad->getIdespecialidad()] = $especialidad->getEspecialidadNombre();
+        }
+        
+        //Intanciamos nuestro formulario
+        $medicoForm = new MedicoForm($especialidadArray);
+        
+        if ($request->isPost()) { //Si hicieron POST
+            
+            //Instanciamos nuestro filtro
+            $medicoFilter = new MedicoFilter();
 
-            foreach($request->getPost() as $key => $value){
-                if($key == 'idespecialidad'){
-                    $articuloQuery = \EspecialidadQuery::create()->filterByIdespecialidad($value)->findOne();
-                    // Validamos que exista el idarticulo.
-                    if(!$articuloQuery){
-                        return new ViewModel(array(
-                            'Error' => array(
-                                'Invalid idespecialidad.' => 'Invalid idespecialidad.'
-                            ),
-                        ));
-                    }
+            //Le ponemos nuestro filtro a nuesto fromulario
+            $medicoForm->setInputFilter($medicoFilter->getInputFilter());
+            
+            //Le ponemos los datos a nuestro formulario
+            $medicoForm->setData($request->getPost());
+            
+            //Validamos nuestro formulario
+            if($medicoForm->isValid()){
+                
+                //Instanciamos un nuevo objeto de nuestro objeto Medico
+                $medico = new Medico();
+                
+                //Recorremos nuestro formulario y seteamos los valores a nuestro objeto Medico
+                foreach ($medicoForm->getData() as $medicoKey => $medicoValue){
+                    $medico->setByName($medicoKey, $medicoValue, \BasePeer::TYPE_FIELDNAME);
                 }
-            }
-
-            if ($MedicoForm->isValid()) {
-                $Medico = new Medico();
-                foreach($MedicoForm->getData() as $MedicoKey => $MedicoValue){
-                    if($MedicoKey != 'idmedico' && $MedicoKey != 'submit'){
-                        $Medico->setByName($MedicoKey, $MedicoValue, BasePeer::TYPE_FIELDNAME);
-                    }
-                }
-                $Medico->save();
+                
+                //Guardamos en nuestra base de datos
+                $medico->save();
+                
+                //Agregamos un mensaje
+                $this->flashMessenger()->addMessage('Medico guardado exitosamente!');
+                
+                //Redireccionamos a nuestro list
                 return $this->redirect()->toRoute('medico');
+                
             }else{
-                $messageArray = array();
-                foreach ($MedicoForm->getMessages() as $key => $value){
-                    foreach($value as $val){
-                        //Obtenemos el valor de la columna con error
-                        $message = $key.' '.$val;
-                        array_push($messageArray, $message);
-                    }
+                //Si ocurrio algun error al validar el formulario
+                foreach ($medicoForm->getMessages() as $message){
+                    $this->flashMessenger()->addMessage('Error: ' .$message);
                 }
-
-                return new ViewModel(array(
-                    'Error' => $messageArray,
-                ));
             }
         }
-        return array('MedicoForm' => $MedicoForm);
+        
+        return new ViewModel(array(
+            'medicoForm' => $medicoForm,
+        ));
+
     }
 
     public function listarAction()
@@ -84,95 +92,85 @@ class MedicoController extends AbstractActionController
 
         return new ViewModel(array(
             'medicos' => $dataCollection,
+            'flashMessages' => $this->flashMessenger()->getMessages(),
         ));
         
     }
 
     public function editarAction()
-    {
+    {   
+        $request = $this->getRequest();
+        
+        //Cachamos el valor desde nuestro params
         $id = (int) $this->params()->fromRoute('id', 0);
+        //Si es incorrecto redireccionavos al action nuevo
         if (!$id) {
             return $this->redirect()->toRoute('medico', array(
                 'action' => 'nuevo'
             ));
         }
-
-        //Instanciamos nuestra medicoQuery
-        $medicoQuery = MedicoQuery::create();
-
+        
         //Verificamos que el Id medico que se quiere modificar exista
-        if($medicoQuery->create()->filterByIdmedico($id)->exists()){
-
-            $request = $this->getRequest();
-            //Instanciamos nuestra medicoQuery
-            $medicoPKQuery = $medicoQuery->findPk($id);
-            $medicoQueryArray = $medicoPKQuery->toArray(BasePeer::TYPE_FIELDNAME);
-            $MedicoForm = new MedicoForm();
-            $ElementsMedicoForm = $MedicoForm->getElements();
-
-            if ($request->isPost()){
-                $MedicoArray = array();
-                foreach($ElementsMedicoForm as $key=>$value){
-                    if($key != 'submit'){
-                        $MedicoArray[$key] = $request->getPost()->$key ? $request->getPost()->$key : $medicoQueryArray[$key];
-                    }
-                }
-            }else{
-                foreach($medicoQueryArray as $medicoQueryKey => $medicoQueryValue){
-                    $MedicoArray[$medicoQueryKey] = $medicoQueryArray[$medicoQueryKey];
-
-                }
+        if(MedicoQuery::create()->filterByIdmedico($id)->exists()){
+            
+            //Instanciamos nuestro medico
+            $medico = MedicoQuery::create()->findPk($id);
+            
+            //Almacenamos en un arreglo todas las especialidades
+            $especialidadCollection = \EspecialidadQuery::create()->find();
+            $especialidadArray = array();
+            foreach ($especialidadCollection as $especialidad){
+                $especialidadArray[$especialidad->getIdespecialidad()] = $especialidad->getEspecialidadNombre();
             }
+            
+            //Instanciamos nuestro formulario
+            $medicoForm = new MedicoForm($especialidadArray);
+            
+            //Le ponemos los datos de nuestro medico a nuestro formulario
+            $medicoForm->setData($medico->toArray(BasePeer::TYPE_FIELDNAME));
+            
+            if ($request->isPost()) { //Si hicieron POST
+               
+                //Instanciamos nuestro filtro
+                $medicoFilter = new MedicoFilter();
 
-            foreach($request->getPost() as $key => $value){
-                if($key == 'idespecialidad'){
-                    $articuloQuery = \EspecialidadQuery::create()->filterByIdespecialidad($value)->findOne();
-                    // Validamos que exista el idarticulo.
-                    if(!$articuloQuery){
-                        return new ViewModel(array(
-                            'Error' => array(
-                                'Invalid idespecialidad.' => 'Invalid idespecialidad.'
-                            ),
-                        ));
+                //Le ponemos nuestro filtro a nuesto fromulario
+                $medicoForm->setInputFilter($medicoFilter->getInputFilter());
+
+                //Le ponemos los datos a nuestro formulario
+                $medicoForm->setData($request->getPost());
+                
+                //Validamos nuestro formulario
+                if($medicoForm->isValid()){
+                    
+                    //Recorremos nuestro formulario y seteamos los valores a nuestro objeto Medico
+                    foreach ($medicoForm->getData() as $medicoKey => $medicoValue){
+                        $medico->setByName($medicoKey, $medicoValue, \BasePeer::TYPE_FIELDNAME);
                     }
-                }
-            }
+                    
+                    //Guardamos en nuestra base de datos
+                    $medico->save();
 
-            $MedicoFilter = new MedicoFilter();
-            $MedicoForm->setInputFilter($MedicoFilter->getInputFilter());
-            $MedicoForm->setData($MedicoArray);
+                    //Agregamos un mensaje
+                    $this->flashMessenger()->addMessage('Medico guardado exitosamente!');
 
-            if ($MedicoForm->isValid()) {
-                foreach($MedicoForm->getData() as $MedicoKey => $MedicoValue){
-                    if($MedicoKey != 'submit'){
-                        $medicoPKQuery->setByName($MedicoKey, $MedicoValue, BasePeer::TYPE_FIELDNAME);
-                    }
-                }
-                // Si no modifican nada, permanecemos en el formulario.
-                if($medicoPKQuery->isModified()){
-                    $medicoPKQuery->save();
+                    //Redireccionamos a nuestro list
                     return $this->redirect()->toRoute('medico');
-                }
-            }else{
-                $messageArray = array();
-                foreach ($MedicoForm->getMessages() as $key => $value){
-                    foreach($value as $val){
-                        //Obtenemos el valor de la columna con error
-                        $message = $key.' '.$val;
-                        array_push($messageArray, $message);
-                    }
-                }
 
-                return new ViewModel(array(
-                    'Error' => $messageArray,
-                ));
+                }else{
+                    //Si ocurrio algun error al validar el formulario
+                    foreach ($medicoForm->getMessages() as $message){
+                        $this->flashMessenger()->addMessage('Error: ' .$message);
+                    }
+                }  
             }
+            
+            return new ViewModel(array(
+                'id'  => $id,
+                'medicoForm' => $medicoForm,
+            ));
         }
 
-        return array(
-            'id' => $id,
-            'MedicoForm' => $MedicoForm,
-        );
     }
 
     public function eliminarAction()
@@ -202,6 +200,6 @@ class MedicoController extends AbstractActionController
         );
         
         $medico = new Medico();
-//        $medico->
+
     }
 }

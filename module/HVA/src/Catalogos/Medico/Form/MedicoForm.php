@@ -6,23 +6,22 @@ use Zend\Form\Form;
 
 class MedicoForm extends Form
 {
-    public function __construct($name = null)
+    public function __construct(array $especialidades =null)
     {
         // we want to ignore the name passed
         parent::__construct('MedicoForm');
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-            'name' => 'idmedico',
-            'type' => 'Hidden',
-        ));
-        $this->add(array(
             'name' => 'idespecialidad',
-            'type' => 'Text',
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
-                'label' => 'ID Especialidad',
+                'label' => 'Especialidad',
+                'empty_option' => 'Seleccione una especialidad',
+                'value_options' => $especialidades,
             ),
         ));
+        
         $this->add(array(
             'name' => 'medico_nombre',
             'type' => 'Text',
@@ -41,7 +40,7 @@ class MedicoForm extends Form
             'name' => 'medico_apellidomaterno',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Aoellido Materno',
+                'label' => 'Apellido Materno',
             ),
         ));
         $this->add(array(
@@ -76,7 +75,7 @@ class MedicoForm extends Form
             'name' => 'medico_codigopostal',
             'type' => 'Text',
             'options' => array(
-                'label' => 'C.P.',
+                'label' => 'Código postal',
             ),
         ));
         $this->add(array(
@@ -104,7 +103,7 @@ class MedicoForm extends Form
             'name' => 'medico_telefono',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Teléfono',
+                'label' => 'Casa',
             ),
         ));
         $this->add(array(
@@ -125,31 +124,24 @@ class MedicoForm extends Form
             'name' => 'medico_dgp',
             'type' => 'Text',
             'options' => array(
-                'label' => 'DGP',
+                'label' => 'D.G.P',
             ),
         ));
         $this->add(array(
             'name' => 'medico_ssa',
             'type' => 'Text',
             'options' => array(
-                'label' => 'SSA',
+                'label' => 'S.S.A',
             ),
         ));
         $this->add(array(
             'name' => 'medico_ae',
             'type' => 'Text',
             'options' => array(
-                'label' => 'AE',
+                'label' => 'A.E',
             ),
         ));
 
-        $this->add(array(
-            'name' => 'submit',
-            'type' => 'Submit',
-            'attributes' => array(
-                'value' => 'Go',
-                'id' => 'submitbutton',
-            ),
-        ));
+       
     }
 }

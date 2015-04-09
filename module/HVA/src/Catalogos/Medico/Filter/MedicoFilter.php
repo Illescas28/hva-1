@@ -24,14 +24,6 @@ class MedicoFilter implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
-                'name'     => 'idmedico',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-            ));
-
-            $inputFilter->add(array(
                 'name'     => 'idespecialidad',
                 'required' => true,
                 'filters'  => array(
@@ -46,16 +38,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -64,16 +46,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -84,16 +56,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -102,16 +64,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -122,16 +74,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -140,16 +82,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -160,16 +92,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -178,16 +100,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -198,16 +110,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -216,16 +118,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -236,16 +128,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -254,16 +136,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -274,16 +146,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -292,16 +154,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
@@ -312,16 +164,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -331,16 +173,6 @@ class MedicoFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
-                ),
             ));
 
             $inputFilter->add(array(
@@ -349,16 +181,6 @@ class MedicoFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 45,
-                        ),
-                    ),
                 ),
             ));
 
