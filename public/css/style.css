@@ -134,6 +134,9 @@ th.headerSortDown {
     background-image: url(/img/table/desc.gif); 
 } 
 
+td.telefono{
+    padding-left: 0px !important;
+}
 table.striped td:not(:last-child){
     padding-left: 20px;
 }
@@ -286,5 +289,6 @@ form.hva-form .input-field input[type="text"]:focus + label, form.hva-form .inpu
 #delete-modal-header-container h4{
     color: white;
     font-weight: bold;
-    
+    display: inline-block;
+        
 }
