@@ -1,6 +1,9 @@
 <?php
+
 namespace Catalogos\Medico\Form;
+
 use Zend\Form\Form;
+
 class MedicoForm extends Form
 {
     public function __construct(array $especialidades =null)
@@ -8,6 +11,7 @@ class MedicoForm extends Form
         // we want to ignore the name passed
         parent::__construct('MedicoForm');
         $this->setAttribute('method', 'post');
+
         $this->add(array(
             'name' => 'idespecialidad',
             'type' => 'Zend\Form\Element\Select',
@@ -17,7 +21,7 @@ class MedicoForm extends Form
                 'value_options' => $especialidades,
             ),
         ));
-
+        
         $this->add(array(
             'name' => 'medico_nombre',
             'type' => 'Text',
@@ -138,5 +142,6 @@ class MedicoForm extends Form
             ),
         ));
 
+       
     }
 }
