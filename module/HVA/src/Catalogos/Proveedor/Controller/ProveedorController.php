@@ -96,17 +96,19 @@ class ProveedorController extends AbstractActionController
         $request = $this->getRequest();
         
         //Cachamos el valor desde nuestro params
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id');
+        
+        //Verificamos que el Id proveedor que se quiere modificar exista
+        if(!ProveedorQuery::create()->filterByIdproveedor($id)->exists()){
+            $id=0;
+        }
         //Si es incorrecto redireccionavos al action nuevo
         if (!$id) {
             return $this->redirect()->toRoute('proveedor', array(
                 'action' => 'nuevo'
             ));
         }
-        
-        //Verificamos que el Id proveedor que se quiere modificar exista
-        if(ProveedorQuery::create()->filterByIdproveedor($id)->exists()){
-            
+
             //Instanciamos nuestro proveedor
             $proveedor = ProveedorQuery::create()->findPk($id);
             
@@ -160,22 +162,24 @@ class ProveedorController extends AbstractActionController
                 'id'  => $id,
                 'proveedorForm' => $proveedorForm,
             ));
-        }
+        
 
     }
 
     public function eliminarAction()
     {
         //Cachamos el valor desde nuestro params
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id');
+        //Verificamos que el Id proveedor que se quiere eliminar exista
+        if(!ProveedorQuery::create()->filterByIdproveedor($id)->exists()){
+            $id=0;
+        }
         //Si es incorrecto redireccionavos al action nuevo
         if (!$id) {
             return $this->redirect()->toRoute('proveedor');
         }
         
-        //Verificamos que el Id proveedor que se quiere eliminar exista
-        if(ProveedorQuery::create()->filterByIdproveedor($id)->exists()){
-            
+                  
             //Instanciamos nuestro proveedor
             $proveedor = ProveedorQuery::create()->findPk($id);
             
@@ -187,7 +191,7 @@ class ProveedorController extends AbstractActionController
             //Redireccionamos a nuestro list
             return $this->redirect()->toRoute('proveedor');
             
-        }
+        
 
     }
 }

@@ -153,7 +153,7 @@ return array(
                 'options' => array(
                     'route'    => '/catalogos/medico[/:action][/:id][/]',
                     'constraints' => array(
-                        'action' => 'nuevo|editar|eliminar|ver',
+                        'action' => 'nuevo|editar|eliminar',
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
