@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'tipo' table.
+ * Base class that represents a row from the 'articulovariantereorden' table.
  *
  *
  *
  * @package    propel.generator.hva.om
  */
-abstract class BaseTipo extends BaseObject implements Persistent
+abstract class BaseArticulovariantereorden extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'TipoPeer';
+    const PEER = 'ArticulovariantereordenPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        TipoPeer
+     * @var        ArticulovariantereordenPeer
      */
     protected static $peer;
 
@@ -30,28 +30,50 @@ abstract class BaseTipo extends BaseObject implements Persistent
     protected $startCopy = false;
 
     /**
-     * The value for the idtipo field.
+     * The value for the idarticulovariantereorden field.
      * @var        int
      */
-    protected $idtipo;
+    protected $idarticulovariantereorden;
 
     /**
-     * The value for the tipo_nombre field.
+     * The value for the idlugar field.
+     * @var        int
+     */
+    protected $idlugar;
+
+    /**
+     * The value for the idarticulovariante field.
+     * @var        int
+     */
+    protected $idarticulovariante;
+
+    /**
+     * The value for the minimo field.
      * @var        string
      */
-    protected $tipo_nombre;
+    protected $minimo;
 
     /**
-     * The value for the tipo_descripcion field.
+     * The value for the maximo field.
      * @var        string
      */
-    protected $tipo_descripcion;
+    protected $maximo;
 
     /**
-     * @var        PropelObjectCollection|Articulo[] Collection to store aggregation of Articulo objects.
+     * The value for the reorden field.
+     * @var        string
      */
-    protected $collArticulos;
-    protected $collArticulosPartial;
+    protected $reorden;
+
+    /**
+     * @var        Articulovariante
+     */
+    protected $aArticulovariante;
+
+    /**
+     * @var        Lugar
+     */
+    protected $aLugar;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -74,106 +96,204 @@ abstract class BaseTipo extends BaseObject implements Persistent
     protected $alreadyInClearAllReferencesDeep = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $articulosScheduledForDeletion = null;
-
-    /**
-     * Get the [idtipo] column value.
+     * Get the [idarticulovariantereorden] column value.
      *
      * @return int
      */
-    public function getIdtipo()
+    public function getIdarticulovariantereorden()
     {
 
-        return $this->idtipo;
+        return $this->idarticulovariantereorden;
     }
 
     /**
-     * Get the [tipo_nombre] column value.
+     * Get the [idlugar] column value.
+     *
+     * @return int
+     */
+    public function getIdlugar()
+    {
+
+        return $this->idlugar;
+    }
+
+    /**
+     * Get the [idarticulovariante] column value.
+     *
+     * @return int
+     */
+    public function getIdarticulovariante()
+    {
+
+        return $this->idarticulovariante;
+    }
+
+    /**
+     * Get the [minimo] column value.
      *
      * @return string
      */
-    public function getTipoNombre()
+    public function getMinimo()
     {
 
-        return $this->tipo_nombre;
+        return $this->minimo;
     }
 
     /**
-     * Get the [tipo_descripcion] column value.
+     * Get the [maximo] column value.
      *
      * @return string
      */
-    public function getTipoDescripcion()
+    public function getMaximo()
     {
 
-        return $this->tipo_descripcion;
+        return $this->maximo;
     }
 
     /**
-     * Set the value of [idtipo] column.
+     * Get the [reorden] column value.
+     *
+     * @return string
+     */
+    public function getReorden()
+    {
+
+        return $this->reorden;
+    }
+
+    /**
+     * Set the value of [idarticulovariantereorden] column.
      *
      * @param  int $v new value
-     * @return Tipo The current object (for fluent API support)
+     * @return Articulovariantereorden The current object (for fluent API support)
      */
-    public function setIdtipo($v)
+    public function setIdarticulovariantereorden($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (int) $v;
         }
 
-        if ($this->idtipo !== $v) {
-            $this->idtipo = $v;
-            $this->modifiedColumns[] = TipoPeer::IDTIPO;
+        if ($this->idarticulovariantereorden !== $v) {
+            $this->idarticulovariantereorden = $v;
+            $this->modifiedColumns[] = ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN;
         }
 
 
         return $this;
-    } // setIdtipo()
+    } // setIdarticulovariantereorden()
 
     /**
-     * Set the value of [tipo_nombre] column.
+     * Set the value of [idlugar] column.
+     *
+     * @param  int $v new value
+     * @return Articulovariantereorden The current object (for fluent API support)
+     */
+    public function setIdlugar($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->idlugar !== $v) {
+            $this->idlugar = $v;
+            $this->modifiedColumns[] = ArticulovariantereordenPeer::IDLUGAR;
+        }
+
+        if ($this->aLugar !== null && $this->aLugar->getIdlugar() !== $v) {
+            $this->aLugar = null;
+        }
+
+
+        return $this;
+    } // setIdlugar()
+
+    /**
+     * Set the value of [idarticulovariante] column.
+     *
+     * @param  int $v new value
+     * @return Articulovariantereorden The current object (for fluent API support)
+     */
+    public function setIdarticulovariante($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->idarticulovariante !== $v) {
+            $this->idarticulovariante = $v;
+            $this->modifiedColumns[] = ArticulovariantereordenPeer::IDARTICULOVARIANTE;
+        }
+
+        if ($this->aArticulovariante !== null && $this->aArticulovariante->getIdarticulovariante() !== $v) {
+            $this->aArticulovariante = null;
+        }
+
+
+        return $this;
+    } // setIdarticulovariante()
+
+    /**
+     * Set the value of [minimo] column.
      *
      * @param  string $v new value
-     * @return Tipo The current object (for fluent API support)
+     * @return Articulovariantereorden The current object (for fluent API support)
      */
-    public function setTipoNombre($v)
+    public function setMinimo($v)
     {
-        if ($v !== null) {
+        if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 
-        if ($this->tipo_nombre !== $v) {
-            $this->tipo_nombre = $v;
-            $this->modifiedColumns[] = TipoPeer::TIPO_NOMBRE;
+        if ($this->minimo !== $v) {
+            $this->minimo = $v;
+            $this->modifiedColumns[] = ArticulovariantereordenPeer::MINIMO;
         }
 
 
         return $this;
-    } // setTipoNombre()
+    } // setMinimo()
 
     /**
-     * Set the value of [tipo_descripcion] column.
+     * Set the value of [maximo] column.
      *
      * @param  string $v new value
-     * @return Tipo The current object (for fluent API support)
+     * @return Articulovariantereorden The current object (for fluent API support)
      */
-    public function setTipoDescripcion($v)
+    public function setMaximo($v)
     {
-        if ($v !== null) {
+        if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 
-        if ($this->tipo_descripcion !== $v) {
-            $this->tipo_descripcion = $v;
-            $this->modifiedColumns[] = TipoPeer::TIPO_DESCRIPCION;
+        if ($this->maximo !== $v) {
+            $this->maximo = $v;
+            $this->modifiedColumns[] = ArticulovariantereordenPeer::MAXIMO;
         }
 
 
         return $this;
-    } // setTipoDescripcion()
+    } // setMaximo()
+
+    /**
+     * Set the value of [reorden] column.
+     *
+     * @param  string $v new value
+     * @return Articulovariantereorden The current object (for fluent API support)
+     */
+    public function setReorden($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (string) $v;
+        }
+
+        if ($this->reorden !== $v) {
+            $this->reorden = $v;
+            $this->modifiedColumns[] = ArticulovariantereordenPeer::REORDEN;
+        }
+
+
+        return $this;
+    } // setReorden()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -207,9 +327,12 @@ abstract class BaseTipo extends BaseObject implements Persistent
     {
         try {
 
-            $this->idtipo = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->tipo_nombre = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->tipo_descripcion = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->idarticulovariantereorden = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
+            $this->idlugar = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->idarticulovariante = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->minimo = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->maximo = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->reorden = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -219,10 +342,10 @@ abstract class BaseTipo extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 3; // 3 = TipoPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = ArticulovariantereordenPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating Tipo object", $e);
+            throw new PropelException("Error populating Articulovariantereorden object", $e);
         }
     }
 
@@ -242,6 +365,12 @@ abstract class BaseTipo extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
+        if ($this->aLugar !== null && $this->idlugar !== $this->aLugar->getIdlugar()) {
+            $this->aLugar = null;
+        }
+        if ($this->aArticulovariante !== null && $this->idarticulovariante !== $this->aArticulovariante->getIdarticulovariante()) {
+            $this->aArticulovariante = null;
+        }
     } // ensureConsistency
 
     /**
@@ -265,13 +394,13 @@ abstract class BaseTipo extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(TipoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ArticulovariantereordenPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = TipoPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = ArticulovariantereordenPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -281,8 +410,8 @@ abstract class BaseTipo extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collArticulos = null;
-
+            $this->aArticulovariante = null;
+            $this->aLugar = null;
         } // if (deep)
     }
 
@@ -303,12 +432,12 @@ abstract class BaseTipo extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(TipoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ArticulovariantereordenPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = TipoQuery::create()
+            $deleteQuery = ArticulovariantereordenQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -346,7 +475,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(TipoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ArticulovariantereordenPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -366,7 +495,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                TipoPeer::addInstanceToPool($this);
+                ArticulovariantereordenPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -396,6 +525,25 @@ abstract class BaseTipo extends BaseObject implements Persistent
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aArticulovariante !== null) {
+                if ($this->aArticulovariante->isModified() || $this->aArticulovariante->isNew()) {
+                    $affectedRows += $this->aArticulovariante->save($con);
+                }
+                $this->setArticulovariante($this->aArticulovariante);
+            }
+
+            if ($this->aLugar !== null) {
+                if ($this->aLugar->isModified() || $this->aLugar->isNew()) {
+                    $affectedRows += $this->aLugar->save($con);
+                }
+                $this->setLugar($this->aLugar);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -405,23 +553,6 @@ abstract class BaseTipo extends BaseObject implements Persistent
                 }
                 $affectedRows += 1;
                 $this->resetModified();
-            }
-
-            if ($this->articulosScheduledForDeletion !== null) {
-                if (!$this->articulosScheduledForDeletion->isEmpty()) {
-                    ArticuloQuery::create()
-                        ->filterByPrimaryKeys($this->articulosScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->articulosScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collArticulos !== null) {
-                foreach ($this->collArticulos as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -444,24 +575,33 @@ abstract class BaseTipo extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = TipoPeer::IDTIPO;
-        if (null !== $this->idtipo) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TipoPeer::IDTIPO . ')');
+        $this->modifiedColumns[] = ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN;
+        if (null !== $this->idarticulovariantereorden) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(TipoPeer::IDTIPO)) {
-            $modifiedColumns[':p' . $index++]  = '`idtipo`';
+        if ($this->isColumnModified(ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN)) {
+            $modifiedColumns[':p' . $index++]  = '`idarticulovariantereorden`';
         }
-        if ($this->isColumnModified(TipoPeer::TIPO_NOMBRE)) {
-            $modifiedColumns[':p' . $index++]  = '`tipo_nombre`';
+        if ($this->isColumnModified(ArticulovariantereordenPeer::IDLUGAR)) {
+            $modifiedColumns[':p' . $index++]  = '`idlugar`';
         }
-        if ($this->isColumnModified(TipoPeer::TIPO_DESCRIPCION)) {
-            $modifiedColumns[':p' . $index++]  = '`tipo_descripcion`';
+        if ($this->isColumnModified(ArticulovariantereordenPeer::IDARTICULOVARIANTE)) {
+            $modifiedColumns[':p' . $index++]  = '`idarticulovariante`';
+        }
+        if ($this->isColumnModified(ArticulovariantereordenPeer::MINIMO)) {
+            $modifiedColumns[':p' . $index++]  = '`minimo`';
+        }
+        if ($this->isColumnModified(ArticulovariantereordenPeer::MAXIMO)) {
+            $modifiedColumns[':p' . $index++]  = '`maximo`';
+        }
+        if ($this->isColumnModified(ArticulovariantereordenPeer::REORDEN)) {
+            $modifiedColumns[':p' . $index++]  = '`reorden`';
         }
 
         $sql = sprintf(
-            'INSERT INTO `tipo` (%s) VALUES (%s)',
+            'INSERT INTO `articulovariantereorden` (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -470,14 +610,23 @@ abstract class BaseTipo extends BaseObject implements Persistent
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`idtipo`':
-                        $stmt->bindValue($identifier, $this->idtipo, PDO::PARAM_INT);
+                    case '`idarticulovariantereorden`':
+                        $stmt->bindValue($identifier, $this->idarticulovariantereorden, PDO::PARAM_INT);
                         break;
-                    case '`tipo_nombre`':
-                        $stmt->bindValue($identifier, $this->tipo_nombre, PDO::PARAM_STR);
+                    case '`idlugar`':
+                        $stmt->bindValue($identifier, $this->idlugar, PDO::PARAM_INT);
                         break;
-                    case '`tipo_descripcion`':
-                        $stmt->bindValue($identifier, $this->tipo_descripcion, PDO::PARAM_STR);
+                    case '`idarticulovariante`':
+                        $stmt->bindValue($identifier, $this->idarticulovariante, PDO::PARAM_INT);
+                        break;
+                    case '`minimo`':
+                        $stmt->bindValue($identifier, $this->minimo, PDO::PARAM_STR);
+                        break;
+                    case '`maximo`':
+                        $stmt->bindValue($identifier, $this->maximo, PDO::PARAM_STR);
+                        break;
+                    case '`reorden`':
+                        $stmt->bindValue($identifier, $this->reorden, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -492,7 +641,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
         } catch (Exception $e) {
             throw new PropelException('Unable to get autoincrement id.', $e);
         }
-        $this->setIdtipo($pk);
+        $this->setIdarticulovariantereorden($pk);
 
         $this->setNew(false);
     }
@@ -573,18 +722,28 @@ abstract class BaseTipo extends BaseObject implements Persistent
             $failureMap = array();
 
 
-            if (($retval = TipoPeer::doValidate($this, $columns)) !== true) {
-                $failureMap = array_merge($failureMap, $retval);
+            // We call the validate method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aArticulovariante !== null) {
+                if (!$this->aArticulovariante->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aArticulovariante->getValidationFailures());
+                }
+            }
+
+            if ($this->aLugar !== null) {
+                if (!$this->aLugar->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aLugar->getValidationFailures());
+                }
             }
 
 
-                if ($this->collArticulos !== null) {
-                    foreach ($this->collArticulos as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
+            if (($retval = ArticulovariantereordenPeer::doValidate($this, $columns)) !== true) {
+                $failureMap = array_merge($failureMap, $retval);
+            }
+
 
 
             $this->alreadyInValidation = false;
@@ -605,7 +764,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = TipoPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ArticulovariantereordenPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -622,13 +781,22 @@ abstract class BaseTipo extends BaseObject implements Persistent
     {
         switch ($pos) {
             case 0:
-                return $this->getIdtipo();
+                return $this->getIdarticulovariantereorden();
                 break;
             case 1:
-                return $this->getTipoNombre();
+                return $this->getIdlugar();
                 break;
             case 2:
-                return $this->getTipoDescripcion();
+                return $this->getIdarticulovariante();
+                break;
+            case 3:
+                return $this->getMinimo();
+                break;
+            case 4:
+                return $this->getMaximo();
+                break;
+            case 5:
+                return $this->getReorden();
                 break;
             default:
                 return null;
@@ -653,15 +821,18 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Tipo'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['Articulovariantereorden'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Tipo'][$this->getPrimaryKey()] = true;
-        $keys = TipoPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['Articulovariantereorden'][$this->getPrimaryKey()] = true;
+        $keys = ArticulovariantereordenPeer::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getIdtipo(),
-            $keys[1] => $this->getTipoNombre(),
-            $keys[2] => $this->getTipoDescripcion(),
+            $keys[0] => $this->getIdarticulovariantereorden(),
+            $keys[1] => $this->getIdlugar(),
+            $keys[2] => $this->getIdarticulovariante(),
+            $keys[3] => $this->getMinimo(),
+            $keys[4] => $this->getMaximo(),
+            $keys[5] => $this->getReorden(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -669,8 +840,11 @@ abstract class BaseTipo extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collArticulos) {
-                $result['Articulos'] = $this->collArticulos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->aArticulovariante) {
+                $result['Articulovariante'] = $this->aArticulovariante->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aLugar) {
+                $result['Lugar'] = $this->aLugar->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -690,7 +864,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = TipoPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ArticulovariantereordenPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -707,13 +881,22 @@ abstract class BaseTipo extends BaseObject implements Persistent
     {
         switch ($pos) {
             case 0:
-                $this->setIdtipo($value);
+                $this->setIdarticulovariantereorden($value);
                 break;
             case 1:
-                $this->setTipoNombre($value);
+                $this->setIdlugar($value);
                 break;
             case 2:
-                $this->setTipoDescripcion($value);
+                $this->setIdarticulovariante($value);
+                break;
+            case 3:
+                $this->setMinimo($value);
+                break;
+            case 4:
+                $this->setMaximo($value);
+                break;
+            case 5:
+                $this->setReorden($value);
                 break;
         } // switch()
     }
@@ -737,11 +920,14 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = TipoPeer::getFieldNames($keyType);
+        $keys = ArticulovariantereordenPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setIdtipo($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setTipoNombre($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setTipoDescripcion($arr[$keys[2]]);
+        if (array_key_exists($keys[0], $arr)) $this->setIdarticulovariantereorden($arr[$keys[0]]);
+        if (array_key_exists($keys[1], $arr)) $this->setIdlugar($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setIdarticulovariante($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setMinimo($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setMaximo($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setReorden($arr[$keys[5]]);
     }
 
     /**
@@ -751,11 +937,14 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(TipoPeer::DATABASE_NAME);
+        $criteria = new Criteria(ArticulovariantereordenPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(TipoPeer::IDTIPO)) $criteria->add(TipoPeer::IDTIPO, $this->idtipo);
-        if ($this->isColumnModified(TipoPeer::TIPO_NOMBRE)) $criteria->add(TipoPeer::TIPO_NOMBRE, $this->tipo_nombre);
-        if ($this->isColumnModified(TipoPeer::TIPO_DESCRIPCION)) $criteria->add(TipoPeer::TIPO_DESCRIPCION, $this->tipo_descripcion);
+        if ($this->isColumnModified(ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN)) $criteria->add(ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN, $this->idarticulovariantereorden);
+        if ($this->isColumnModified(ArticulovariantereordenPeer::IDLUGAR)) $criteria->add(ArticulovariantereordenPeer::IDLUGAR, $this->idlugar);
+        if ($this->isColumnModified(ArticulovariantereordenPeer::IDARTICULOVARIANTE)) $criteria->add(ArticulovariantereordenPeer::IDARTICULOVARIANTE, $this->idarticulovariante);
+        if ($this->isColumnModified(ArticulovariantereordenPeer::MINIMO)) $criteria->add(ArticulovariantereordenPeer::MINIMO, $this->minimo);
+        if ($this->isColumnModified(ArticulovariantereordenPeer::MAXIMO)) $criteria->add(ArticulovariantereordenPeer::MAXIMO, $this->maximo);
+        if ($this->isColumnModified(ArticulovariantereordenPeer::REORDEN)) $criteria->add(ArticulovariantereordenPeer::REORDEN, $this->reorden);
 
         return $criteria;
     }
@@ -770,8 +959,8 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(TipoPeer::DATABASE_NAME);
-        $criteria->add(TipoPeer::IDTIPO, $this->idtipo);
+        $criteria = new Criteria(ArticulovariantereordenPeer::DATABASE_NAME);
+        $criteria->add(ArticulovariantereordenPeer::IDARTICULOVARIANTEREORDEN, $this->idarticulovariantereorden);
 
         return $criteria;
     }
@@ -782,18 +971,18 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function getPrimaryKey()
     {
-        return $this->getIdtipo();
+        return $this->getIdarticulovariantereorden();
     }
 
     /**
-     * Generic method to set the primary key (idtipo column).
+     * Generic method to set the primary key (idarticulovariantereorden column).
      *
      * @param  int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setIdtipo($key);
+        $this->setIdarticulovariantereorden($key);
     }
 
     /**
@@ -803,7 +992,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getIdtipo();
+        return null === $this->getIdarticulovariantereorden();
     }
 
     /**
@@ -812,15 +1001,18 @@ abstract class BaseTipo extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of Tipo (or compatible) type.
+     * @param object $copyObj An object of Articulovariantereorden (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setTipoNombre($this->getTipoNombre());
-        $copyObj->setTipoDescripcion($this->getTipoDescripcion());
+        $copyObj->setIdlugar($this->getIdlugar());
+        $copyObj->setIdarticulovariante($this->getIdarticulovariante());
+        $copyObj->setMinimo($this->getMinimo());
+        $copyObj->setMaximo($this->getMaximo());
+        $copyObj->setReorden($this->getReorden());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -829,19 +1021,13 @@ abstract class BaseTipo extends BaseObject implements Persistent
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            foreach ($this->getArticulos() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addArticulo($relObj->copy($deepCopy));
-                }
-            }
-
             //unflag object copy
             $this->startCopy = false;
         } // if ($deepCopy)
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setIdtipo(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setIdarticulovariantereorden(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -854,7 +1040,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return Tipo Clone of current object.
+     * @return Articulovariantereorden Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -874,256 +1060,119 @@ abstract class BaseTipo extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return TipoPeer
+     * @return ArticulovariantereordenPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new TipoPeer();
+            self::$peer = new ArticulovariantereordenPeer();
         }
 
         return self::$peer;
     }
 
-
     /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
+     * Declares an association between this object and a Articulovariante object.
      *
-     * @param string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('Articulo' == $relationName) {
-            $this->initArticulos();
-        }
-    }
-
-    /**
-     * Clears out the collArticulos collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Tipo The current object (for fluent API support)
-     * @see        addArticulos()
-     */
-    public function clearArticulos()
-    {
-        $this->collArticulos = null; // important to set this to null since that means it is uninitialized
-        $this->collArticulosPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collArticulos collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialArticulos($v = true)
-    {
-        $this->collArticulosPartial = $v;
-    }
-
-    /**
-     * Initializes the collArticulos collection.
-     *
-     * By default this just sets the collArticulos collection to an empty array (like clearcollArticulos());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initArticulos($overrideExisting = true)
-    {
-        if (null !== $this->collArticulos && !$overrideExisting) {
-            return;
-        }
-        $this->collArticulos = new PropelObjectCollection();
-        $this->collArticulos->setModel('Articulo');
-    }
-
-    /**
-     * Gets an array of Articulo objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Tipo is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Articulo[] List of Articulo objects
+     * @param                  Articulovariante $v
+     * @return Articulovariantereorden The current object (for fluent API support)
      * @throws PropelException
      */
-    public function getArticulos($criteria = null, PropelPDO $con = null)
+    public function setArticulovariante(Articulovariante $v = null)
     {
-        $partial = $this->collArticulosPartial && !$this->isNew();
-        if (null === $this->collArticulos || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collArticulos) {
-                // return empty collection
-                $this->initArticulos();
-            } else {
-                $collArticulos = ArticuloQuery::create(null, $criteria)
-                    ->filterByTipo($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collArticulosPartial && count($collArticulos)) {
-                      $this->initArticulos(false);
-
-                      foreach ($collArticulos as $obj) {
-                        if (false == $this->collArticulos->contains($obj)) {
-                          $this->collArticulos->append($obj);
-                        }
-                      }
-
-                      $this->collArticulosPartial = true;
-                    }
-
-                    $collArticulos->getInternalIterator()->rewind();
-
-                    return $collArticulos;
-                }
-
-                if ($partial && $this->collArticulos) {
-                    foreach ($this->collArticulos as $obj) {
-                        if ($obj->isNew()) {
-                            $collArticulos[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collArticulos = $collArticulos;
-                $this->collArticulosPartial = false;
-            }
+        if ($v === null) {
+            $this->setIdarticulovariante(NULL);
+        } else {
+            $this->setIdarticulovariante($v->getIdarticulovariante());
         }
 
-        return $this->collArticulos;
-    }
+        $this->aArticulovariante = $v;
 
-    /**
-     * Sets a collection of Articulo objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $articulos A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Tipo The current object (for fluent API support)
-     */
-    public function setArticulos(PropelCollection $articulos, PropelPDO $con = null)
-    {
-        $articulosToDelete = $this->getArticulos(new Criteria(), $con)->diff($articulos);
-
-
-        $this->articulosScheduledForDeletion = $articulosToDelete;
-
-        foreach ($articulosToDelete as $articuloRemoved) {
-            $articuloRemoved->setTipo(null);
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Articulovariante object, it will not be re-added.
+        if ($v !== null) {
+            $v->addArticulovariantereorden($this);
         }
 
-        $this->collArticulos = null;
-        foreach ($articulos as $articulo) {
-            $this->addArticulo($articulo);
-        }
-
-        $this->collArticulos = $articulos;
-        $this->collArticulosPartial = false;
 
         return $this;
     }
 
+
     /**
-     * Returns the number of related Articulo objects.
+     * Get the associated Articulovariante object
      *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Articulo objects.
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Articulovariante The associated Articulovariante object.
      * @throws PropelException
      */
-    public function countArticulos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function getArticulovariante(PropelPDO $con = null, $doQuery = true)
     {
-        $partial = $this->collArticulosPartial && !$this->isNew();
-        if (null === $this->collArticulos || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collArticulos) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getArticulos());
-            }
-            $query = ArticuloQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByTipo($this)
-                ->count($con);
+        if ($this->aArticulovariante === null && ($this->idarticulovariante !== null) && $doQuery) {
+            $this->aArticulovariante = ArticulovarianteQuery::create()->findPk($this->idarticulovariante, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArticulovariante->addArticulovariantereordens($this);
+             */
         }
 
-        return count($this->collArticulos);
+        return $this->aArticulovariante;
     }
 
     /**
-     * Method called to associate a Articulo object to this object
-     * through the Articulo foreign key attribute.
+     * Declares an association between this object and a Lugar object.
      *
-     * @param    Articulo $l Articulo
-     * @return Tipo The current object (for fluent API support)
+     * @param                  Lugar $v
+     * @return Articulovariantereorden The current object (for fluent API support)
+     * @throws PropelException
      */
-    public function addArticulo(Articulo $l)
+    public function setLugar(Lugar $v = null)
     {
-        if ($this->collArticulos === null) {
-            $this->initArticulos();
-            $this->collArticulosPartial = true;
+        if ($v === null) {
+            $this->setIdlugar(NULL);
+        } else {
+            $this->setIdlugar($v->getIdlugar());
         }
 
-        if (!in_array($l, $this->collArticulos->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddArticulo($l);
+        $this->aLugar = $v;
 
-            if ($this->articulosScheduledForDeletion and $this->articulosScheduledForDeletion->contains($l)) {
-                $this->articulosScheduledForDeletion->remove($this->articulosScheduledForDeletion->search($l));
-            }
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Lugar object, it will not be re-added.
+        if ($v !== null) {
+            $v->addArticulovariantereorden($this);
         }
+
 
         return $this;
     }
 
-    /**
-     * @param	Articulo $articulo The articulo object to add.
-     */
-    protected function doAddArticulo($articulo)
-    {
-        $this->collArticulos[]= $articulo;
-        $articulo->setTipo($this);
-    }
 
     /**
-     * @param	Articulo $articulo The articulo object to remove.
-     * @return Tipo The current object (for fluent API support)
+     * Get the associated Lugar object
+     *
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Lugar The associated Lugar object.
+     * @throws PropelException
      */
-    public function removeArticulo($articulo)
+    public function getLugar(PropelPDO $con = null, $doQuery = true)
     {
-        if ($this->getArticulos()->contains($articulo)) {
-            $this->collArticulos->remove($this->collArticulos->search($articulo));
-            if (null === $this->articulosScheduledForDeletion) {
-                $this->articulosScheduledForDeletion = clone $this->collArticulos;
-                $this->articulosScheduledForDeletion->clear();
-            }
-            $this->articulosScheduledForDeletion[]= clone $articulo;
-            $articulo->setTipo(null);
+        if ($this->aLugar === null && ($this->idlugar !== null) && $doQuery) {
+            $this->aLugar = LugarQuery::create()->findPk($this->idlugar, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aLugar->addArticulovariantereordens($this);
+             */
         }
 
-        return $this;
+        return $this->aLugar;
     }
 
     /**
@@ -1131,9 +1180,12 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function clear()
     {
-        $this->idtipo = null;
-        $this->tipo_nombre = null;
-        $this->tipo_descripcion = null;
+        $this->idarticulovariantereorden = null;
+        $this->idlugar = null;
+        $this->idarticulovariante = null;
+        $this->minimo = null;
+        $this->maximo = null;
+        $this->reorden = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
@@ -1156,19 +1208,18 @@ abstract class BaseTipo extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collArticulos) {
-                foreach ($this->collArticulos as $o) {
-                    $o->clearAllReferences($deep);
-                }
+            if ($this->aArticulovariante instanceof Persistent) {
+              $this->aArticulovariante->clearAllReferences($deep);
+            }
+            if ($this->aLugar instanceof Persistent) {
+              $this->aLugar->clearAllReferences($deep);
             }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collArticulos instanceof PropelCollection) {
-            $this->collArticulos->clearIterator();
-        }
-        $this->collArticulos = null;
+        $this->aArticulovariante = null;
+        $this->aLugar = null;
     }
 
     /**
@@ -1178,7 +1229,7 @@ abstract class BaseTipo extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(TipoPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(ArticulovariantereordenPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**

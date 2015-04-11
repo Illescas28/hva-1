@@ -4,7 +4,6 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <?php
-
     $ArticuloForm->setAttribute('action', $this->url('articulo', array('action' => 'nuevo')));
     $ArticuloForm->prepare();
 
@@ -24,30 +23,6 @@ $this->headTitle($title);
         <div class="center-align col s11 offset-s1" style="color: #e57373">
             <?php echo $showError; ?>
         </div>
-        <?php endif;
-        if(!empty($Error)): ?>
-            <div class="center-align col" style="color: #e57373">
-                <i class="mdi-content-report prefix"></i>
-            </div>
-            <div class="center-align col s11 offset-s1" style="color: #e57373">
-                <?php
-                echo $Error;
-                ?>
-            </div>
-        <?php  endif;?>
-    </div>
-    <div class="input-field col s6">
-        <i class="mdi-action-view-list prefix"></i>
-        <?php  echo $this->formText($ArticuloForm->get('idudm')); ?>
-        <?php  echo $this->formLabel($ArticuloForm->get('idudm'));
-        $showError=$this->formElementErrors($ArticuloForm->get('idudm'));
-        if(!empty($showError)):?>
-            <div class="center-align col" style="color: #e57373">
-                <i class="mdi-content-report prefix"></i>
-            </div>
-            <div class="center-align col s11 offset-s1" style="color: #e57373">
-                <?php echo $showError; ?>
-            </div>
         <?php endif;
         if(!empty($Error)): ?>
             <div class="center-align col" style="color: #e57373">

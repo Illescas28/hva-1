@@ -1,13 +1,13 @@
 <?php
 
-namespace Catalogos\Articulo\Filter;
+namespace Catalogos\Propiedadvalor\Filter;
 
 // Add these import statements
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class ArticuloFilter implements InputFilterAwareInterface
+class PropiedadvalorFilter implements InputFilterAwareInterface
 {
     protected $inputFilter;                       // <-- Add this variable
 
@@ -24,40 +24,31 @@ class ArticuloFilter implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
-                'name'     => 'idarticulo',
+                'name'     => 'idpropiedadvalor',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
             ));
+
             $inputFilter->add(array(
-                'name'     => 'idtipo',
+                'name'     => 'idpropiedad',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
             ));
+
             $inputFilter->add(array(
-                'name'     => 'articulo_nombre',
-                'required' => false,
+                'name'     => 'idarticulo',
+                'required' => true,
                 'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 300,
-                        ),
-                    ),
+                    array('name' => 'Int'),
                 ),
             ));
 
             $inputFilter->add(array(
-                'name'     => 'articulo_descripcion',
+                'name'     => 'propiedadvalor_nombre',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -69,16 +60,9 @@ class ArticuloFilter implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 255,
+                            'max'      => 45,
                         ),
                     ),
-                ),
-            ));
-            $inputFilter->add(array(
-                'name'     => 'articulo_cantidadpresentacion',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
                 ),
             ));
 
