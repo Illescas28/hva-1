@@ -162,6 +162,20 @@ return array(
                     ),
                 ),
             ),
+            'especialidad' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/catalogos/especialidad[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action' => 'nuevo|editar|eliminar',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Catalogos\Especialidad\Controller\Especialidad',
+                        'action'     => 'listar',
+                    ),
+                ),
+            ),
             'auth' => array(
                 'type'    => 'segment',
                 'options' => array(
@@ -210,6 +224,7 @@ return array(
             'Catalogos\Propiedad\Controller\Propiedad'                  => 'Catalogos\Propiedad\Controller\PropiedadController',
             'Catalogos\Producto\Controller\Producto'                    => 'Catalogos\Producto\Controller\ProductoController',
             'Catalogos\Medico\Controller\Medico'                        => 'Catalogos\Medico\Controller\MedicoController',
+            'Catalogos\Especialidad\Controller\Especialidad'            => 'Catalogos\Especialidad\Controller\EspecialidadController'
 
         ),
     ),
