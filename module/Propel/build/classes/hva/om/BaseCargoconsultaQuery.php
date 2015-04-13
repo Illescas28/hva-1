@@ -7,19 +7,19 @@
  *
  *
  * @method CargoconsultaQuery orderByIdcargoconsulta($order = Criteria::ASC) Order by the idcargoconsulta column
- * @method CargoconsultaQuery orderByIdconsulta($order = Criteria::ASC) Order by the idconsulta column
  * @method CargoconsultaQuery orderByIdlugarinventario($order = Criteria::ASC) Order by the idlugarinventario column
  * @method CargoconsultaQuery orderByIdservicio($order = Criteria::ASC) Order by the idservicio column
  * @method CargoconsultaQuery orderByCargoconsultaTipo($order = Criteria::ASC) Order by the cargoconsulta_tipo column
+ * @method CargoconsultaQuery orderByIdconsulta($order = Criteria::ASC) Order by the idconsulta column
  * @method CargoconsultaQuery orderByCargoconsultaFecha($order = Criteria::ASC) Order by the cargoconsulta_fecha column
  * @method CargoconsultaQuery orderByCantidad($order = Criteria::ASC) Order by the cantidad column
  * @method CargoconsultaQuery orderByMonto($order = Criteria::ASC) Order by the monto column
  *
  * @method CargoconsultaQuery groupByIdcargoconsulta() Group by the idcargoconsulta column
- * @method CargoconsultaQuery groupByIdconsulta() Group by the idconsulta column
  * @method CargoconsultaQuery groupByIdlugarinventario() Group by the idlugarinventario column
  * @method CargoconsultaQuery groupByIdservicio() Group by the idservicio column
  * @method CargoconsultaQuery groupByCargoconsultaTipo() Group by the cargoconsulta_tipo column
+ * @method CargoconsultaQuery groupByIdconsulta() Group by the idconsulta column
  * @method CargoconsultaQuery groupByCargoconsultaFecha() Group by the cargoconsulta_fecha column
  * @method CargoconsultaQuery groupByCantidad() Group by the cantidad column
  * @method CargoconsultaQuery groupByMonto() Group by the monto column
@@ -43,19 +43,19 @@
  * @method Cargoconsulta findOne(PropelPDO $con = null) Return the first Cargoconsulta matching the query
  * @method Cargoconsulta findOneOrCreate(PropelPDO $con = null) Return the first Cargoconsulta matching the query, or a new Cargoconsulta object populated from the query conditions when no match is found
  *
- * @method Cargoconsulta findOneByIdconsulta(int $idconsulta) Return the first Cargoconsulta filtered by the idconsulta column
  * @method Cargoconsulta findOneByIdlugarinventario(int $idlugarinventario) Return the first Cargoconsulta filtered by the idlugarinventario column
  * @method Cargoconsulta findOneByIdservicio(int $idservicio) Return the first Cargoconsulta filtered by the idservicio column
  * @method Cargoconsulta findOneByCargoconsultaTipo(string $cargoconsulta_tipo) Return the first Cargoconsulta filtered by the cargoconsulta_tipo column
+ * @method Cargoconsulta findOneByIdconsulta(int $idconsulta) Return the first Cargoconsulta filtered by the idconsulta column
  * @method Cargoconsulta findOneByCargoconsultaFecha(string $cargoconsulta_fecha) Return the first Cargoconsulta filtered by the cargoconsulta_fecha column
  * @method Cargoconsulta findOneByCantidad(string $cantidad) Return the first Cargoconsulta filtered by the cantidad column
  * @method Cargoconsulta findOneByMonto(string $monto) Return the first Cargoconsulta filtered by the monto column
  *
  * @method array findByIdcargoconsulta(int $idcargoconsulta) Return Cargoconsulta objects filtered by the idcargoconsulta column
- * @method array findByIdconsulta(int $idconsulta) Return Cargoconsulta objects filtered by the idconsulta column
  * @method array findByIdlugarinventario(int $idlugarinventario) Return Cargoconsulta objects filtered by the idlugarinventario column
  * @method array findByIdservicio(int $idservicio) Return Cargoconsulta objects filtered by the idservicio column
  * @method array findByCargoconsultaTipo(string $cargoconsulta_tipo) Return Cargoconsulta objects filtered by the cargoconsulta_tipo column
+ * @method array findByIdconsulta(int $idconsulta) Return Cargoconsulta objects filtered by the idconsulta column
  * @method array findByCargoconsultaFecha(string $cargoconsulta_fecha) Return Cargoconsulta objects filtered by the cargoconsulta_fecha column
  * @method array findByCantidad(string $cantidad) Return Cargoconsulta objects filtered by the cantidad column
  * @method array findByMonto(string $monto) Return Cargoconsulta objects filtered by the monto column
@@ -166,7 +166,7 @@ abstract class BaseCargoconsultaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idcargoconsulta`, `idconsulta`, `idlugarinventario`, `idservicio`, `cargoconsulta_tipo`, `cargoconsulta_fecha`, `cantidad`, `monto` FROM `cargoconsulta` WHERE `idcargoconsulta` = :p0';
+        $sql = 'SELECT `idcargoconsulta`, `idlugarinventario`, `idservicio`, `cargoconsulta_tipo`, `idconsulta`, `cargoconsulta_fecha`, `cantidad`, `monto` FROM `cargoconsulta` WHERE `idcargoconsulta` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -298,50 +298,6 @@ abstract class BaseCargoconsultaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the idconsulta column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByIdconsulta(1234); // WHERE idconsulta = 1234
-     * $query->filterByIdconsulta(array(12, 34)); // WHERE idconsulta IN (12, 34)
-     * $query->filterByIdconsulta(array('min' => 12)); // WHERE idconsulta >= 12
-     * $query->filterByIdconsulta(array('max' => 12)); // WHERE idconsulta <= 12
-     * </code>
-     *
-     * @see       filterByConsulta()
-     *
-     * @param     mixed $idconsulta The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return CargoconsultaQuery The current query, for fluid interface
-     */
-    public function filterByIdconsulta($idconsulta = null, $comparison = null)
-    {
-        if (is_array($idconsulta)) {
-            $useMinMax = false;
-            if (isset($idconsulta['min'])) {
-                $this->addUsingAlias(CargoconsultaPeer::IDCONSULTA, $idconsulta['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($idconsulta['max'])) {
-                $this->addUsingAlias(CargoconsultaPeer::IDCONSULTA, $idconsulta['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(CargoconsultaPeer::IDCONSULTA, $idconsulta, $comparison);
-    }
-
-    /**
      * Filter the query on the idlugarinventario column
      *
      * Example usage:
@@ -456,6 +412,50 @@ abstract class BaseCargoconsultaQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(CargoconsultaPeer::CARGOCONSULTA_TIPO, $cargoconsultaTipo, $comparison);
+    }
+
+    /**
+     * Filter the query on the idconsulta column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIdconsulta(1234); // WHERE idconsulta = 1234
+     * $query->filterByIdconsulta(array(12, 34)); // WHERE idconsulta IN (12, 34)
+     * $query->filterByIdconsulta(array('min' => 12)); // WHERE idconsulta >= 12
+     * $query->filterByIdconsulta(array('max' => 12)); // WHERE idconsulta <= 12
+     * </code>
+     *
+     * @see       filterByConsulta()
+     *
+     * @param     mixed $idconsulta The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return CargoconsultaQuery The current query, for fluid interface
+     */
+    public function filterByIdconsulta($idconsulta = null, $comparison = null)
+    {
+        if (is_array($idconsulta)) {
+            $useMinMax = false;
+            if (isset($idconsulta['min'])) {
+                $this->addUsingAlias(CargoconsultaPeer::IDCONSULTA, $idconsulta['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($idconsulta['max'])) {
+                $this->addUsingAlias(CargoconsultaPeer::IDCONSULTA, $idconsulta['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(CargoconsultaPeer::IDCONSULTA, $idconsulta, $comparison);
     }
 
     /**

@@ -7,7 +7,6 @@
  *
  *
  * @method EmpleadoQuery orderByIdempleado($order = Criteria::ASC) Order by the idempleado column
- * @method EmpleadoQuery orderByIdrol($order = Criteria::ASC) Order by the idrol column
  * @method EmpleadoQuery orderByEmpleadoNombre($order = Criteria::ASC) Order by the empleado_nombre column
  * @method EmpleadoQuery orderByEmpleadoApellidopaterno($order = Criteria::ASC) Order by the empleado_apellidopaterno column
  * @method EmpleadoQuery orderByEmpleadoApellidomaterno($order = Criteria::ASC) Order by the empleado_apellidomaterno column
@@ -16,7 +15,6 @@
  * @method EmpleadoQuery orderByEmpleadoEmail($order = Criteria::ASC) Order by the empleado_email column
  *
  * @method EmpleadoQuery groupByIdempleado() Group by the idempleado column
- * @method EmpleadoQuery groupByIdrol() Group by the idrol column
  * @method EmpleadoQuery groupByEmpleadoNombre() Group by the empleado_nombre column
  * @method EmpleadoQuery groupByEmpleadoApellidopaterno() Group by the empleado_apellidopaterno column
  * @method EmpleadoQuery groupByEmpleadoApellidomaterno() Group by the empleado_apellidomaterno column
@@ -28,18 +26,17 @@
  * @method EmpleadoQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method EmpleadoQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method EmpleadoQuery leftJoinRol($relationAlias = null) Adds a LEFT JOIN clause to the query using the Rol relation
- * @method EmpleadoQuery rightJoinRol($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Rol relation
- * @method EmpleadoQuery innerJoinRol($relationAlias = null) Adds a INNER JOIN clause to the query using the Rol relation
+ * @method EmpleadoQuery leftJoinDatosfacturacionempleado($relationAlias = null) Adds a LEFT JOIN clause to the query using the Datosfacturacionempleado relation
+ * @method EmpleadoQuery rightJoinDatosfacturacionempleado($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Datosfacturacionempleado relation
+ * @method EmpleadoQuery innerJoinDatosfacturacionempleado($relationAlias = null) Adds a INNER JOIN clause to the query using the Datosfacturacionempleado relation
  *
- * @method EmpleadoQuery leftJoinEmpleadofacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Empleadofacturacion relation
- * @method EmpleadoQuery rightJoinEmpleadofacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Empleadofacturacion relation
- * @method EmpleadoQuery innerJoinEmpleadofacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Empleadofacturacion relation
+ * @method EmpleadoQuery leftJoinEmpleadomodulo($relationAlias = null) Adds a LEFT JOIN clause to the query using the Empleadomodulo relation
+ * @method EmpleadoQuery rightJoinEmpleadomodulo($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Empleadomodulo relation
+ * @method EmpleadoQuery innerJoinEmpleadomodulo($relationAlias = null) Adds a INNER JOIN clause to the query using the Empleadomodulo relation
  *
  * @method Empleado findOne(PropelPDO $con = null) Return the first Empleado matching the query
  * @method Empleado findOneOrCreate(PropelPDO $con = null) Return the first Empleado matching the query, or a new Empleado object populated from the query conditions when no match is found
  *
- * @method Empleado findOneByIdrol(int $idrol) Return the first Empleado filtered by the idrol column
  * @method Empleado findOneByEmpleadoNombre(string $empleado_nombre) Return the first Empleado filtered by the empleado_nombre column
  * @method Empleado findOneByEmpleadoApellidopaterno(string $empleado_apellidopaterno) Return the first Empleado filtered by the empleado_apellidopaterno column
  * @method Empleado findOneByEmpleadoApellidomaterno(string $empleado_apellidomaterno) Return the first Empleado filtered by the empleado_apellidomaterno column
@@ -48,7 +45,6 @@
  * @method Empleado findOneByEmpleadoEmail(string $empleado_email) Return the first Empleado filtered by the empleado_email column
  *
  * @method array findByIdempleado(int $idempleado) Return Empleado objects filtered by the idempleado column
- * @method array findByIdrol(int $idrol) Return Empleado objects filtered by the idrol column
  * @method array findByEmpleadoNombre(string $empleado_nombre) Return Empleado objects filtered by the empleado_nombre column
  * @method array findByEmpleadoApellidopaterno(string $empleado_apellidopaterno) Return Empleado objects filtered by the empleado_apellidopaterno column
  * @method array findByEmpleadoApellidomaterno(string $empleado_apellidomaterno) Return Empleado objects filtered by the empleado_apellidomaterno column
@@ -162,7 +158,7 @@ abstract class BaseEmpleadoQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idempleado`, `idrol`, `empleado_nombre`, `empleado_apellidopaterno`, `empleado_apellidomaterno`, `empleado_nombreusuario`, `empleado_password`, `empleado_email` FROM `empleado` WHERE `idempleado` = :p0';
+        $sql = 'SELECT `idempleado`, `empleado_nombre`, `empleado_apellidopaterno`, `empleado_apellidomaterno`, `empleado_nombreusuario`, `empleado_password`, `empleado_email` FROM `empleado` WHERE `idempleado` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -291,50 +287,6 @@ abstract class BaseEmpleadoQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(EmpleadoPeer::IDEMPLEADO, $idempleado, $comparison);
-    }
-
-    /**
-     * Filter the query on the idrol column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByIdrol(1234); // WHERE idrol = 1234
-     * $query->filterByIdrol(array(12, 34)); // WHERE idrol IN (12, 34)
-     * $query->filterByIdrol(array('min' => 12)); // WHERE idrol >= 12
-     * $query->filterByIdrol(array('max' => 12)); // WHERE idrol <= 12
-     * </code>
-     *
-     * @see       filterByRol()
-     *
-     * @param     mixed $idrol The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return EmpleadoQuery The current query, for fluid interface
-     */
-    public function filterByIdrol($idrol = null, $comparison = null)
-    {
-        if (is_array($idrol)) {
-            $useMinMax = false;
-            if (isset($idrol['min'])) {
-                $this->addUsingAlias(EmpleadoPeer::IDROL, $idrol['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($idrol['max'])) {
-                $this->addUsingAlias(EmpleadoPeer::IDROL, $idrol['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(EmpleadoPeer::IDROL, $idrol, $comparison);
     }
 
     /**
@@ -512,117 +464,41 @@ abstract class BaseEmpleadoQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Rol object
+     * Filter the query by a related Datosfacturacionempleado object
      *
-     * @param   Rol|PropelObjectCollection $rol The related object(s) to use as filter
+     * @param   Datosfacturacionempleado|PropelObjectCollection $datosfacturacionempleado  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 EmpleadoQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByRol($rol, $comparison = null)
+    public function filterByDatosfacturacionempleado($datosfacturacionempleado, $comparison = null)
     {
-        if ($rol instanceof Rol) {
+        if ($datosfacturacionempleado instanceof Datosfacturacionempleado) {
             return $this
-                ->addUsingAlias(EmpleadoPeer::IDROL, $rol->getIdrol(), $comparison);
-        } elseif ($rol instanceof PropelObjectCollection) {
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-
+                ->addUsingAlias(EmpleadoPeer::IDEMPLEADO, $datosfacturacionempleado->getIdempleado(), $comparison);
+        } elseif ($datosfacturacionempleado instanceof PropelObjectCollection) {
             return $this
-                ->addUsingAlias(EmpleadoPeer::IDROL, $rol->toKeyValue('PrimaryKey', 'Idrol'), $comparison);
-        } else {
-            throw new PropelException('filterByRol() only accepts arguments of type Rol or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Rol relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return EmpleadoQuery The current query, for fluid interface
-     */
-    public function joinRol($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Rol');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Rol');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Rol relation Rol object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   RolQuery A secondary query class using the current class as primary query
-     */
-    public function useRolQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinRol($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Rol', 'RolQuery');
-    }
-
-    /**
-     * Filter the query by a related Empleadofacturacion object
-     *
-     * @param   Empleadofacturacion|PropelObjectCollection $empleadofacturacion  the related object to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return                 EmpleadoQuery The current query, for fluid interface
-     * @throws PropelException - if the provided filter is invalid.
-     */
-    public function filterByEmpleadofacturacion($empleadofacturacion, $comparison = null)
-    {
-        if ($empleadofacturacion instanceof Empleadofacturacion) {
-            return $this
-                ->addUsingAlias(EmpleadoPeer::IDEMPLEADO, $empleadofacturacion->getIdempleado(), $comparison);
-        } elseif ($empleadofacturacion instanceof PropelObjectCollection) {
-            return $this
-                ->useEmpleadofacturacionQuery()
-                ->filterByPrimaryKeys($empleadofacturacion->getPrimaryKeys())
+                ->useDatosfacturacionempleadoQuery()
+                ->filterByPrimaryKeys($datosfacturacionempleado->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByEmpleadofacturacion() only accepts arguments of type Empleadofacturacion or PropelCollection');
+            throw new PropelException('filterByDatosfacturacionempleado() only accepts arguments of type Datosfacturacionempleado or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Empleadofacturacion relation
+     * Adds a JOIN clause to the query using the Datosfacturacionempleado relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return EmpleadoQuery The current query, for fluid interface
      */
-    public function joinEmpleadofacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinDatosfacturacionempleado($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Empleadofacturacion');
+        $relationMap = $tableMap->getRelation('Datosfacturacionempleado');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -637,14 +513,14 @@ abstract class BaseEmpleadoQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Empleadofacturacion');
+            $this->addJoinObject($join, 'Datosfacturacionempleado');
         }
 
         return $this;
     }
 
     /**
-     * Use the Empleadofacturacion relation Empleadofacturacion object
+     * Use the Datosfacturacionempleado relation Datosfacturacionempleado object
      *
      * @see       useQuery()
      *
@@ -652,13 +528,87 @@ abstract class BaseEmpleadoQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   EmpleadofacturacionQuery A secondary query class using the current class as primary query
+     * @return   DatosfacturacionempleadoQuery A secondary query class using the current class as primary query
      */
-    public function useEmpleadofacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useDatosfacturacionempleadoQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinEmpleadofacturacion($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Empleadofacturacion', 'EmpleadofacturacionQuery');
+            ->joinDatosfacturacionempleado($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Datosfacturacionempleado', 'DatosfacturacionempleadoQuery');
+    }
+
+    /**
+     * Filter the query by a related Empleadomodulo object
+     *
+     * @param   Empleadomodulo|PropelObjectCollection $empleadomodulo  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 EmpleadoQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByEmpleadomodulo($empleadomodulo, $comparison = null)
+    {
+        if ($empleadomodulo instanceof Empleadomodulo) {
+            return $this
+                ->addUsingAlias(EmpleadoPeer::IDEMPLEADO, $empleadomodulo->getIdempleado(), $comparison);
+        } elseif ($empleadomodulo instanceof PropelObjectCollection) {
+            return $this
+                ->useEmpleadomoduloQuery()
+                ->filterByPrimaryKeys($empleadomodulo->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByEmpleadomodulo() only accepts arguments of type Empleadomodulo or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Empleadomodulo relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return EmpleadoQuery The current query, for fluid interface
+     */
+    public function joinEmpleadomodulo($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Empleadomodulo');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Empleadomodulo');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Empleadomodulo relation Empleadomodulo object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   EmpleadomoduloQuery A secondary query class using the current class as primary query
+     */
+    public function useEmpleadomoduloQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinEmpleadomodulo($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Empleadomodulo', 'EmpleadomoduloQuery');
     }
 
     /**

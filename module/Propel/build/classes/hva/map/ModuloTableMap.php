@@ -49,7 +49,7 @@ class ModuloTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Rolmodulo', 'Rolmodulo', RelationMap::ONE_TO_MANY, array('idmodulo' => 'idmodulo', ), 'CASCADE', 'CASCADE', 'Rolmodulos');
+        $this->addRelation('Empleadomodulo', 'Empleadomodulo', RelationMap::ONE_TO_MANY, array('idmodulo' => 'idmodulo', ), 'CASCADE', 'CASCADE', 'Empleadomodulos');
     } // buildRelations()
 
 } // ModuloTableMap

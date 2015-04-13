@@ -78,8 +78,7 @@ class PacienteTableMap extends TableMap
         $this->addRelation('Admision', 'Admision', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Admisions');
         $this->addRelation('Cita', 'Cita', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Citas');
         $this->addRelation('Consulta', 'Consulta', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Consultas');
-        $this->addRelation('Pacientefacturacion', 'Pacientefacturacion', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Pacientefacturacions');
-        $this->addRelation('Venta', 'Venta', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Ventas');
+        $this->addRelation('Datosfacturacion', 'Datosfacturacion', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Datosfacturacions');
     } // buildRelations()
 
 } // PacienteTableMap

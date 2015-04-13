@@ -38,8 +38,8 @@ abstract class BaseOrdencompradetallePeer
     /** the column name for the idordencompra field */
     const IDORDENCOMPRA = 'ordencompradetalle.idordencompra';
 
-    /** the column name for the idarticulovariante field */
-    const IDARTICULOVARIANTE = 'ordencompradetalle.idarticulovariante';
+    /** the column name for the idarticulo field */
+    const IDARTICULO = 'ordencompradetalle.idarticulo';
 
     /** the column name for the ordencompradetalle_cantidad field */
     const ORDENCOMPRADETALLE_CANTIDAD = 'ordencompradetalle.ordencompradetalle_cantidad';
@@ -78,11 +78,11 @@ abstract class BaseOrdencompradetallePeer
      * e.g. OrdencompradetallePeer::$fieldNames[OrdencompradetallePeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Idordencompradetalle', 'Idordencompra', 'Idarticulovariante', 'OrdencompradetalleCantidad', 'OrdencompradetalleCosto', 'OrdencompradetallePrecio', 'OrdencompradetalleImporte', 'OrdencompradetalleCaducidad', 'OrdencompradetalleExistencia', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idordencompradetalle', 'idordencompra', 'idarticulovariante', 'ordencompradetalleCantidad', 'ordencompradetalleCosto', 'ordencompradetallePrecio', 'ordencompradetalleImporte', 'ordencompradetalleCaducidad', 'ordencompradetalleExistencia', ),
-        BasePeer::TYPE_COLNAME => array (OrdencompradetallePeer::IDORDENCOMPRADETALLE, OrdencompradetallePeer::IDORDENCOMPRA, OrdencompradetallePeer::IDARTICULOVARIANTE, OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD, OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO, OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO, OrdencompradetallePeer::ORDENCOMPRADETALLE_IMPORTE, OrdencompradetallePeer::ORDENCOMPRADETALLE_CADUCIDAD, OrdencompradetallePeer::ORDENCOMPRADETALLE_EXISTENCIA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDORDENCOMPRADETALLE', 'IDORDENCOMPRA', 'IDARTICULOVARIANTE', 'ORDENCOMPRADETALLE_CANTIDAD', 'ORDENCOMPRADETALLE_COSTO', 'ORDENCOMPRADETALLE_PRECIO', 'ORDENCOMPRADETALLE_IMPORTE', 'ORDENCOMPRADETALLE_CADUCIDAD', 'ORDENCOMPRADETALLE_EXISTENCIA', ),
-        BasePeer::TYPE_FIELDNAME => array ('idordencompradetalle', 'idordencompra', 'idarticulovariante', 'ordencompradetalle_cantidad', 'ordencompradetalle_costo', 'ordencompradetalle_precio', 'ordencompradetalle_importe', 'ordencompradetalle_caducidad', 'ordencompradetalle_existencia', ),
+        BasePeer::TYPE_PHPNAME => array ('Idordencompradetalle', 'Idordencompra', 'Idarticulo', 'OrdencompradetalleCantidad', 'OrdencompradetalleCosto', 'OrdencompradetallePrecio', 'OrdencompradetalleImporte', 'OrdencompradetalleCaducidad', 'OrdencompradetalleExistencia', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idordencompradetalle', 'idordencompra', 'idarticulo', 'ordencompradetalleCantidad', 'ordencompradetalleCosto', 'ordencompradetallePrecio', 'ordencompradetalleImporte', 'ordencompradetalleCaducidad', 'ordencompradetalleExistencia', ),
+        BasePeer::TYPE_COLNAME => array (OrdencompradetallePeer::IDORDENCOMPRADETALLE, OrdencompradetallePeer::IDORDENCOMPRA, OrdencompradetallePeer::IDARTICULO, OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD, OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO, OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO, OrdencompradetallePeer::ORDENCOMPRADETALLE_IMPORTE, OrdencompradetallePeer::ORDENCOMPRADETALLE_CADUCIDAD, OrdencompradetallePeer::ORDENCOMPRADETALLE_EXISTENCIA, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDORDENCOMPRADETALLE', 'IDORDENCOMPRA', 'IDARTICULO', 'ORDENCOMPRADETALLE_CANTIDAD', 'ORDENCOMPRADETALLE_COSTO', 'ORDENCOMPRADETALLE_PRECIO', 'ORDENCOMPRADETALLE_IMPORTE', 'ORDENCOMPRADETALLE_CADUCIDAD', 'ORDENCOMPRADETALLE_EXISTENCIA', ),
+        BasePeer::TYPE_FIELDNAME => array ('idordencompradetalle', 'idordencompra', 'idarticulo', 'ordencompradetalle_cantidad', 'ordencompradetalle_costo', 'ordencompradetalle_precio', 'ordencompradetalle_importe', 'ordencompradetalle_caducidad', 'ordencompradetalle_existencia', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
@@ -93,11 +93,11 @@ abstract class BaseOrdencompradetallePeer
      * e.g. OrdencompradetallePeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Idordencompradetalle' => 0, 'Idordencompra' => 1, 'Idarticulovariante' => 2, 'OrdencompradetalleCantidad' => 3, 'OrdencompradetalleCosto' => 4, 'OrdencompradetallePrecio' => 5, 'OrdencompradetalleImporte' => 6, 'OrdencompradetalleCaducidad' => 7, 'OrdencompradetalleExistencia' => 8, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idordencompradetalle' => 0, 'idordencompra' => 1, 'idarticulovariante' => 2, 'ordencompradetalleCantidad' => 3, 'ordencompradetalleCosto' => 4, 'ordencompradetallePrecio' => 5, 'ordencompradetalleImporte' => 6, 'ordencompradetalleCaducidad' => 7, 'ordencompradetalleExistencia' => 8, ),
-        BasePeer::TYPE_COLNAME => array (OrdencompradetallePeer::IDORDENCOMPRADETALLE => 0, OrdencompradetallePeer::IDORDENCOMPRA => 1, OrdencompradetallePeer::IDARTICULOVARIANTE => 2, OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD => 3, OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO => 4, OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO => 5, OrdencompradetallePeer::ORDENCOMPRADETALLE_IMPORTE => 6, OrdencompradetallePeer::ORDENCOMPRADETALLE_CADUCIDAD => 7, OrdencompradetallePeer::ORDENCOMPRADETALLE_EXISTENCIA => 8, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDORDENCOMPRADETALLE' => 0, 'IDORDENCOMPRA' => 1, 'IDARTICULOVARIANTE' => 2, 'ORDENCOMPRADETALLE_CANTIDAD' => 3, 'ORDENCOMPRADETALLE_COSTO' => 4, 'ORDENCOMPRADETALLE_PRECIO' => 5, 'ORDENCOMPRADETALLE_IMPORTE' => 6, 'ORDENCOMPRADETALLE_CADUCIDAD' => 7, 'ORDENCOMPRADETALLE_EXISTENCIA' => 8, ),
-        BasePeer::TYPE_FIELDNAME => array ('idordencompradetalle' => 0, 'idordencompra' => 1, 'idarticulovariante' => 2, 'ordencompradetalle_cantidad' => 3, 'ordencompradetalle_costo' => 4, 'ordencompradetalle_precio' => 5, 'ordencompradetalle_importe' => 6, 'ordencompradetalle_caducidad' => 7, 'ordencompradetalle_existencia' => 8, ),
+        BasePeer::TYPE_PHPNAME => array ('Idordencompradetalle' => 0, 'Idordencompra' => 1, 'Idarticulo' => 2, 'OrdencompradetalleCantidad' => 3, 'OrdencompradetalleCosto' => 4, 'OrdencompradetallePrecio' => 5, 'OrdencompradetalleImporte' => 6, 'OrdencompradetalleCaducidad' => 7, 'OrdencompradetalleExistencia' => 8, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idordencompradetalle' => 0, 'idordencompra' => 1, 'idarticulo' => 2, 'ordencompradetalleCantidad' => 3, 'ordencompradetalleCosto' => 4, 'ordencompradetallePrecio' => 5, 'ordencompradetalleImporte' => 6, 'ordencompradetalleCaducidad' => 7, 'ordencompradetalleExistencia' => 8, ),
+        BasePeer::TYPE_COLNAME => array (OrdencompradetallePeer::IDORDENCOMPRADETALLE => 0, OrdencompradetallePeer::IDORDENCOMPRA => 1, OrdencompradetallePeer::IDARTICULO => 2, OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD => 3, OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO => 4, OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO => 5, OrdencompradetallePeer::ORDENCOMPRADETALLE_IMPORTE => 6, OrdencompradetallePeer::ORDENCOMPRADETALLE_CADUCIDAD => 7, OrdencompradetallePeer::ORDENCOMPRADETALLE_EXISTENCIA => 8, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDORDENCOMPRADETALLE' => 0, 'IDORDENCOMPRA' => 1, 'IDARTICULO' => 2, 'ORDENCOMPRADETALLE_CANTIDAD' => 3, 'ORDENCOMPRADETALLE_COSTO' => 4, 'ORDENCOMPRADETALLE_PRECIO' => 5, 'ORDENCOMPRADETALLE_IMPORTE' => 6, 'ORDENCOMPRADETALLE_CADUCIDAD' => 7, 'ORDENCOMPRADETALLE_EXISTENCIA' => 8, ),
+        BasePeer::TYPE_FIELDNAME => array ('idordencompradetalle' => 0, 'idordencompra' => 1, 'idarticulo' => 2, 'ordencompradetalle_cantidad' => 3, 'ordencompradetalle_costo' => 4, 'ordencompradetalle_precio' => 5, 'ordencompradetalle_importe' => 6, 'ordencompradetalle_caducidad' => 7, 'ordencompradetalle_existencia' => 8, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
@@ -174,7 +174,7 @@ abstract class BaseOrdencompradetallePeer
         if (null === $alias) {
             $criteria->addSelectColumn(OrdencompradetallePeer::IDORDENCOMPRADETALLE);
             $criteria->addSelectColumn(OrdencompradetallePeer::IDORDENCOMPRA);
-            $criteria->addSelectColumn(OrdencompradetallePeer::IDARTICULOVARIANTE);
+            $criteria->addSelectColumn(OrdencompradetallePeer::IDARTICULO);
             $criteria->addSelectColumn(OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD);
             $criteria->addSelectColumn(OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO);
             $criteria->addSelectColumn(OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO);
@@ -184,7 +184,7 @@ abstract class BaseOrdencompradetallePeer
         } else {
             $criteria->addSelectColumn($alias . '.idordencompradetalle');
             $criteria->addSelectColumn($alias . '.idordencompra');
-            $criteria->addSelectColumn($alias . '.idarticulovariante');
+            $criteria->addSelectColumn($alias . '.idarticulo');
             $criteria->addSelectColumn($alias . '.ordencompradetalle_cantidad');
             $criteria->addSelectColumn($alias . '.ordencompradetalle_costo');
             $criteria->addSelectColumn($alias . '.ordencompradetalle_precio');
@@ -496,7 +496,7 @@ abstract class BaseOrdencompradetallePeer
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Articulovariante table
+     * Returns the number of rows matching criteria, joining the related Articulo table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -504,7 +504,7 @@ abstract class BaseOrdencompradetallePeer
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinArticulovariante(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinArticulo(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -531,7 +531,7 @@ abstract class BaseOrdencompradetallePeer
             $con = Propel::getConnection(OrdencompradetallePeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(OrdencompradetallePeer::IDARTICULOVARIANTE, ArticulovariantePeer::IDARTICULOVARIANTE, $join_behavior);
+        $criteria->addJoin(OrdencompradetallePeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -598,7 +598,7 @@ abstract class BaseOrdencompradetallePeer
 
 
     /**
-     * Selects a collection of Ordencompradetalle objects pre-filled with their Articulovariante objects.
+     * Selects a collection of Ordencompradetalle objects pre-filled with their Articulo objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -606,7 +606,7 @@ abstract class BaseOrdencompradetallePeer
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinArticulovariante(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinArticulo(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -617,9 +617,9 @@ abstract class BaseOrdencompradetallePeer
 
         OrdencompradetallePeer::addSelectColumns($criteria);
         $startcol = OrdencompradetallePeer::NUM_HYDRATE_COLUMNS;
-        ArticulovariantePeer::addSelectColumns($criteria);
+        ArticuloPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(OrdencompradetallePeer::IDARTICULOVARIANTE, ArticulovariantePeer::IDARTICULOVARIANTE, $join_behavior);
+        $criteria->addJoin(OrdencompradetallePeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
@@ -639,19 +639,19 @@ abstract class BaseOrdencompradetallePeer
                 OrdencompradetallePeer::addInstanceToPool($obj1, $key1);
             } // if $obj1 already loaded
 
-            $key2 = ArticulovariantePeer::getPrimaryKeyHashFromRow($row, $startcol);
+            $key2 = ArticuloPeer::getPrimaryKeyHashFromRow($row, $startcol);
             if ($key2 !== null) {
-                $obj2 = ArticulovariantePeer::getInstanceFromPool($key2);
+                $obj2 = ArticuloPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = ArticulovariantePeer::getOMClass();
+                    $cls = ArticuloPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol);
-                    ArticulovariantePeer::addInstanceToPool($obj2, $key2);
+                    ArticuloPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 already loaded
 
-                // Add the $obj1 (Ordencompradetalle) to $obj2 (Articulovariante)
+                // Add the $obj1 (Ordencompradetalle) to $obj2 (Articulo)
                 $obj2->addOrdencompradetalle($obj1);
 
             } // if joined row was not null
@@ -767,7 +767,7 @@ abstract class BaseOrdencompradetallePeer
             $con = Propel::getConnection(OrdencompradetallePeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(OrdencompradetallePeer::IDARTICULOVARIANTE, ArticulovariantePeer::IDARTICULOVARIANTE, $join_behavior);
+        $criteria->addJoin(OrdencompradetallePeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
 
         $criteria->addJoin(OrdencompradetallePeer::IDORDENCOMPRA, OrdencompraPeer::IDORDENCOMPRA, $join_behavior);
 
@@ -805,13 +805,13 @@ abstract class BaseOrdencompradetallePeer
         OrdencompradetallePeer::addSelectColumns($criteria);
         $startcol2 = OrdencompradetallePeer::NUM_HYDRATE_COLUMNS;
 
-        ArticulovariantePeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + ArticulovariantePeer::NUM_HYDRATE_COLUMNS;
+        ArticuloPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + ArticuloPeer::NUM_HYDRATE_COLUMNS;
 
         OrdencompraPeer::addSelectColumns($criteria);
         $startcol4 = $startcol3 + OrdencompraPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(OrdencompradetallePeer::IDARTICULOVARIANTE, ArticulovariantePeer::IDARTICULOVARIANTE, $join_behavior);
+        $criteria->addJoin(OrdencompradetallePeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
 
         $criteria->addJoin(OrdencompradetallePeer::IDORDENCOMPRA, OrdencompraPeer::IDORDENCOMPRA, $join_behavior);
 
@@ -832,21 +832,21 @@ abstract class BaseOrdencompradetallePeer
                 OrdencompradetallePeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-            // Add objects for joined Articulovariante rows
+            // Add objects for joined Articulo rows
 
-            $key2 = ArticulovariantePeer::getPrimaryKeyHashFromRow($row, $startcol2);
+            $key2 = ArticuloPeer::getPrimaryKeyHashFromRow($row, $startcol2);
             if ($key2 !== null) {
-                $obj2 = ArticulovariantePeer::getInstanceFromPool($key2);
+                $obj2 = ArticuloPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = ArticulovariantePeer::getOMClass();
+                    $cls = ArticuloPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    ArticulovariantePeer::addInstanceToPool($obj2, $key2);
+                    ArticuloPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 loaded
 
-                // Add the $obj1 (Ordencompradetalle) to the collection in $obj2 (Articulovariante)
+                // Add the $obj1 (Ordencompradetalle) to the collection in $obj2 (Articulo)
                 $obj2->addOrdencompradetalle($obj1);
             } // if joined row not null
 
@@ -877,7 +877,7 @@ abstract class BaseOrdencompradetallePeer
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Articulovariante table
+     * Returns the number of rows matching criteria, joining the related Articulo table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -885,7 +885,7 @@ abstract class BaseOrdencompradetallePeer
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinAllExceptArticulovariante(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinAllExceptArticulo(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -963,7 +963,7 @@ abstract class BaseOrdencompradetallePeer
             $con = Propel::getConnection(OrdencompradetallePeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(OrdencompradetallePeer::IDARTICULOVARIANTE, ArticulovariantePeer::IDARTICULOVARIANTE, $join_behavior);
+        $criteria->addJoin(OrdencompradetallePeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -979,7 +979,7 @@ abstract class BaseOrdencompradetallePeer
 
 
     /**
-     * Selects a collection of Ordencompradetalle objects pre-filled with all related objects except Articulovariante.
+     * Selects a collection of Ordencompradetalle objects pre-filled with all related objects except Articulo.
      *
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -988,7 +988,7 @@ abstract class BaseOrdencompradetallePeer
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinAllExceptArticulovariante(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinAllExceptArticulo(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -1076,10 +1076,10 @@ abstract class BaseOrdencompradetallePeer
         OrdencompradetallePeer::addSelectColumns($criteria);
         $startcol2 = OrdencompradetallePeer::NUM_HYDRATE_COLUMNS;
 
-        ArticulovariantePeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + ArticulovariantePeer::NUM_HYDRATE_COLUMNS;
+        ArticuloPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + ArticuloPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(OrdencompradetallePeer::IDARTICULOVARIANTE, ArticulovariantePeer::IDARTICULOVARIANTE, $join_behavior);
+        $criteria->addJoin(OrdencompradetallePeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
 
 
         $stmt = BasePeer::doSelect($criteria, $con);
@@ -1099,21 +1099,21 @@ abstract class BaseOrdencompradetallePeer
                 OrdencompradetallePeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-                // Add objects for joined Articulovariante rows
+                // Add objects for joined Articulo rows
 
-                $key2 = ArticulovariantePeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                $key2 = ArticuloPeer::getPrimaryKeyHashFromRow($row, $startcol2);
                 if ($key2 !== null) {
-                    $obj2 = ArticulovariantePeer::getInstanceFromPool($key2);
+                    $obj2 = ArticuloPeer::getInstanceFromPool($key2);
                     if (!$obj2) {
 
-                        $cls = ArticulovariantePeer::getOMClass();
+                        $cls = ArticuloPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    ArticulovariantePeer::addInstanceToPool($obj2, $key2);
+                    ArticuloPeer::addInstanceToPool($obj2, $key2);
                 } // if $obj2 already loaded
 
-                // Add the $obj1 (Ordencompradetalle) to the collection in $obj2 (Articulovariante)
+                // Add the $obj1 (Ordencompradetalle) to the collection in $obj2 (Articulo)
                 $obj2->addOrdencompradetalle($obj1);
 
             } // if joined row is not null

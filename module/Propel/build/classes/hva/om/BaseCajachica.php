@@ -72,12 +72,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
     protected $collCajachicadetallesPartial;
 
     /**
-     * @var        PropelObjectCollection|Venta[] Collection to store aggregation of Venta objects.
-     */
-    protected $collVentas;
-    protected $collVentasPartial;
-
-    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -102,12 +96,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
      * @var		PropelObjectCollection
      */
     protected $cajachicadetallesScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $ventasScheduledForDeletion = null;
 
     /**
      * Get the [idcajachica] column value.
@@ -474,8 +462,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
 
             $this->collCajachicadetalles = null;
 
-            $this->collVentas = null;
-
         } // if (deep)
     }
 
@@ -611,23 +597,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
 
             if ($this->collCajachicadetalles !== null) {
                 foreach ($this->collCajachicadetalles as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
-            if ($this->ventasScheduledForDeletion !== null) {
-                if (!$this->ventasScheduledForDeletion->isEmpty()) {
-                    VentaQuery::create()
-                        ->filterByPrimaryKeys($this->ventasScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->ventasScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collVentas !== null) {
-                foreach ($this->collVentas as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -814,14 +783,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
                     }
                 }
 
-                if ($this->collVentas !== null) {
-                    foreach ($this->collVentas as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
-
 
             $this->alreadyInValidation = false;
         }
@@ -919,9 +880,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
         if ($includeForeignObjects) {
             if (null !== $this->collCajachicadetalles) {
                 $result['Cajachicadetalles'] = $this->collCajachicadetalles->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->collVentas) {
-                $result['Ventas'] = $this->collVentas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1104,12 +1062,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
                 }
             }
 
-            foreach ($this->getVentas() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addVenta($relObj->copy($deepCopy));
-                }
-            }
-
             //unflag object copy
             $this->startCopy = false;
         } // if ($deepCopy)
@@ -1173,9 +1125,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
     {
         if ('Cajachicadetalle' == $relationName) {
             $this->initCajachicadetalles();
-        }
-        if ('Venta' == $relationName) {
-            $this->initVentas();
         }
     }
 
@@ -1430,256 +1379,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
     }
 
     /**
-     * Clears out the collVentas collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Cajachica The current object (for fluent API support)
-     * @see        addVentas()
-     */
-    public function clearVentas()
-    {
-        $this->collVentas = null; // important to set this to null since that means it is uninitialized
-        $this->collVentasPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collVentas collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialVentas($v = true)
-    {
-        $this->collVentasPartial = $v;
-    }
-
-    /**
-     * Initializes the collVentas collection.
-     *
-     * By default this just sets the collVentas collection to an empty array (like clearcollVentas());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initVentas($overrideExisting = true)
-    {
-        if (null !== $this->collVentas && !$overrideExisting) {
-            return;
-        }
-        $this->collVentas = new PropelObjectCollection();
-        $this->collVentas->setModel('Venta');
-    }
-
-    /**
-     * Gets an array of Venta objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Cajachica is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Venta[] List of Venta objects
-     * @throws PropelException
-     */
-    public function getVentas($criteria = null, PropelPDO $con = null)
-    {
-        $partial = $this->collVentasPartial && !$this->isNew();
-        if (null === $this->collVentas || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collVentas) {
-                // return empty collection
-                $this->initVentas();
-            } else {
-                $collVentas = VentaQuery::create(null, $criteria)
-                    ->filterByCajachica($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collVentasPartial && count($collVentas)) {
-                      $this->initVentas(false);
-
-                      foreach ($collVentas as $obj) {
-                        if (false == $this->collVentas->contains($obj)) {
-                          $this->collVentas->append($obj);
-                        }
-                      }
-
-                      $this->collVentasPartial = true;
-                    }
-
-                    $collVentas->getInternalIterator()->rewind();
-
-                    return $collVentas;
-                }
-
-                if ($partial && $this->collVentas) {
-                    foreach ($this->collVentas as $obj) {
-                        if ($obj->isNew()) {
-                            $collVentas[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collVentas = $collVentas;
-                $this->collVentasPartial = false;
-            }
-        }
-
-        return $this->collVentas;
-    }
-
-    /**
-     * Sets a collection of Venta objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $ventas A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Cajachica The current object (for fluent API support)
-     */
-    public function setVentas(PropelCollection $ventas, PropelPDO $con = null)
-    {
-        $ventasToDelete = $this->getVentas(new Criteria(), $con)->diff($ventas);
-
-
-        $this->ventasScheduledForDeletion = $ventasToDelete;
-
-        foreach ($ventasToDelete as $ventaRemoved) {
-            $ventaRemoved->setCajachica(null);
-        }
-
-        $this->collVentas = null;
-        foreach ($ventas as $venta) {
-            $this->addVenta($venta);
-        }
-
-        $this->collVentas = $ventas;
-        $this->collVentasPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Venta objects.
-     *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Venta objects.
-     * @throws PropelException
-     */
-    public function countVentas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        $partial = $this->collVentasPartial && !$this->isNew();
-        if (null === $this->collVentas || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collVentas) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getVentas());
-            }
-            $query = VentaQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByCajachica($this)
-                ->count($con);
-        }
-
-        return count($this->collVentas);
-    }
-
-    /**
-     * Method called to associate a Venta object to this object
-     * through the Venta foreign key attribute.
-     *
-     * @param    Venta $l Venta
-     * @return Cajachica The current object (for fluent API support)
-     */
-    public function addVenta(Venta $l)
-    {
-        if ($this->collVentas === null) {
-            $this->initVentas();
-            $this->collVentasPartial = true;
-        }
-
-        if (!in_array($l, $this->collVentas->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddVenta($l);
-
-            if ($this->ventasScheduledForDeletion and $this->ventasScheduledForDeletion->contains($l)) {
-                $this->ventasScheduledForDeletion->remove($this->ventasScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	Venta $venta The venta object to add.
-     */
-    protected function doAddVenta($venta)
-    {
-        $this->collVentas[]= $venta;
-        $venta->setCajachica($this);
-    }
-
-    /**
-     * @param	Venta $venta The venta object to remove.
-     * @return Cajachica The current object (for fluent API support)
-     */
-    public function removeVenta($venta)
-    {
-        if ($this->getVentas()->contains($venta)) {
-            $this->collVentas->remove($this->collVentas->search($venta));
-            if (null === $this->ventasScheduledForDeletion) {
-                $this->ventasScheduledForDeletion = clone $this->collVentas;
-                $this->ventasScheduledForDeletion->clear();
-            }
-            $this->ventasScheduledForDeletion[]= clone $venta;
-            $venta->setCajachica(null);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Cajachica is new, it will return
-     * an empty collection; or if this Cajachica has previously
-     * been saved, it will retrieve related Ventas from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Cajachica.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Venta[] List of Venta objects
-     */
-    public function getVentasJoinPaciente($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $query = VentaQuery::create(null, $criteria);
-        $query->joinWith('Paciente', $join_behavior);
-
-        return $this->getVentas($query, $con);
-    }
-
-    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
@@ -1717,11 +1416,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collVentas) {
-                foreach ($this->collVentas as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
@@ -1730,10 +1424,6 @@ abstract class BaseCajachica extends BaseObject implements Persistent
             $this->collCajachicadetalles->clearIterator();
         }
         $this->collCajachicadetalles = null;
-        if ($this->collVentas instanceof PropelCollection) {
-            $this->collVentas->clearIterator();
-        }
-        $this->collVentas = null;
     }
 
     /**

@@ -66,13 +66,13 @@
  * @method MedicoQuery rightJoinConsulta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Consulta relation
  * @method MedicoQuery innerJoinConsulta($relationAlias = null) Adds a INNER JOIN clause to the query using the Consulta relation
  *
+ * @method MedicoQuery leftJoinDatosfacturacionmedico($relationAlias = null) Adds a LEFT JOIN clause to the query using the Datosfacturacionmedico relation
+ * @method MedicoQuery rightJoinDatosfacturacionmedico($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Datosfacturacionmedico relation
+ * @method MedicoQuery innerJoinDatosfacturacionmedico($relationAlias = null) Adds a INNER JOIN clause to the query using the Datosfacturacionmedico relation
+ *
  * @method MedicoQuery leftJoinMedicoespecialidad($relationAlias = null) Adds a LEFT JOIN clause to the query using the Medicoespecialidad relation
  * @method MedicoQuery rightJoinMedicoespecialidad($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Medicoespecialidad relation
  * @method MedicoQuery innerJoinMedicoespecialidad($relationAlias = null) Adds a INNER JOIN clause to the query using the Medicoespecialidad relation
- *
- * @method MedicoQuery leftJoinMedicofacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Medicofacturacion relation
- * @method MedicoQuery rightJoinMedicofacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Medicofacturacion relation
- * @method MedicoQuery innerJoinMedicofacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Medicofacturacion relation
  *
  * @method Medico findOne(PropelPDO $con = null) Return the first Medico matching the query
  * @method Medico findOneOrCreate(PropelPDO $con = null) Return the first Medico matching the query, or a new Medico object populated from the query conditions when no match is found
@@ -1189,6 +1189,80 @@ abstract class BaseMedicoQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query by a related Datosfacturacionmedico object
+     *
+     * @param   Datosfacturacionmedico|PropelObjectCollection $datosfacturacionmedico  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 MedicoQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByDatosfacturacionmedico($datosfacturacionmedico, $comparison = null)
+    {
+        if ($datosfacturacionmedico instanceof Datosfacturacionmedico) {
+            return $this
+                ->addUsingAlias(MedicoPeer::IDMEDICO, $datosfacturacionmedico->getIdmedico(), $comparison);
+        } elseif ($datosfacturacionmedico instanceof PropelObjectCollection) {
+            return $this
+                ->useDatosfacturacionmedicoQuery()
+                ->filterByPrimaryKeys($datosfacturacionmedico->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByDatosfacturacionmedico() only accepts arguments of type Datosfacturacionmedico or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Datosfacturacionmedico relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return MedicoQuery The current query, for fluid interface
+     */
+    public function joinDatosfacturacionmedico($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Datosfacturacionmedico');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Datosfacturacionmedico');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Datosfacturacionmedico relation Datosfacturacionmedico object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   DatosfacturacionmedicoQuery A secondary query class using the current class as primary query
+     */
+    public function useDatosfacturacionmedicoQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinDatosfacturacionmedico($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Datosfacturacionmedico', 'DatosfacturacionmedicoQuery');
+    }
+
+    /**
      * Filter the query by a related Medicoespecialidad object
      *
      * @param   Medicoespecialidad|PropelObjectCollection $medicoespecialidad  the related object to use as filter
@@ -1260,80 +1334,6 @@ abstract class BaseMedicoQuery extends ModelCriteria
         return $this
             ->joinMedicoespecialidad($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Medicoespecialidad', 'MedicoespecialidadQuery');
-    }
-
-    /**
-     * Filter the query by a related Medicofacturacion object
-     *
-     * @param   Medicofacturacion|PropelObjectCollection $medicofacturacion  the related object to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return                 MedicoQuery The current query, for fluid interface
-     * @throws PropelException - if the provided filter is invalid.
-     */
-    public function filterByMedicofacturacion($medicofacturacion, $comparison = null)
-    {
-        if ($medicofacturacion instanceof Medicofacturacion) {
-            return $this
-                ->addUsingAlias(MedicoPeer::IDMEDICO, $medicofacturacion->getIdmedico(), $comparison);
-        } elseif ($medicofacturacion instanceof PropelObjectCollection) {
-            return $this
-                ->useMedicofacturacionQuery()
-                ->filterByPrimaryKeys($medicofacturacion->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByMedicofacturacion() only accepts arguments of type Medicofacturacion or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Medicofacturacion relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return MedicoQuery The current query, for fluid interface
-     */
-    public function joinMedicofacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Medicofacturacion');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Medicofacturacion');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Medicofacturacion relation Medicofacturacion object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   MedicofacturacionQuery A secondary query class using the current class as primary query
-     */
-    public function useMedicofacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinMedicofacturacion($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Medicofacturacion', 'MedicofacturacionQuery');
     }
 
     /**

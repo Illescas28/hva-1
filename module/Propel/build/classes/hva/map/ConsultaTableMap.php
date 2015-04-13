@@ -42,8 +42,8 @@ class ConsultaTableMap extends TableMap
         $this->addForeignKey('idpaciente', 'Idpaciente', 'INTEGER', 'paciente', 'idpaciente', true, null, null);
         $this->addForeignKey('idmedico', 'Idmedico', 'INTEGER', 'medico', 'idmedico', true, null, null);
         $this->addForeignKey('idcuarto', 'Idcuarto', 'INTEGER', 'cuarto', 'idcuarto', true, null, null);
-        $this->addColumn('consulta_fechaadmision', 'ConsultaFechaadmision', 'TIMESTAMP', true, null, null);
-        $this->addColumn('consulta_fechasalida', 'ConsultaFechasalida', 'TIMESTAMP', false, null, null);
+        $this->addColumn('consulta_fechaAdmision', 'ConsultaFechaadmision', 'TIMESTAMP', true, null, null);
+        $this->addColumn('consulta_fechaSalida', 'ConsultaFechasalida', 'TIMESTAMP', false, null, null);
         $this->addColumn('consulta_diagnostico', 'ConsultaDiagnostico', 'LONGVARCHAR', false, null, null);
         $this->addColumn('consulta_observaciones', 'ConsultaObservaciones', 'LONGVARCHAR', false, null, null);
         $this->addColumn('consulta_status', 'ConsultaStatus', 'CHAR', false, null, 'pendiente');
@@ -52,7 +52,7 @@ class ConsultaTableMap extends TableMap
   1 => 'no pagada',
   2 => 'pendiente',
 ));
-        $this->addColumn('consulta_total', 'ConsultaTotal', 'DECIMAL', false, 10, null);
+        $this->addColumn('consulta_total', 'ConsultaTotal', 'VARCHAR', false, 45, null);
         // validators
     } // initialize()
 

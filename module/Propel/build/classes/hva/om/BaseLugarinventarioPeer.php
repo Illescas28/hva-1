@@ -376,9 +376,6 @@ abstract class BaseLugarinventarioPeer
         // Invalidate objects in CargoconsultaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         CargoconsultaPeer::clearInstancePool();
-        // Invalidate objects in CargoventaPeer instance pool,
-        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        CargoventaPeer::clearInstancePool();
         // Invalidate objects in TraspasodetallesPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         TraspasodetallesPeer::clearInstancePool();
@@ -1354,12 +1351,6 @@ abstract class BaseLugarinventarioPeer
 
             $criteria->add(CargoconsultaPeer::IDLUGARINVENTARIO, $obj->getIdlugarinventario());
             $affectedRows += CargoconsultaPeer::doDelete($criteria, $con);
-
-            // delete related Cargoventa objects
-            $criteria = new Criteria(CargoventaPeer::DATABASE_NAME);
-
-            $criteria->add(CargoventaPeer::IDLUGARINVENTARIO, $obj->getIdlugarinventario());
-            $affectedRows += CargoventaPeer::doDelete($criteria, $con);
 
             // delete related Traspasodetalles objects
             $criteria = new Criteria(TraspasodetallesPeer::DATABASE_NAME);

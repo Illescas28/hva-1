@@ -383,9 +383,6 @@ abstract class BaseCajachicaPeer
         // Invalidate objects in CajachicadetallePeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         CajachicadetallePeer::clearInstancePool();
-        // Invalidate objects in VentaPeer instance pool,
-        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        VentaPeer::clearInstancePool();
     }
 
     /**
@@ -725,12 +722,6 @@ abstract class BaseCajachicaPeer
 
             $criteria->add(CajachicadetallePeer::IDCAJACHICA, $obj->getIdcajachica());
             $affectedRows += CajachicadetallePeer::doDelete($criteria, $con);
-
-            // delete related Venta objects
-            $criteria = new Criteria(VentaPeer::DATABASE_NAME);
-
-            $criteria->add(VentaPeer::IDCAJACHICA, $obj->getIdcajachica());
-            $affectedRows += VentaPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

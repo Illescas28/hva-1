@@ -125,9 +125,9 @@ abstract class BaseFactura extends BaseObject implements Persistent
     protected $aConsulta;
 
     /**
-     * @var        Pacientefacturacion
+     * @var        Datosfacturacion
      */
-    protected $aPacientefacturacion;
+    protected $aDatosfacturacion;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -381,8 +381,8 @@ abstract class BaseFactura extends BaseObject implements Persistent
             $this->modifiedColumns[] = FacturaPeer::IDDATOSFACTURACION;
         }
 
-        if ($this->aPacientefacturacion !== null && $this->aPacientefacturacion->getIdpacientefacturacion() !== $v) {
-            $this->aPacientefacturacion = null;
+        if ($this->aDatosfacturacion !== null && $this->aDatosfacturacion->getIddatosfacturacion() !== $v) {
+            $this->aDatosfacturacion = null;
         }
 
 
@@ -747,8 +747,8 @@ abstract class BaseFactura extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
-        if ($this->aPacientefacturacion !== null && $this->iddatosfacturacion !== $this->aPacientefacturacion->getIdpacientefacturacion()) {
-            $this->aPacientefacturacion = null;
+        if ($this->aDatosfacturacion !== null && $this->iddatosfacturacion !== $this->aDatosfacturacion->getIddatosfacturacion()) {
+            $this->aDatosfacturacion = null;
         }
         if ($this->aConsulta !== null && $this->idconsulta !== $this->aConsulta->getIdconsulta()) {
             $this->aConsulta = null;
@@ -793,7 +793,7 @@ abstract class BaseFactura extends BaseObject implements Persistent
         if ($deep) {  // also de-associate any related objects?
 
             $this->aConsulta = null;
-            $this->aPacientefacturacion = null;
+            $this->aDatosfacturacion = null;
         } // if (deep)
     }
 
@@ -919,11 +919,11 @@ abstract class BaseFactura extends BaseObject implements Persistent
                 $this->setConsulta($this->aConsulta);
             }
 
-            if ($this->aPacientefacturacion !== null) {
-                if ($this->aPacientefacturacion->isModified() || $this->aPacientefacturacion->isNew()) {
-                    $affectedRows += $this->aPacientefacturacion->save($con);
+            if ($this->aDatosfacturacion !== null) {
+                if ($this->aDatosfacturacion->isModified() || $this->aDatosfacturacion->isNew()) {
+                    $affectedRows += $this->aDatosfacturacion->save($con);
                 }
-                $this->setPacientefacturacion($this->aPacientefacturacion);
+                $this->setDatosfacturacion($this->aDatosfacturacion);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -1169,9 +1169,9 @@ abstract class BaseFactura extends BaseObject implements Persistent
                 }
             }
 
-            if ($this->aPacientefacturacion !== null) {
-                if (!$this->aPacientefacturacion->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aPacientefacturacion->getValidationFailures());
+            if ($this->aDatosfacturacion !== null) {
+                if (!$this->aDatosfacturacion->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aDatosfacturacion->getValidationFailures());
                 }
             }
 
@@ -1315,8 +1315,8 @@ abstract class BaseFactura extends BaseObject implements Persistent
             if (null !== $this->aConsulta) {
                 $result['Consulta'] = $this->aConsulta->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->aPacientefacturacion) {
-                $result['Pacientefacturacion'] = $this->aPacientefacturacion->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            if (null !== $this->aDatosfacturacion) {
+                $result['Datosfacturacion'] = $this->aDatosfacturacion->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -1650,24 +1650,24 @@ abstract class BaseFactura extends BaseObject implements Persistent
     }
 
     /**
-     * Declares an association between this object and a Pacientefacturacion object.
+     * Declares an association between this object and a Datosfacturacion object.
      *
-     * @param                  Pacientefacturacion $v
+     * @param                  Datosfacturacion $v
      * @return Factura The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setPacientefacturacion(Pacientefacturacion $v = null)
+    public function setDatosfacturacion(Datosfacturacion $v = null)
     {
         if ($v === null) {
             $this->setIddatosfacturacion(NULL);
         } else {
-            $this->setIddatosfacturacion($v->getIdpacientefacturacion());
+            $this->setIddatosfacturacion($v->getIddatosfacturacion());
         }
 
-        $this->aPacientefacturacion = $v;
+        $this->aDatosfacturacion = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Pacientefacturacion object, it will not be re-added.
+        // If this object has already been added to the Datosfacturacion object, it will not be re-added.
         if ($v !== null) {
             $v->addFactura($this);
         }
@@ -1678,27 +1678,27 @@ abstract class BaseFactura extends BaseObject implements Persistent
 
 
     /**
-     * Get the associated Pacientefacturacion object
+     * Get the associated Datosfacturacion object
      *
      * @param PropelPDO $con Optional Connection object.
      * @param $doQuery Executes a query to get the object if required
-     * @return Pacientefacturacion The associated Pacientefacturacion object.
+     * @return Datosfacturacion The associated Datosfacturacion object.
      * @throws PropelException
      */
-    public function getPacientefacturacion(PropelPDO $con = null, $doQuery = true)
+    public function getDatosfacturacion(PropelPDO $con = null, $doQuery = true)
     {
-        if ($this->aPacientefacturacion === null && ($this->iddatosfacturacion !== null) && $doQuery) {
-            $this->aPacientefacturacion = PacientefacturacionQuery::create()->findPk($this->iddatosfacturacion, $con);
+        if ($this->aDatosfacturacion === null && ($this->iddatosfacturacion !== null) && $doQuery) {
+            $this->aDatosfacturacion = DatosfacturacionQuery::create()->findPk($this->iddatosfacturacion, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aPacientefacturacion->addFacturas($this);
+                $this->aDatosfacturacion->addFacturas($this);
              */
         }
 
-        return $this->aPacientefacturacion;
+        return $this->aDatosfacturacion;
     }
 
     /**
@@ -1746,15 +1746,15 @@ abstract class BaseFactura extends BaseObject implements Persistent
             if ($this->aConsulta instanceof Persistent) {
               $this->aConsulta->clearAllReferences($deep);
             }
-            if ($this->aPacientefacturacion instanceof Persistent) {
-              $this->aPacientefacturacion->clearAllReferences($deep);
+            if ($this->aDatosfacturacion instanceof Persistent) {
+              $this->aDatosfacturacion->clearAllReferences($deep);
             }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
         $this->aConsulta = null;
-        $this->aPacientefacturacion = null;
+        $this->aDatosfacturacion = null;
     }
 
     /**

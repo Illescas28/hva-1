@@ -7,19 +7,19 @@
  *
  *
  * @method CargoadmisionQuery orderByIdcargoadmision($order = Criteria::ASC) Order by the idcargoadmision column
- * @method CargoadmisionQuery orderByIdadmision($order = Criteria::ASC) Order by the idadmision column
  * @method CargoadmisionQuery orderByIdlugarinventario($order = Criteria::ASC) Order by the idlugarinventario column
  * @method CargoadmisionQuery orderByIdservicio($order = Criteria::ASC) Order by the idservicio column
  * @method CargoadmisionQuery orderByCargoadmisionTipo($order = Criteria::ASC) Order by the cargoadmision_tipo column
+ * @method CargoadmisionQuery orderByIdadmision($order = Criteria::ASC) Order by the idadmision column
  * @method CargoadmisionQuery orderByCargoadmisionFecha($order = Criteria::ASC) Order by the cargoadmision_fecha column
  * @method CargoadmisionQuery orderByCargoadmisionCantidad($order = Criteria::ASC) Order by the cargoadmision_cantidad column
  * @method CargoadmisionQuery orderByCargoadmisionMonto($order = Criteria::ASC) Order by the cargoadmision_monto column
  *
  * @method CargoadmisionQuery groupByIdcargoadmision() Group by the idcargoadmision column
- * @method CargoadmisionQuery groupByIdadmision() Group by the idadmision column
  * @method CargoadmisionQuery groupByIdlugarinventario() Group by the idlugarinventario column
  * @method CargoadmisionQuery groupByIdservicio() Group by the idservicio column
  * @method CargoadmisionQuery groupByCargoadmisionTipo() Group by the cargoadmision_tipo column
+ * @method CargoadmisionQuery groupByIdadmision() Group by the idadmision column
  * @method CargoadmisionQuery groupByCargoadmisionFecha() Group by the cargoadmision_fecha column
  * @method CargoadmisionQuery groupByCargoadmisionCantidad() Group by the cargoadmision_cantidad column
  * @method CargoadmisionQuery groupByCargoadmisionMonto() Group by the cargoadmision_monto column
@@ -43,19 +43,19 @@
  * @method Cargoadmision findOne(PropelPDO $con = null) Return the first Cargoadmision matching the query
  * @method Cargoadmision findOneOrCreate(PropelPDO $con = null) Return the first Cargoadmision matching the query, or a new Cargoadmision object populated from the query conditions when no match is found
  *
- * @method Cargoadmision findOneByIdadmision(int $idadmision) Return the first Cargoadmision filtered by the idadmision column
  * @method Cargoadmision findOneByIdlugarinventario(int $idlugarinventario) Return the first Cargoadmision filtered by the idlugarinventario column
  * @method Cargoadmision findOneByIdservicio(int $idservicio) Return the first Cargoadmision filtered by the idservicio column
  * @method Cargoadmision findOneByCargoadmisionTipo(string $cargoadmision_tipo) Return the first Cargoadmision filtered by the cargoadmision_tipo column
+ * @method Cargoadmision findOneByIdadmision(int $idadmision) Return the first Cargoadmision filtered by the idadmision column
  * @method Cargoadmision findOneByCargoadmisionFecha(string $cargoadmision_fecha) Return the first Cargoadmision filtered by the cargoadmision_fecha column
  * @method Cargoadmision findOneByCargoadmisionCantidad(string $cargoadmision_cantidad) Return the first Cargoadmision filtered by the cargoadmision_cantidad column
  * @method Cargoadmision findOneByCargoadmisionMonto(string $cargoadmision_monto) Return the first Cargoadmision filtered by the cargoadmision_monto column
  *
  * @method array findByIdcargoadmision(int $idcargoadmision) Return Cargoadmision objects filtered by the idcargoadmision column
- * @method array findByIdadmision(int $idadmision) Return Cargoadmision objects filtered by the idadmision column
  * @method array findByIdlugarinventario(int $idlugarinventario) Return Cargoadmision objects filtered by the idlugarinventario column
  * @method array findByIdservicio(int $idservicio) Return Cargoadmision objects filtered by the idservicio column
  * @method array findByCargoadmisionTipo(string $cargoadmision_tipo) Return Cargoadmision objects filtered by the cargoadmision_tipo column
+ * @method array findByIdadmision(int $idadmision) Return Cargoadmision objects filtered by the idadmision column
  * @method array findByCargoadmisionFecha(string $cargoadmision_fecha) Return Cargoadmision objects filtered by the cargoadmision_fecha column
  * @method array findByCargoadmisionCantidad(string $cargoadmision_cantidad) Return Cargoadmision objects filtered by the cargoadmision_cantidad column
  * @method array findByCargoadmisionMonto(string $cargoadmision_monto) Return Cargoadmision objects filtered by the cargoadmision_monto column
@@ -166,7 +166,7 @@ abstract class BaseCargoadmisionQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idcargoadmision`, `idadmision`, `idlugarinventario`, `idservicio`, `cargoadmision_tipo`, `cargoadmision_fecha`, `cargoadmision_cantidad`, `cargoadmision_monto` FROM `cargoadmision` WHERE `idcargoadmision` = :p0';
+        $sql = 'SELECT `idcargoadmision`, `idlugarinventario`, `idservicio`, `cargoadmision_tipo`, `idadmision`, `cargoadmision_fecha`, `cargoadmision_cantidad`, `cargoadmision_monto` FROM `cargoadmision` WHERE `idcargoadmision` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -298,50 +298,6 @@ abstract class BaseCargoadmisionQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the idadmision column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByIdadmision(1234); // WHERE idadmision = 1234
-     * $query->filterByIdadmision(array(12, 34)); // WHERE idadmision IN (12, 34)
-     * $query->filterByIdadmision(array('min' => 12)); // WHERE idadmision >= 12
-     * $query->filterByIdadmision(array('max' => 12)); // WHERE idadmision <= 12
-     * </code>
-     *
-     * @see       filterByAdmision()
-     *
-     * @param     mixed $idadmision The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return CargoadmisionQuery The current query, for fluid interface
-     */
-    public function filterByIdadmision($idadmision = null, $comparison = null)
-    {
-        if (is_array($idadmision)) {
-            $useMinMax = false;
-            if (isset($idadmision['min'])) {
-                $this->addUsingAlias(CargoadmisionPeer::IDADMISION, $idadmision['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($idadmision['max'])) {
-                $this->addUsingAlias(CargoadmisionPeer::IDADMISION, $idadmision['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(CargoadmisionPeer::IDADMISION, $idadmision, $comparison);
-    }
-
-    /**
      * Filter the query on the idlugarinventario column
      *
      * Example usage:
@@ -456,6 +412,50 @@ abstract class BaseCargoadmisionQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(CargoadmisionPeer::CARGOADMISION_TIPO, $cargoadmisionTipo, $comparison);
+    }
+
+    /**
+     * Filter the query on the idadmision column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIdadmision(1234); // WHERE idadmision = 1234
+     * $query->filterByIdadmision(array(12, 34)); // WHERE idadmision IN (12, 34)
+     * $query->filterByIdadmision(array('min' => 12)); // WHERE idadmision >= 12
+     * $query->filterByIdadmision(array('max' => 12)); // WHERE idadmision <= 12
+     * </code>
+     *
+     * @see       filterByAdmision()
+     *
+     * @param     mixed $idadmision The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return CargoadmisionQuery The current query, for fluid interface
+     */
+    public function filterByIdadmision($idadmision = null, $comparison = null)
+    {
+        if (is_array($idadmision)) {
+            $useMinMax = false;
+            if (isset($idadmision['min'])) {
+                $this->addUsingAlias(CargoadmisionPeer::IDADMISION, $idadmision['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($idadmision['max'])) {
+                $this->addUsingAlias(CargoadmisionPeer::IDADMISION, $idadmision['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(CargoadmisionPeer::IDADMISION, $idadmision, $comparison);
     }
 
     /**

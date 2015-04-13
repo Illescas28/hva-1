@@ -180,16 +180,10 @@ abstract class BasePaciente extends BaseObject implements Persistent
     protected $collConsultasPartial;
 
     /**
-     * @var        PropelObjectCollection|Pacientefacturacion[] Collection to store aggregation of Pacientefacturacion objects.
+     * @var        PropelObjectCollection|Datosfacturacion[] Collection to store aggregation of Datosfacturacion objects.
      */
-    protected $collPacientefacturacions;
-    protected $collPacientefacturacionsPartial;
-
-    /**
-     * @var        PropelObjectCollection|Venta[] Collection to store aggregation of Venta objects.
-     */
-    protected $collVentas;
-    protected $collVentasPartial;
+    protected $collDatosfacturacions;
+    protected $collDatosfacturacionsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -233,13 +227,7 @@ abstract class BasePaciente extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $pacientefacturacionsScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $ventasScheduledForDeletion = null;
+    protected $datosfacturacionsScheduledForDeletion = null;
 
     /**
      * Get the [idpaciente] column value.
@@ -1076,9 +1064,7 @@ abstract class BasePaciente extends BaseObject implements Persistent
 
             $this->collConsultas = null;
 
-            $this->collPacientefacturacions = null;
-
-            $this->collVentas = null;
+            $this->collDatosfacturacions = null;
 
         } // if (deep)
     }
@@ -1255,34 +1241,17 @@ abstract class BasePaciente extends BaseObject implements Persistent
                 }
             }
 
-            if ($this->pacientefacturacionsScheduledForDeletion !== null) {
-                if (!$this->pacientefacturacionsScheduledForDeletion->isEmpty()) {
-                    PacientefacturacionQuery::create()
-                        ->filterByPrimaryKeys($this->pacientefacturacionsScheduledForDeletion->getPrimaryKeys(false))
+            if ($this->datosfacturacionsScheduledForDeletion !== null) {
+                if (!$this->datosfacturacionsScheduledForDeletion->isEmpty()) {
+                    DatosfacturacionQuery::create()
+                        ->filterByPrimaryKeys($this->datosfacturacionsScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
-                    $this->pacientefacturacionsScheduledForDeletion = null;
+                    $this->datosfacturacionsScheduledForDeletion = null;
                 }
             }
 
-            if ($this->collPacientefacturacions !== null) {
-                foreach ($this->collPacientefacturacions as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
-            if ($this->ventasScheduledForDeletion !== null) {
-                if (!$this->ventasScheduledForDeletion->isEmpty()) {
-                    VentaQuery::create()
-                        ->filterByPrimaryKeys($this->ventasScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->ventasScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collVentas !== null) {
-                foreach ($this->collVentas as $referrerFK) {
+            if ($this->collDatosfacturacions !== null) {
+                foreach ($this->collDatosfacturacions as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1581,16 +1550,8 @@ abstract class BasePaciente extends BaseObject implements Persistent
                     }
                 }
 
-                if ($this->collPacientefacturacions !== null) {
-                    foreach ($this->collPacientefacturacions as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
-
-                if ($this->collVentas !== null) {
-                    foreach ($this->collVentas as $referrerFK) {
+                if ($this->collDatosfacturacions !== null) {
+                    foreach ($this->collDatosfacturacions as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -1765,11 +1726,8 @@ abstract class BasePaciente extends BaseObject implements Persistent
             if (null !== $this->collConsultas) {
                 $result['Consultas'] = $this->collConsultas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
-            if (null !== $this->collPacientefacturacions) {
-                $result['Pacientefacturacions'] = $this->collPacientefacturacions->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->collVentas) {
-                $result['Ventas'] = $this->collVentas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->collDatosfacturacions) {
+                $result['Datosfacturacions'] = $this->collDatosfacturacions->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -2060,15 +2018,9 @@ abstract class BasePaciente extends BaseObject implements Persistent
                 }
             }
 
-            foreach ($this->getPacientefacturacions() as $relObj) {
+            foreach ($this->getDatosfacturacions() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addPacientefacturacion($relObj->copy($deepCopy));
-                }
-            }
-
-            foreach ($this->getVentas() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addVenta($relObj->copy($deepCopy));
+                    $copyObj->addDatosfacturacion($relObj->copy($deepCopy));
                 }
             }
 
@@ -2142,11 +2094,8 @@ abstract class BasePaciente extends BaseObject implements Persistent
         if ('Consulta' == $relationName) {
             $this->initConsultas();
         }
-        if ('Pacientefacturacion' == $relationName) {
-            $this->initPacientefacturacions();
-        }
-        if ('Venta' == $relationName) {
-            $this->initVentas();
+        if ('Datosfacturacion' == $relationName) {
+            $this->initDatosfacturacions();
         }
     }
 
@@ -2951,36 +2900,36 @@ abstract class BasePaciente extends BaseObject implements Persistent
     }
 
     /**
-     * Clears out the collPacientefacturacions collection
+     * Clears out the collDatosfacturacions collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return Paciente The current object (for fluent API support)
-     * @see        addPacientefacturacions()
+     * @see        addDatosfacturacions()
      */
-    public function clearPacientefacturacions()
+    public function clearDatosfacturacions()
     {
-        $this->collPacientefacturacions = null; // important to set this to null since that means it is uninitialized
-        $this->collPacientefacturacionsPartial = null;
+        $this->collDatosfacturacions = null; // important to set this to null since that means it is uninitialized
+        $this->collDatosfacturacionsPartial = null;
 
         return $this;
     }
 
     /**
-     * reset is the collPacientefacturacions collection loaded partially
+     * reset is the collDatosfacturacions collection loaded partially
      *
      * @return void
      */
-    public function resetPartialPacientefacturacions($v = true)
+    public function resetPartialDatosfacturacions($v = true)
     {
-        $this->collPacientefacturacionsPartial = $v;
+        $this->collDatosfacturacionsPartial = $v;
     }
 
     /**
-     * Initializes the collPacientefacturacions collection.
+     * Initializes the collDatosfacturacions collection.
      *
-     * By default this just sets the collPacientefacturacions collection to an empty array (like clearcollPacientefacturacions());
+     * By default this just sets the collDatosfacturacions collection to an empty array (like clearcollDatosfacturacions());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -2989,17 +2938,17 @@ abstract class BasePaciente extends BaseObject implements Persistent
      *
      * @return void
      */
-    public function initPacientefacturacions($overrideExisting = true)
+    public function initDatosfacturacions($overrideExisting = true)
     {
-        if (null !== $this->collPacientefacturacions && !$overrideExisting) {
+        if (null !== $this->collDatosfacturacions && !$overrideExisting) {
             return;
         }
-        $this->collPacientefacturacions = new PropelObjectCollection();
-        $this->collPacientefacturacions->setModel('Pacientefacturacion');
+        $this->collDatosfacturacions = new PropelObjectCollection();
+        $this->collDatosfacturacions->setModel('Datosfacturacion');
     }
 
     /**
-     * Gets an array of Pacientefacturacion objects which contain a foreign key that references this object.
+     * Gets an array of Datosfacturacion objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -3009,107 +2958,107 @@ abstract class BasePaciente extends BaseObject implements Persistent
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Pacientefacturacion[] List of Pacientefacturacion objects
+     * @return PropelObjectCollection|Datosfacturacion[] List of Datosfacturacion objects
      * @throws PropelException
      */
-    public function getPacientefacturacions($criteria = null, PropelPDO $con = null)
+    public function getDatosfacturacions($criteria = null, PropelPDO $con = null)
     {
-        $partial = $this->collPacientefacturacionsPartial && !$this->isNew();
-        if (null === $this->collPacientefacturacions || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collPacientefacturacions) {
+        $partial = $this->collDatosfacturacionsPartial && !$this->isNew();
+        if (null === $this->collDatosfacturacions || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collDatosfacturacions) {
                 // return empty collection
-                $this->initPacientefacturacions();
+                $this->initDatosfacturacions();
             } else {
-                $collPacientefacturacions = PacientefacturacionQuery::create(null, $criteria)
+                $collDatosfacturacions = DatosfacturacionQuery::create(null, $criteria)
                     ->filterByPaciente($this)
                     ->find($con);
                 if (null !== $criteria) {
-                    if (false !== $this->collPacientefacturacionsPartial && count($collPacientefacturacions)) {
-                      $this->initPacientefacturacions(false);
+                    if (false !== $this->collDatosfacturacionsPartial && count($collDatosfacturacions)) {
+                      $this->initDatosfacturacions(false);
 
-                      foreach ($collPacientefacturacions as $obj) {
-                        if (false == $this->collPacientefacturacions->contains($obj)) {
-                          $this->collPacientefacturacions->append($obj);
+                      foreach ($collDatosfacturacions as $obj) {
+                        if (false == $this->collDatosfacturacions->contains($obj)) {
+                          $this->collDatosfacturacions->append($obj);
                         }
                       }
 
-                      $this->collPacientefacturacionsPartial = true;
+                      $this->collDatosfacturacionsPartial = true;
                     }
 
-                    $collPacientefacturacions->getInternalIterator()->rewind();
+                    $collDatosfacturacions->getInternalIterator()->rewind();
 
-                    return $collPacientefacturacions;
+                    return $collDatosfacturacions;
                 }
 
-                if ($partial && $this->collPacientefacturacions) {
-                    foreach ($this->collPacientefacturacions as $obj) {
+                if ($partial && $this->collDatosfacturacions) {
+                    foreach ($this->collDatosfacturacions as $obj) {
                         if ($obj->isNew()) {
-                            $collPacientefacturacions[] = $obj;
+                            $collDatosfacturacions[] = $obj;
                         }
                     }
                 }
 
-                $this->collPacientefacturacions = $collPacientefacturacions;
-                $this->collPacientefacturacionsPartial = false;
+                $this->collDatosfacturacions = $collDatosfacturacions;
+                $this->collDatosfacturacionsPartial = false;
             }
         }
 
-        return $this->collPacientefacturacions;
+        return $this->collDatosfacturacions;
     }
 
     /**
-     * Sets a collection of Pacientefacturacion objects related by a one-to-many relationship
+     * Sets a collection of Datosfacturacion objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param PropelCollection $pacientefacturacions A Propel collection.
+     * @param PropelCollection $datosfacturacions A Propel collection.
      * @param PropelPDO $con Optional connection object
      * @return Paciente The current object (for fluent API support)
      */
-    public function setPacientefacturacions(PropelCollection $pacientefacturacions, PropelPDO $con = null)
+    public function setDatosfacturacions(PropelCollection $datosfacturacions, PropelPDO $con = null)
     {
-        $pacientefacturacionsToDelete = $this->getPacientefacturacions(new Criteria(), $con)->diff($pacientefacturacions);
+        $datosfacturacionsToDelete = $this->getDatosfacturacions(new Criteria(), $con)->diff($datosfacturacions);
 
 
-        $this->pacientefacturacionsScheduledForDeletion = $pacientefacturacionsToDelete;
+        $this->datosfacturacionsScheduledForDeletion = $datosfacturacionsToDelete;
 
-        foreach ($pacientefacturacionsToDelete as $pacientefacturacionRemoved) {
-            $pacientefacturacionRemoved->setPaciente(null);
+        foreach ($datosfacturacionsToDelete as $datosfacturacionRemoved) {
+            $datosfacturacionRemoved->setPaciente(null);
         }
 
-        $this->collPacientefacturacions = null;
-        foreach ($pacientefacturacions as $pacientefacturacion) {
-            $this->addPacientefacturacion($pacientefacturacion);
+        $this->collDatosfacturacions = null;
+        foreach ($datosfacturacions as $datosfacturacion) {
+            $this->addDatosfacturacion($datosfacturacion);
         }
 
-        $this->collPacientefacturacions = $pacientefacturacions;
-        $this->collPacientefacturacionsPartial = false;
+        $this->collDatosfacturacions = $datosfacturacions;
+        $this->collDatosfacturacionsPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related Pacientefacturacion objects.
+     * Returns the number of related Datosfacturacion objects.
      *
      * @param Criteria $criteria
      * @param boolean $distinct
      * @param PropelPDO $con
-     * @return int             Count of related Pacientefacturacion objects.
+     * @return int             Count of related Datosfacturacion objects.
      * @throws PropelException
      */
-    public function countPacientefacturacions(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function countDatosfacturacions(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
     {
-        $partial = $this->collPacientefacturacionsPartial && !$this->isNew();
-        if (null === $this->collPacientefacturacions || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collPacientefacturacions) {
+        $partial = $this->collDatosfacturacionsPartial && !$this->isNew();
+        if (null === $this->collDatosfacturacions || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collDatosfacturacions) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getPacientefacturacions());
+                return count($this->getDatosfacturacions());
             }
-            $query = PacientefacturacionQuery::create(null, $criteria);
+            $query = DatosfacturacionQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -3119,28 +3068,28 @@ abstract class BasePaciente extends BaseObject implements Persistent
                 ->count($con);
         }
 
-        return count($this->collPacientefacturacions);
+        return count($this->collDatosfacturacions);
     }
 
     /**
-     * Method called to associate a Pacientefacturacion object to this object
-     * through the Pacientefacturacion foreign key attribute.
+     * Method called to associate a Datosfacturacion object to this object
+     * through the Datosfacturacion foreign key attribute.
      *
-     * @param    Pacientefacturacion $l Pacientefacturacion
+     * @param    Datosfacturacion $l Datosfacturacion
      * @return Paciente The current object (for fluent API support)
      */
-    public function addPacientefacturacion(Pacientefacturacion $l)
+    public function addDatosfacturacion(Datosfacturacion $l)
     {
-        if ($this->collPacientefacturacions === null) {
-            $this->initPacientefacturacions();
-            $this->collPacientefacturacionsPartial = true;
+        if ($this->collDatosfacturacions === null) {
+            $this->initDatosfacturacions();
+            $this->collDatosfacturacionsPartial = true;
         }
 
-        if (!in_array($l, $this->collPacientefacturacions->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddPacientefacturacion($l);
+        if (!in_array($l, $this->collDatosfacturacions->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddDatosfacturacion($l);
 
-            if ($this->pacientefacturacionsScheduledForDeletion and $this->pacientefacturacionsScheduledForDeletion->contains($l)) {
-                $this->pacientefacturacionsScheduledForDeletion->remove($this->pacientefacturacionsScheduledForDeletion->search($l));
+            if ($this->datosfacturacionsScheduledForDeletion and $this->datosfacturacionsScheduledForDeletion->contains($l)) {
+                $this->datosfacturacionsScheduledForDeletion->remove($this->datosfacturacionsScheduledForDeletion->search($l));
             }
         }
 
@@ -3148,281 +3097,31 @@ abstract class BasePaciente extends BaseObject implements Persistent
     }
 
     /**
-     * @param	Pacientefacturacion $pacientefacturacion The pacientefacturacion object to add.
+     * @param	Datosfacturacion $datosfacturacion The datosfacturacion object to add.
      */
-    protected function doAddPacientefacturacion($pacientefacturacion)
+    protected function doAddDatosfacturacion($datosfacturacion)
     {
-        $this->collPacientefacturacions[]= $pacientefacturacion;
-        $pacientefacturacion->setPaciente($this);
+        $this->collDatosfacturacions[]= $datosfacturacion;
+        $datosfacturacion->setPaciente($this);
     }
 
     /**
-     * @param	Pacientefacturacion $pacientefacturacion The pacientefacturacion object to remove.
+     * @param	Datosfacturacion $datosfacturacion The datosfacturacion object to remove.
      * @return Paciente The current object (for fluent API support)
      */
-    public function removePacientefacturacion($pacientefacturacion)
+    public function removeDatosfacturacion($datosfacturacion)
     {
-        if ($this->getPacientefacturacions()->contains($pacientefacturacion)) {
-            $this->collPacientefacturacions->remove($this->collPacientefacturacions->search($pacientefacturacion));
-            if (null === $this->pacientefacturacionsScheduledForDeletion) {
-                $this->pacientefacturacionsScheduledForDeletion = clone $this->collPacientefacturacions;
-                $this->pacientefacturacionsScheduledForDeletion->clear();
+        if ($this->getDatosfacturacions()->contains($datosfacturacion)) {
+            $this->collDatosfacturacions->remove($this->collDatosfacturacions->search($datosfacturacion));
+            if (null === $this->datosfacturacionsScheduledForDeletion) {
+                $this->datosfacturacionsScheduledForDeletion = clone $this->collDatosfacturacions;
+                $this->datosfacturacionsScheduledForDeletion->clear();
             }
-            $this->pacientefacturacionsScheduledForDeletion[]= clone $pacientefacturacion;
-            $pacientefacturacion->setPaciente(null);
+            $this->datosfacturacionsScheduledForDeletion[]= clone $datosfacturacion;
+            $datosfacturacion->setPaciente(null);
         }
 
         return $this;
-    }
-
-    /**
-     * Clears out the collVentas collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Paciente The current object (for fluent API support)
-     * @see        addVentas()
-     */
-    public function clearVentas()
-    {
-        $this->collVentas = null; // important to set this to null since that means it is uninitialized
-        $this->collVentasPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collVentas collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialVentas($v = true)
-    {
-        $this->collVentasPartial = $v;
-    }
-
-    /**
-     * Initializes the collVentas collection.
-     *
-     * By default this just sets the collVentas collection to an empty array (like clearcollVentas());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initVentas($overrideExisting = true)
-    {
-        if (null !== $this->collVentas && !$overrideExisting) {
-            return;
-        }
-        $this->collVentas = new PropelObjectCollection();
-        $this->collVentas->setModel('Venta');
-    }
-
-    /**
-     * Gets an array of Venta objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Paciente is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Venta[] List of Venta objects
-     * @throws PropelException
-     */
-    public function getVentas($criteria = null, PropelPDO $con = null)
-    {
-        $partial = $this->collVentasPartial && !$this->isNew();
-        if (null === $this->collVentas || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collVentas) {
-                // return empty collection
-                $this->initVentas();
-            } else {
-                $collVentas = VentaQuery::create(null, $criteria)
-                    ->filterByPaciente($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collVentasPartial && count($collVentas)) {
-                      $this->initVentas(false);
-
-                      foreach ($collVentas as $obj) {
-                        if (false == $this->collVentas->contains($obj)) {
-                          $this->collVentas->append($obj);
-                        }
-                      }
-
-                      $this->collVentasPartial = true;
-                    }
-
-                    $collVentas->getInternalIterator()->rewind();
-
-                    return $collVentas;
-                }
-
-                if ($partial && $this->collVentas) {
-                    foreach ($this->collVentas as $obj) {
-                        if ($obj->isNew()) {
-                            $collVentas[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collVentas = $collVentas;
-                $this->collVentasPartial = false;
-            }
-        }
-
-        return $this->collVentas;
-    }
-
-    /**
-     * Sets a collection of Venta objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $ventas A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Paciente The current object (for fluent API support)
-     */
-    public function setVentas(PropelCollection $ventas, PropelPDO $con = null)
-    {
-        $ventasToDelete = $this->getVentas(new Criteria(), $con)->diff($ventas);
-
-
-        $this->ventasScheduledForDeletion = $ventasToDelete;
-
-        foreach ($ventasToDelete as $ventaRemoved) {
-            $ventaRemoved->setPaciente(null);
-        }
-
-        $this->collVentas = null;
-        foreach ($ventas as $venta) {
-            $this->addVenta($venta);
-        }
-
-        $this->collVentas = $ventas;
-        $this->collVentasPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Venta objects.
-     *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Venta objects.
-     * @throws PropelException
-     */
-    public function countVentas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        $partial = $this->collVentasPartial && !$this->isNew();
-        if (null === $this->collVentas || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collVentas) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getVentas());
-            }
-            $query = VentaQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByPaciente($this)
-                ->count($con);
-        }
-
-        return count($this->collVentas);
-    }
-
-    /**
-     * Method called to associate a Venta object to this object
-     * through the Venta foreign key attribute.
-     *
-     * @param    Venta $l Venta
-     * @return Paciente The current object (for fluent API support)
-     */
-    public function addVenta(Venta $l)
-    {
-        if ($this->collVentas === null) {
-            $this->initVentas();
-            $this->collVentasPartial = true;
-        }
-
-        if (!in_array($l, $this->collVentas->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddVenta($l);
-
-            if ($this->ventasScheduledForDeletion and $this->ventasScheduledForDeletion->contains($l)) {
-                $this->ventasScheduledForDeletion->remove($this->ventasScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	Venta $venta The venta object to add.
-     */
-    protected function doAddVenta($venta)
-    {
-        $this->collVentas[]= $venta;
-        $venta->setPaciente($this);
-    }
-
-    /**
-     * @param	Venta $venta The venta object to remove.
-     * @return Paciente The current object (for fluent API support)
-     */
-    public function removeVenta($venta)
-    {
-        if ($this->getVentas()->contains($venta)) {
-            $this->collVentas->remove($this->collVentas->search($venta));
-            if (null === $this->ventasScheduledForDeletion) {
-                $this->ventasScheduledForDeletion = clone $this->collVentas;
-                $this->ventasScheduledForDeletion->clear();
-            }
-            $this->ventasScheduledForDeletion[]= $venta;
-            $venta->setPaciente(null);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Paciente is new, it will return
-     * an empty collection; or if this Paciente has previously
-     * been saved, it will retrieve related Ventas from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Paciente.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Venta[] List of Venta objects
-     */
-    public function getVentasJoinCajachica($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $query = VentaQuery::create(null, $criteria);
-        $query->joinWith('Cajachica', $join_behavior);
-
-        return $this->getVentas($query, $con);
     }
 
     /**
@@ -3489,13 +3188,8 @@ abstract class BasePaciente extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collPacientefacturacions) {
-                foreach ($this->collPacientefacturacions as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
-            if ($this->collVentas) {
-                foreach ($this->collVentas as $o) {
+            if ($this->collDatosfacturacions) {
+                foreach ($this->collDatosfacturacions as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -3515,14 +3209,10 @@ abstract class BasePaciente extends BaseObject implements Persistent
             $this->collConsultas->clearIterator();
         }
         $this->collConsultas = null;
-        if ($this->collPacientefacturacions instanceof PropelCollection) {
-            $this->collPacientefacturacions->clearIterator();
+        if ($this->collDatosfacturacions instanceof PropelCollection) {
+            $this->collDatosfacturacions->clearIterator();
         }
-        $this->collPacientefacturacions = null;
-        if ($this->collVentas instanceof PropelCollection) {
-            $this->collVentas->clearIterator();
-        }
-        $this->collVentas = null;
+        $this->collDatosfacturacions = null;
     }
 
     /**

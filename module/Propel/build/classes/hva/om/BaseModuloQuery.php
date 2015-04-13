@@ -18,9 +18,9 @@
  * @method ModuloQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method ModuloQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method ModuloQuery leftJoinRolmodulo($relationAlias = null) Adds a LEFT JOIN clause to the query using the Rolmodulo relation
- * @method ModuloQuery rightJoinRolmodulo($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Rolmodulo relation
- * @method ModuloQuery innerJoinRolmodulo($relationAlias = null) Adds a INNER JOIN clause to the query using the Rolmodulo relation
+ * @method ModuloQuery leftJoinEmpleadomodulo($relationAlias = null) Adds a LEFT JOIN clause to the query using the Empleadomodulo relation
+ * @method ModuloQuery rightJoinEmpleadomodulo($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Empleadomodulo relation
+ * @method ModuloQuery innerJoinEmpleadomodulo($relationAlias = null) Adds a INNER JOIN clause to the query using the Empleadomodulo relation
  *
  * @method Modulo findOne(PropelPDO $con = null) Return the first Modulo matching the query
  * @method Modulo findOneOrCreate(PropelPDO $con = null) Return the first Modulo matching the query, or a new Modulo object populated from the query conditions when no match is found
@@ -328,41 +328,41 @@ abstract class BaseModuloQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Rolmodulo object
+     * Filter the query by a related Empleadomodulo object
      *
-     * @param   Rolmodulo|PropelObjectCollection $rolmodulo  the related object to use as filter
+     * @param   Empleadomodulo|PropelObjectCollection $empleadomodulo  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 ModuloQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByRolmodulo($rolmodulo, $comparison = null)
+    public function filterByEmpleadomodulo($empleadomodulo, $comparison = null)
     {
-        if ($rolmodulo instanceof Rolmodulo) {
+        if ($empleadomodulo instanceof Empleadomodulo) {
             return $this
-                ->addUsingAlias(ModuloPeer::IDMODULO, $rolmodulo->getIdmodulo(), $comparison);
-        } elseif ($rolmodulo instanceof PropelObjectCollection) {
+                ->addUsingAlias(ModuloPeer::IDMODULO, $empleadomodulo->getIdmodulo(), $comparison);
+        } elseif ($empleadomodulo instanceof PropelObjectCollection) {
             return $this
-                ->useRolmoduloQuery()
-                ->filterByPrimaryKeys($rolmodulo->getPrimaryKeys())
+                ->useEmpleadomoduloQuery()
+                ->filterByPrimaryKeys($empleadomodulo->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByRolmodulo() only accepts arguments of type Rolmodulo or PropelCollection');
+            throw new PropelException('filterByEmpleadomodulo() only accepts arguments of type Empleadomodulo or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Rolmodulo relation
+     * Adds a JOIN clause to the query using the Empleadomodulo relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return ModuloQuery The current query, for fluid interface
      */
-    public function joinRolmodulo($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinEmpleadomodulo($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Rolmodulo');
+        $relationMap = $tableMap->getRelation('Empleadomodulo');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -377,14 +377,14 @@ abstract class BaseModuloQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Rolmodulo');
+            $this->addJoinObject($join, 'Empleadomodulo');
         }
 
         return $this;
     }
 
     /**
-     * Use the Rolmodulo relation Rolmodulo object
+     * Use the Empleadomodulo relation Empleadomodulo object
      *
      * @see       useQuery()
      *
@@ -392,13 +392,13 @@ abstract class BaseModuloQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   RolmoduloQuery A secondary query class using the current class as primary query
+     * @return   EmpleadomoduloQuery A secondary query class using the current class as primary query
      */
-    public function useRolmoduloQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useEmpleadomoduloQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinRolmodulo($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Rolmodulo', 'RolmoduloQuery');
+            ->joinEmpleadomodulo($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Empleadomodulo', 'EmpleadomoduloQuery');
     }
 
     /**

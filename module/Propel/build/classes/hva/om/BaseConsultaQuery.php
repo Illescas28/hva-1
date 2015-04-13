@@ -10,8 +10,8 @@
  * @method ConsultaQuery orderByIdpaciente($order = Criteria::ASC) Order by the idpaciente column
  * @method ConsultaQuery orderByIdmedico($order = Criteria::ASC) Order by the idmedico column
  * @method ConsultaQuery orderByIdcuarto($order = Criteria::ASC) Order by the idcuarto column
- * @method ConsultaQuery orderByConsultaFechaadmision($order = Criteria::ASC) Order by the consulta_fechaadmision column
- * @method ConsultaQuery orderByConsultaFechasalida($order = Criteria::ASC) Order by the consulta_fechasalida column
+ * @method ConsultaQuery orderByConsultaFechaadmision($order = Criteria::ASC) Order by the consulta_fechaAdmision column
+ * @method ConsultaQuery orderByConsultaFechasalida($order = Criteria::ASC) Order by the consulta_fechaSalida column
  * @method ConsultaQuery orderByConsultaDiagnostico($order = Criteria::ASC) Order by the consulta_diagnostico column
  * @method ConsultaQuery orderByConsultaObservaciones($order = Criteria::ASC) Order by the consulta_observaciones column
  * @method ConsultaQuery orderByConsultaStatus($order = Criteria::ASC) Order by the consulta_status column
@@ -21,8 +21,8 @@
  * @method ConsultaQuery groupByIdpaciente() Group by the idpaciente column
  * @method ConsultaQuery groupByIdmedico() Group by the idmedico column
  * @method ConsultaQuery groupByIdcuarto() Group by the idcuarto column
- * @method ConsultaQuery groupByConsultaFechaadmision() Group by the consulta_fechaadmision column
- * @method ConsultaQuery groupByConsultaFechasalida() Group by the consulta_fechasalida column
+ * @method ConsultaQuery groupByConsultaFechaadmision() Group by the consulta_fechaAdmision column
+ * @method ConsultaQuery groupByConsultaFechasalida() Group by the consulta_fechaSalida column
  * @method ConsultaQuery groupByConsultaDiagnostico() Group by the consulta_diagnostico column
  * @method ConsultaQuery groupByConsultaObservaciones() Group by the consulta_observaciones column
  * @method ConsultaQuery groupByConsultaStatus() Group by the consulta_status column
@@ -62,8 +62,8 @@
  * @method Consulta findOneByIdpaciente(int $idpaciente) Return the first Consulta filtered by the idpaciente column
  * @method Consulta findOneByIdmedico(int $idmedico) Return the first Consulta filtered by the idmedico column
  * @method Consulta findOneByIdcuarto(int $idcuarto) Return the first Consulta filtered by the idcuarto column
- * @method Consulta findOneByConsultaFechaadmision(string $consulta_fechaadmision) Return the first Consulta filtered by the consulta_fechaadmision column
- * @method Consulta findOneByConsultaFechasalida(string $consulta_fechasalida) Return the first Consulta filtered by the consulta_fechasalida column
+ * @method Consulta findOneByConsultaFechaadmision(string $consulta_fechaAdmision) Return the first Consulta filtered by the consulta_fechaAdmision column
+ * @method Consulta findOneByConsultaFechasalida(string $consulta_fechaSalida) Return the first Consulta filtered by the consulta_fechaSalida column
  * @method Consulta findOneByConsultaDiagnostico(string $consulta_diagnostico) Return the first Consulta filtered by the consulta_diagnostico column
  * @method Consulta findOneByConsultaObservaciones(string $consulta_observaciones) Return the first Consulta filtered by the consulta_observaciones column
  * @method Consulta findOneByConsultaStatus(string $consulta_status) Return the first Consulta filtered by the consulta_status column
@@ -73,8 +73,8 @@
  * @method array findByIdpaciente(int $idpaciente) Return Consulta objects filtered by the idpaciente column
  * @method array findByIdmedico(int $idmedico) Return Consulta objects filtered by the idmedico column
  * @method array findByIdcuarto(int $idcuarto) Return Consulta objects filtered by the idcuarto column
- * @method array findByConsultaFechaadmision(string $consulta_fechaadmision) Return Consulta objects filtered by the consulta_fechaadmision column
- * @method array findByConsultaFechasalida(string $consulta_fechasalida) Return Consulta objects filtered by the consulta_fechasalida column
+ * @method array findByConsultaFechaadmision(string $consulta_fechaAdmision) Return Consulta objects filtered by the consulta_fechaAdmision column
+ * @method array findByConsultaFechasalida(string $consulta_fechaSalida) Return Consulta objects filtered by the consulta_fechaSalida column
  * @method array findByConsultaDiagnostico(string $consulta_diagnostico) Return Consulta objects filtered by the consulta_diagnostico column
  * @method array findByConsultaObservaciones(string $consulta_observaciones) Return Consulta objects filtered by the consulta_observaciones column
  * @method array findByConsultaStatus(string $consulta_status) Return Consulta objects filtered by the consulta_status column
@@ -186,7 +186,7 @@ abstract class BaseConsultaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idconsulta`, `idpaciente`, `idmedico`, `idcuarto`, `consulta_fechaadmision`, `consulta_fechasalida`, `consulta_diagnostico`, `consulta_observaciones`, `consulta_status`, `consulta_total` FROM `consulta` WHERE `idconsulta` = :p0';
+        $sql = 'SELECT `idconsulta`, `idpaciente`, `idmedico`, `idcuarto`, `consulta_fechaAdmision`, `consulta_fechaSalida`, `consulta_diagnostico`, `consulta_observaciones`, `consulta_status`, `consulta_total` FROM `consulta` WHERE `idconsulta` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -450,13 +450,13 @@ abstract class BaseConsultaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the consulta_fechaadmision column
+     * Filter the query on the consulta_fechaAdmision column
      *
      * Example usage:
      * <code>
-     * $query->filterByConsultaFechaadmision('2011-03-14'); // WHERE consulta_fechaadmision = '2011-03-14'
-     * $query->filterByConsultaFechaadmision('now'); // WHERE consulta_fechaadmision = '2011-03-14'
-     * $query->filterByConsultaFechaadmision(array('max' => 'yesterday')); // WHERE consulta_fechaadmision < '2011-03-13'
+     * $query->filterByConsultaFechaadmision('2011-03-14'); // WHERE consulta_fechaAdmision = '2011-03-14'
+     * $query->filterByConsultaFechaadmision('now'); // WHERE consulta_fechaAdmision = '2011-03-14'
+     * $query->filterByConsultaFechaadmision(array('max' => 'yesterday')); // WHERE consulta_fechaAdmision < '2011-03-13'
      * </code>
      *
      * @param     mixed $consultaFechaadmision The value to use as filter.
@@ -493,13 +493,13 @@ abstract class BaseConsultaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the consulta_fechasalida column
+     * Filter the query on the consulta_fechaSalida column
      *
      * Example usage:
      * <code>
-     * $query->filterByConsultaFechasalida('2011-03-14'); // WHERE consulta_fechasalida = '2011-03-14'
-     * $query->filterByConsultaFechasalida('now'); // WHERE consulta_fechasalida = '2011-03-14'
-     * $query->filterByConsultaFechasalida(array('max' => 'yesterday')); // WHERE consulta_fechasalida < '2011-03-13'
+     * $query->filterByConsultaFechasalida('2011-03-14'); // WHERE consulta_fechaSalida = '2011-03-14'
+     * $query->filterByConsultaFechasalida('now'); // WHERE consulta_fechaSalida = '2011-03-14'
+     * $query->filterByConsultaFechasalida(array('max' => 'yesterday')); // WHERE consulta_fechaSalida < '2011-03-13'
      * </code>
      *
      * @param     mixed $consultaFechasalida The value to use as filter.
@@ -627,37 +627,24 @@ abstract class BaseConsultaQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByConsultaTotal(1234); // WHERE consulta_total = 1234
-     * $query->filterByConsultaTotal(array(12, 34)); // WHERE consulta_total IN (12, 34)
-     * $query->filterByConsultaTotal(array('min' => 12)); // WHERE consulta_total >= 12
-     * $query->filterByConsultaTotal(array('max' => 12)); // WHERE consulta_total <= 12
+     * $query->filterByConsultaTotal('fooValue');   // WHERE consulta_total = 'fooValue'
+     * $query->filterByConsultaTotal('%fooValue%'); // WHERE consulta_total LIKE '%fooValue%'
      * </code>
      *
-     * @param     mixed $consultaTotal The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $consultaTotal The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ConsultaQuery The current query, for fluid interface
      */
     public function filterByConsultaTotal($consultaTotal = null, $comparison = null)
     {
-        if (is_array($consultaTotal)) {
-            $useMinMax = false;
-            if (isset($consultaTotal['min'])) {
-                $this->addUsingAlias(ConsultaPeer::CONSULTA_TOTAL, $consultaTotal['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($consultaTotal['max'])) {
-                $this->addUsingAlias(ConsultaPeer::CONSULTA_TOTAL, $consultaTotal['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($consultaTotal)) {
                 $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $consultaTotal)) {
+                $consultaTotal = str_replace('*', '%', $consultaTotal);
+                $comparison = Criteria::LIKE;
             }
         }
 

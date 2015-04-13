@@ -647,7 +647,7 @@ abstract class BaseFacturaPeer
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Pacientefacturacion table
+     * Returns the number of rows matching criteria, joining the related Datosfacturacion table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -655,7 +655,7 @@ abstract class BaseFacturaPeer
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinPacientefacturacion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinDatosfacturacion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -682,7 +682,7 @@ abstract class BaseFacturaPeer
             $con = Propel::getConnection(FacturaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, PacientefacturacionPeer::IDPACIENTEFACTURACION, $join_behavior);
+        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, DatosfacturacionPeer::IDDATOSFACTURACION, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -765,7 +765,7 @@ abstract class BaseFacturaPeer
 
 
     /**
-     * Selects a collection of Factura objects pre-filled with their Pacientefacturacion objects.
+     * Selects a collection of Factura objects pre-filled with their Datosfacturacion objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -773,7 +773,7 @@ abstract class BaseFacturaPeer
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinPacientefacturacion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinDatosfacturacion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -784,9 +784,9 @@ abstract class BaseFacturaPeer
 
         FacturaPeer::addSelectColumns($criteria);
         $startcol = FacturaPeer::NUM_HYDRATE_COLUMNS;
-        PacientefacturacionPeer::addSelectColumns($criteria);
+        DatosfacturacionPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, PacientefacturacionPeer::IDPACIENTEFACTURACION, $join_behavior);
+        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, DatosfacturacionPeer::IDDATOSFACTURACION, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
@@ -806,19 +806,19 @@ abstract class BaseFacturaPeer
                 FacturaPeer::addInstanceToPool($obj1, $key1);
             } // if $obj1 already loaded
 
-            $key2 = PacientefacturacionPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            $key2 = DatosfacturacionPeer::getPrimaryKeyHashFromRow($row, $startcol);
             if ($key2 !== null) {
-                $obj2 = PacientefacturacionPeer::getInstanceFromPool($key2);
+                $obj2 = DatosfacturacionPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = PacientefacturacionPeer::getOMClass();
+                    $cls = DatosfacturacionPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol);
-                    PacientefacturacionPeer::addInstanceToPool($obj2, $key2);
+                    DatosfacturacionPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 already loaded
 
-                // Add the $obj1 (Factura) to $obj2 (Pacientefacturacion)
+                // Add the $obj1 (Factura) to $obj2 (Datosfacturacion)
                 $obj2->addFactura($obj1);
 
             } // if joined row was not null
@@ -869,7 +869,7 @@ abstract class BaseFacturaPeer
 
         $criteria->addJoin(FacturaPeer::IDCONSULTA, ConsultaPeer::IDCONSULTA, $join_behavior);
 
-        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, PacientefacturacionPeer::IDPACIENTEFACTURACION, $join_behavior);
+        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, DatosfacturacionPeer::IDDATOSFACTURACION, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -908,12 +908,12 @@ abstract class BaseFacturaPeer
         ConsultaPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + ConsultaPeer::NUM_HYDRATE_COLUMNS;
 
-        PacientefacturacionPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + PacientefacturacionPeer::NUM_HYDRATE_COLUMNS;
+        DatosfacturacionPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + DatosfacturacionPeer::NUM_HYDRATE_COLUMNS;
 
         $criteria->addJoin(FacturaPeer::IDCONSULTA, ConsultaPeer::IDCONSULTA, $join_behavior);
 
-        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, PacientefacturacionPeer::IDPACIENTEFACTURACION, $join_behavior);
+        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, DatosfacturacionPeer::IDDATOSFACTURACION, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
@@ -950,21 +950,21 @@ abstract class BaseFacturaPeer
                 $obj2->addFactura($obj1);
             } // if joined row not null
 
-            // Add objects for joined Pacientefacturacion rows
+            // Add objects for joined Datosfacturacion rows
 
-            $key3 = PacientefacturacionPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+            $key3 = DatosfacturacionPeer::getPrimaryKeyHashFromRow($row, $startcol3);
             if ($key3 !== null) {
-                $obj3 = PacientefacturacionPeer::getInstanceFromPool($key3);
+                $obj3 = DatosfacturacionPeer::getInstanceFromPool($key3);
                 if (!$obj3) {
 
-                    $cls = PacientefacturacionPeer::getOMClass();
+                    $cls = DatosfacturacionPeer::getOMClass();
 
                     $obj3 = new $cls();
                     $obj3->hydrate($row, $startcol3);
-                    PacientefacturacionPeer::addInstanceToPool($obj3, $key3);
+                    DatosfacturacionPeer::addInstanceToPool($obj3, $key3);
                 } // if obj3 loaded
 
-                // Add the $obj1 (Factura) to the collection in $obj3 (Pacientefacturacion)
+                // Add the $obj1 (Factura) to the collection in $obj3 (Datosfacturacion)
                 $obj3->addFactura($obj1);
             } // if joined row not null
 
@@ -1012,7 +1012,7 @@ abstract class BaseFacturaPeer
             $con = Propel::getConnection(FacturaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, PacientefacturacionPeer::IDPACIENTEFACTURACION, $join_behavior);
+        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, DatosfacturacionPeer::IDDATOSFACTURACION, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -1028,7 +1028,7 @@ abstract class BaseFacturaPeer
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Pacientefacturacion table
+     * Returns the number of rows matching criteria, joining the related Datosfacturacion table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -1036,7 +1036,7 @@ abstract class BaseFacturaPeer
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinAllExceptPacientefacturacion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinAllExceptDatosfacturacion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -1102,10 +1102,10 @@ abstract class BaseFacturaPeer
         FacturaPeer::addSelectColumns($criteria);
         $startcol2 = FacturaPeer::NUM_HYDRATE_COLUMNS;
 
-        PacientefacturacionPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PacientefacturacionPeer::NUM_HYDRATE_COLUMNS;
+        DatosfacturacionPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + DatosfacturacionPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, PacientefacturacionPeer::IDPACIENTEFACTURACION, $join_behavior);
+        $criteria->addJoin(FacturaPeer::IDDATOSFACTURACION, DatosfacturacionPeer::IDDATOSFACTURACION, $join_behavior);
 
 
         $stmt = BasePeer::doSelect($criteria, $con);
@@ -1125,21 +1125,21 @@ abstract class BaseFacturaPeer
                 FacturaPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-                // Add objects for joined Pacientefacturacion rows
+                // Add objects for joined Datosfacturacion rows
 
-                $key2 = PacientefacturacionPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                $key2 = DatosfacturacionPeer::getPrimaryKeyHashFromRow($row, $startcol2);
                 if ($key2 !== null) {
-                    $obj2 = PacientefacturacionPeer::getInstanceFromPool($key2);
+                    $obj2 = DatosfacturacionPeer::getInstanceFromPool($key2);
                     if (!$obj2) {
 
-                        $cls = PacientefacturacionPeer::getOMClass();
+                        $cls = DatosfacturacionPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    PacientefacturacionPeer::addInstanceToPool($obj2, $key2);
+                    DatosfacturacionPeer::addInstanceToPool($obj2, $key2);
                 } // if $obj2 already loaded
 
-                // Add the $obj1 (Factura) to the collection in $obj2 (Pacientefacturacion)
+                // Add the $obj1 (Factura) to the collection in $obj2 (Datosfacturacion)
                 $obj2->addFactura($obj1);
 
             } // if joined row is not null
@@ -1153,7 +1153,7 @@ abstract class BaseFacturaPeer
 
 
     /**
-     * Selects a collection of Factura objects pre-filled with all related objects except Pacientefacturacion.
+     * Selects a collection of Factura objects pre-filled with all related objects except Datosfacturacion.
      *
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -1162,7 +1162,7 @@ abstract class BaseFacturaPeer
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinAllExceptPacientefacturacion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinAllExceptDatosfacturacion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 

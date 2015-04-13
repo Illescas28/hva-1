@@ -48,10 +48,10 @@ abstract class BaseModulo extends BaseObject implements Persistent
     protected $modulo_descripcion;
 
     /**
-     * @var        PropelObjectCollection|Rolmodulo[] Collection to store aggregation of Rolmodulo objects.
+     * @var        PropelObjectCollection|Empleadomodulo[] Collection to store aggregation of Empleadomodulo objects.
      */
-    protected $collRolmodulos;
-    protected $collRolmodulosPartial;
+    protected $collEmpleadomodulos;
+    protected $collEmpleadomodulosPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -77,7 +77,7 @@ abstract class BaseModulo extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $rolmodulosScheduledForDeletion = null;
+    protected $empleadomodulosScheduledForDeletion = null;
 
     /**
      * Get the [idmodulo] column value.
@@ -281,7 +281,7 @@ abstract class BaseModulo extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collRolmodulos = null;
+            $this->collEmpleadomodulos = null;
 
         } // if (deep)
     }
@@ -407,17 +407,17 @@ abstract class BaseModulo extends BaseObject implements Persistent
                 $this->resetModified();
             }
 
-            if ($this->rolmodulosScheduledForDeletion !== null) {
-                if (!$this->rolmodulosScheduledForDeletion->isEmpty()) {
-                    RolmoduloQuery::create()
-                        ->filterByPrimaryKeys($this->rolmodulosScheduledForDeletion->getPrimaryKeys(false))
+            if ($this->empleadomodulosScheduledForDeletion !== null) {
+                if (!$this->empleadomodulosScheduledForDeletion->isEmpty()) {
+                    EmpleadomoduloQuery::create()
+                        ->filterByPrimaryKeys($this->empleadomodulosScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
-                    $this->rolmodulosScheduledForDeletion = null;
+                    $this->empleadomodulosScheduledForDeletion = null;
                 }
             }
 
-            if ($this->collRolmodulos !== null) {
-                foreach ($this->collRolmodulos as $referrerFK) {
+            if ($this->collEmpleadomodulos !== null) {
+                foreach ($this->collEmpleadomodulos as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -578,8 +578,8 @@ abstract class BaseModulo extends BaseObject implements Persistent
             }
 
 
-                if ($this->collRolmodulos !== null) {
-                    foreach ($this->collRolmodulos as $referrerFK) {
+                if ($this->collEmpleadomodulos !== null) {
+                    foreach ($this->collEmpleadomodulos as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -669,8 +669,8 @@ abstract class BaseModulo extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collRolmodulos) {
-                $result['Rolmodulos'] = $this->collRolmodulos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->collEmpleadomodulos) {
+                $result['Empleadomodulos'] = $this->collEmpleadomodulos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -829,9 +829,9 @@ abstract class BaseModulo extends BaseObject implements Persistent
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            foreach ($this->getRolmodulos() as $relObj) {
+            foreach ($this->getEmpleadomodulos() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addRolmodulo($relObj->copy($deepCopy));
+                    $copyObj->addEmpleadomodulo($relObj->copy($deepCopy));
                 }
             }
 
@@ -896,42 +896,42 @@ abstract class BaseModulo extends BaseObject implements Persistent
      */
     public function initRelation($relationName)
     {
-        if ('Rolmodulo' == $relationName) {
-            $this->initRolmodulos();
+        if ('Empleadomodulo' == $relationName) {
+            $this->initEmpleadomodulos();
         }
     }
 
     /**
-     * Clears out the collRolmodulos collection
+     * Clears out the collEmpleadomodulos collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return Modulo The current object (for fluent API support)
-     * @see        addRolmodulos()
+     * @see        addEmpleadomodulos()
      */
-    public function clearRolmodulos()
+    public function clearEmpleadomodulos()
     {
-        $this->collRolmodulos = null; // important to set this to null since that means it is uninitialized
-        $this->collRolmodulosPartial = null;
+        $this->collEmpleadomodulos = null; // important to set this to null since that means it is uninitialized
+        $this->collEmpleadomodulosPartial = null;
 
         return $this;
     }
 
     /**
-     * reset is the collRolmodulos collection loaded partially
+     * reset is the collEmpleadomodulos collection loaded partially
      *
      * @return void
      */
-    public function resetPartialRolmodulos($v = true)
+    public function resetPartialEmpleadomodulos($v = true)
     {
-        $this->collRolmodulosPartial = $v;
+        $this->collEmpleadomodulosPartial = $v;
     }
 
     /**
-     * Initializes the collRolmodulos collection.
+     * Initializes the collEmpleadomodulos collection.
      *
-     * By default this just sets the collRolmodulos collection to an empty array (like clearcollRolmodulos());
+     * By default this just sets the collEmpleadomodulos collection to an empty array (like clearcollEmpleadomodulos());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -940,17 +940,17 @@ abstract class BaseModulo extends BaseObject implements Persistent
      *
      * @return void
      */
-    public function initRolmodulos($overrideExisting = true)
+    public function initEmpleadomodulos($overrideExisting = true)
     {
-        if (null !== $this->collRolmodulos && !$overrideExisting) {
+        if (null !== $this->collEmpleadomodulos && !$overrideExisting) {
             return;
         }
-        $this->collRolmodulos = new PropelObjectCollection();
-        $this->collRolmodulos->setModel('Rolmodulo');
+        $this->collEmpleadomodulos = new PropelObjectCollection();
+        $this->collEmpleadomodulos->setModel('Empleadomodulo');
     }
 
     /**
-     * Gets an array of Rolmodulo objects which contain a foreign key that references this object.
+     * Gets an array of Empleadomodulo objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -960,107 +960,107 @@ abstract class BaseModulo extends BaseObject implements Persistent
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Rolmodulo[] List of Rolmodulo objects
+     * @return PropelObjectCollection|Empleadomodulo[] List of Empleadomodulo objects
      * @throws PropelException
      */
-    public function getRolmodulos($criteria = null, PropelPDO $con = null)
+    public function getEmpleadomodulos($criteria = null, PropelPDO $con = null)
     {
-        $partial = $this->collRolmodulosPartial && !$this->isNew();
-        if (null === $this->collRolmodulos || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collRolmodulos) {
+        $partial = $this->collEmpleadomodulosPartial && !$this->isNew();
+        if (null === $this->collEmpleadomodulos || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collEmpleadomodulos) {
                 // return empty collection
-                $this->initRolmodulos();
+                $this->initEmpleadomodulos();
             } else {
-                $collRolmodulos = RolmoduloQuery::create(null, $criteria)
+                $collEmpleadomodulos = EmpleadomoduloQuery::create(null, $criteria)
                     ->filterByModulo($this)
                     ->find($con);
                 if (null !== $criteria) {
-                    if (false !== $this->collRolmodulosPartial && count($collRolmodulos)) {
-                      $this->initRolmodulos(false);
+                    if (false !== $this->collEmpleadomodulosPartial && count($collEmpleadomodulos)) {
+                      $this->initEmpleadomodulos(false);
 
-                      foreach ($collRolmodulos as $obj) {
-                        if (false == $this->collRolmodulos->contains($obj)) {
-                          $this->collRolmodulos->append($obj);
+                      foreach ($collEmpleadomodulos as $obj) {
+                        if (false == $this->collEmpleadomodulos->contains($obj)) {
+                          $this->collEmpleadomodulos->append($obj);
                         }
                       }
 
-                      $this->collRolmodulosPartial = true;
+                      $this->collEmpleadomodulosPartial = true;
                     }
 
-                    $collRolmodulos->getInternalIterator()->rewind();
+                    $collEmpleadomodulos->getInternalIterator()->rewind();
 
-                    return $collRolmodulos;
+                    return $collEmpleadomodulos;
                 }
 
-                if ($partial && $this->collRolmodulos) {
-                    foreach ($this->collRolmodulos as $obj) {
+                if ($partial && $this->collEmpleadomodulos) {
+                    foreach ($this->collEmpleadomodulos as $obj) {
                         if ($obj->isNew()) {
-                            $collRolmodulos[] = $obj;
+                            $collEmpleadomodulos[] = $obj;
                         }
                     }
                 }
 
-                $this->collRolmodulos = $collRolmodulos;
-                $this->collRolmodulosPartial = false;
+                $this->collEmpleadomodulos = $collEmpleadomodulos;
+                $this->collEmpleadomodulosPartial = false;
             }
         }
 
-        return $this->collRolmodulos;
+        return $this->collEmpleadomodulos;
     }
 
     /**
-     * Sets a collection of Rolmodulo objects related by a one-to-many relationship
+     * Sets a collection of Empleadomodulo objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param PropelCollection $rolmodulos A Propel collection.
+     * @param PropelCollection $empleadomodulos A Propel collection.
      * @param PropelPDO $con Optional connection object
      * @return Modulo The current object (for fluent API support)
      */
-    public function setRolmodulos(PropelCollection $rolmodulos, PropelPDO $con = null)
+    public function setEmpleadomodulos(PropelCollection $empleadomodulos, PropelPDO $con = null)
     {
-        $rolmodulosToDelete = $this->getRolmodulos(new Criteria(), $con)->diff($rolmodulos);
+        $empleadomodulosToDelete = $this->getEmpleadomodulos(new Criteria(), $con)->diff($empleadomodulos);
 
 
-        $this->rolmodulosScheduledForDeletion = $rolmodulosToDelete;
+        $this->empleadomodulosScheduledForDeletion = $empleadomodulosToDelete;
 
-        foreach ($rolmodulosToDelete as $rolmoduloRemoved) {
-            $rolmoduloRemoved->setModulo(null);
+        foreach ($empleadomodulosToDelete as $empleadomoduloRemoved) {
+            $empleadomoduloRemoved->setModulo(null);
         }
 
-        $this->collRolmodulos = null;
-        foreach ($rolmodulos as $rolmodulo) {
-            $this->addRolmodulo($rolmodulo);
+        $this->collEmpleadomodulos = null;
+        foreach ($empleadomodulos as $empleadomodulo) {
+            $this->addEmpleadomodulo($empleadomodulo);
         }
 
-        $this->collRolmodulos = $rolmodulos;
-        $this->collRolmodulosPartial = false;
+        $this->collEmpleadomodulos = $empleadomodulos;
+        $this->collEmpleadomodulosPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related Rolmodulo objects.
+     * Returns the number of related Empleadomodulo objects.
      *
      * @param Criteria $criteria
      * @param boolean $distinct
      * @param PropelPDO $con
-     * @return int             Count of related Rolmodulo objects.
+     * @return int             Count of related Empleadomodulo objects.
      * @throws PropelException
      */
-    public function countRolmodulos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function countEmpleadomodulos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
     {
-        $partial = $this->collRolmodulosPartial && !$this->isNew();
-        if (null === $this->collRolmodulos || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collRolmodulos) {
+        $partial = $this->collEmpleadomodulosPartial && !$this->isNew();
+        if (null === $this->collEmpleadomodulos || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collEmpleadomodulos) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getRolmodulos());
+                return count($this->getEmpleadomodulos());
             }
-            $query = RolmoduloQuery::create(null, $criteria);
+            $query = EmpleadomoduloQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -1070,28 +1070,28 @@ abstract class BaseModulo extends BaseObject implements Persistent
                 ->count($con);
         }
 
-        return count($this->collRolmodulos);
+        return count($this->collEmpleadomodulos);
     }
 
     /**
-     * Method called to associate a Rolmodulo object to this object
-     * through the Rolmodulo foreign key attribute.
+     * Method called to associate a Empleadomodulo object to this object
+     * through the Empleadomodulo foreign key attribute.
      *
-     * @param    Rolmodulo $l Rolmodulo
+     * @param    Empleadomodulo $l Empleadomodulo
      * @return Modulo The current object (for fluent API support)
      */
-    public function addRolmodulo(Rolmodulo $l)
+    public function addEmpleadomodulo(Empleadomodulo $l)
     {
-        if ($this->collRolmodulos === null) {
-            $this->initRolmodulos();
-            $this->collRolmodulosPartial = true;
+        if ($this->collEmpleadomodulos === null) {
+            $this->initEmpleadomodulos();
+            $this->collEmpleadomodulosPartial = true;
         }
 
-        if (!in_array($l, $this->collRolmodulos->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddRolmodulo($l);
+        if (!in_array($l, $this->collEmpleadomodulos->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddEmpleadomodulo($l);
 
-            if ($this->rolmodulosScheduledForDeletion and $this->rolmodulosScheduledForDeletion->contains($l)) {
-                $this->rolmodulosScheduledForDeletion->remove($this->rolmodulosScheduledForDeletion->search($l));
+            if ($this->empleadomodulosScheduledForDeletion and $this->empleadomodulosScheduledForDeletion->contains($l)) {
+                $this->empleadomodulosScheduledForDeletion->remove($this->empleadomodulosScheduledForDeletion->search($l));
             }
         }
 
@@ -1099,28 +1099,28 @@ abstract class BaseModulo extends BaseObject implements Persistent
     }
 
     /**
-     * @param	Rolmodulo $rolmodulo The rolmodulo object to add.
+     * @param	Empleadomodulo $empleadomodulo The empleadomodulo object to add.
      */
-    protected function doAddRolmodulo($rolmodulo)
+    protected function doAddEmpleadomodulo($empleadomodulo)
     {
-        $this->collRolmodulos[]= $rolmodulo;
-        $rolmodulo->setModulo($this);
+        $this->collEmpleadomodulos[]= $empleadomodulo;
+        $empleadomodulo->setModulo($this);
     }
 
     /**
-     * @param	Rolmodulo $rolmodulo The rolmodulo object to remove.
+     * @param	Empleadomodulo $empleadomodulo The empleadomodulo object to remove.
      * @return Modulo The current object (for fluent API support)
      */
-    public function removeRolmodulo($rolmodulo)
+    public function removeEmpleadomodulo($empleadomodulo)
     {
-        if ($this->getRolmodulos()->contains($rolmodulo)) {
-            $this->collRolmodulos->remove($this->collRolmodulos->search($rolmodulo));
-            if (null === $this->rolmodulosScheduledForDeletion) {
-                $this->rolmodulosScheduledForDeletion = clone $this->collRolmodulos;
-                $this->rolmodulosScheduledForDeletion->clear();
+        if ($this->getEmpleadomodulos()->contains($empleadomodulo)) {
+            $this->collEmpleadomodulos->remove($this->collEmpleadomodulos->search($empleadomodulo));
+            if (null === $this->empleadomodulosScheduledForDeletion) {
+                $this->empleadomodulosScheduledForDeletion = clone $this->collEmpleadomodulos;
+                $this->empleadomodulosScheduledForDeletion->clear();
             }
-            $this->rolmodulosScheduledForDeletion[]= clone $rolmodulo;
-            $rolmodulo->setModulo(null);
+            $this->empleadomodulosScheduledForDeletion[]= clone $empleadomodulo;
+            $empleadomodulo->setModulo(null);
         }
 
         return $this;
@@ -1132,7 +1132,7 @@ abstract class BaseModulo extends BaseObject implements Persistent
      * an identical criteria, it returns the collection.
      * Otherwise if this Modulo is new, it will return
      * an empty collection; or if this Modulo has previously
-     * been saved, it will retrieve related Rolmodulos from storage.
+     * been saved, it will retrieve related Empleadomodulos from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
@@ -1141,14 +1141,14 @@ abstract class BaseModulo extends BaseObject implements Persistent
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Rolmodulo[] List of Rolmodulo objects
+     * @return PropelObjectCollection|Empleadomodulo[] List of Empleadomodulo objects
      */
-    public function getRolmodulosJoinRol($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getEmpleadomodulosJoinEmpleado($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
-        $query = RolmoduloQuery::create(null, $criteria);
-        $query->joinWith('Rol', $join_behavior);
+        $query = EmpleadomoduloQuery::create(null, $criteria);
+        $query->joinWith('Empleado', $join_behavior);
 
-        return $this->getRolmodulos($query, $con);
+        return $this->getEmpleadomodulos($query, $con);
     }
 
     /**
@@ -1181,8 +1181,8 @@ abstract class BaseModulo extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collRolmodulos) {
-                foreach ($this->collRolmodulos as $o) {
+            if ($this->collEmpleadomodulos) {
+                foreach ($this->collEmpleadomodulos as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -1190,10 +1190,10 @@ abstract class BaseModulo extends BaseObject implements Persistent
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collRolmodulos instanceof PropelCollection) {
-            $this->collRolmodulos->clearIterator();
+        if ($this->collEmpleadomodulos instanceof PropelCollection) {
+            $this->collEmpleadomodulos->clearIterator();
         }
-        $this->collRolmodulos = null;
+        $this->collEmpleadomodulos = null;
     }
 
     /**

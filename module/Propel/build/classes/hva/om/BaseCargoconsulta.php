@@ -36,12 +36,6 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
     protected $idcargoconsulta;
 
     /**
-     * The value for the idconsulta field.
-     * @var        int
-     */
-    protected $idconsulta;
-
-    /**
      * The value for the idlugarinventario field.
      * @var        int
      */
@@ -58,6 +52,12 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
      * @var        string
      */
     protected $cargoconsulta_tipo;
+
+    /**
+     * The value for the idconsulta field.
+     * @var        int
+     */
+    protected $idconsulta;
 
     /**
      * The value for the cargoconsulta_fecha field.
@@ -124,17 +124,6 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [idconsulta] column value.
-     *
-     * @return int
-     */
-    public function getIdconsulta()
-    {
-
-        return $this->idconsulta;
-    }
-
-    /**
      * Get the [idlugarinventario] column value.
      *
      * @return int
@@ -165,6 +154,17 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
     {
 
         return $this->cargoconsulta_tipo;
+    }
+
+    /**
+     * Get the [idconsulta] column value.
+     *
+     * @return int
+     */
+    public function getIdconsulta()
+    {
+
+        return $this->idconsulta;
     }
 
     /**
@@ -251,31 +251,6 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
     } // setIdcargoconsulta()
 
     /**
-     * Set the value of [idconsulta] column.
-     *
-     * @param  int $v new value
-     * @return Cargoconsulta The current object (for fluent API support)
-     */
-    public function setIdconsulta($v)
-    {
-        if ($v !== null && is_numeric($v)) {
-            $v = (int) $v;
-        }
-
-        if ($this->idconsulta !== $v) {
-            $this->idconsulta = $v;
-            $this->modifiedColumns[] = CargoconsultaPeer::IDCONSULTA;
-        }
-
-        if ($this->aConsulta !== null && $this->aConsulta->getIdconsulta() !== $v) {
-            $this->aConsulta = null;
-        }
-
-
-        return $this;
-    } // setIdconsulta()
-
-    /**
      * Set the value of [idlugarinventario] column.
      *
      * @param  int $v new value
@@ -345,6 +320,31 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
 
         return $this;
     } // setCargoconsultaTipo()
+
+    /**
+     * Set the value of [idconsulta] column.
+     *
+     * @param  int $v new value
+     * @return Cargoconsulta The current object (for fluent API support)
+     */
+    public function setIdconsulta($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->idconsulta !== $v) {
+            $this->idconsulta = $v;
+            $this->modifiedColumns[] = CargoconsultaPeer::IDCONSULTA;
+        }
+
+        if ($this->aConsulta !== null && $this->aConsulta->getIdconsulta() !== $v) {
+            $this->aConsulta = null;
+        }
+
+
+        return $this;
+    } // setIdconsulta()
 
     /**
      * Sets the value of [cargoconsulta_fecha] column to a normalized version of the date/time value specified.
@@ -444,10 +444,10 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
         try {
 
             $this->idcargoconsulta = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->idconsulta = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->idlugarinventario = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->idservicio = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
-            $this->cargoconsulta_tipo = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->idlugarinventario = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->idservicio = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->cargoconsulta_tipo = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->idconsulta = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
             $this->cargoconsulta_fecha = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->cantidad = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->monto = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
@@ -483,14 +483,14 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
-        if ($this->aConsulta !== null && $this->idconsulta !== $this->aConsulta->getIdconsulta()) {
-            $this->aConsulta = null;
-        }
         if ($this->aLugarinventario !== null && $this->idlugarinventario !== $this->aLugarinventario->getIdlugarinventario()) {
             $this->aLugarinventario = null;
         }
         if ($this->aServicio !== null && $this->idservicio !== $this->aServicio->getIdservicio()) {
             $this->aServicio = null;
+        }
+        if ($this->aConsulta !== null && $this->idconsulta !== $this->aConsulta->getIdconsulta()) {
+            $this->aConsulta = null;
         }
     } // ensureConsistency
 
@@ -713,9 +713,6 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
         if ($this->isColumnModified(CargoconsultaPeer::IDCARGOCONSULTA)) {
             $modifiedColumns[':p' . $index++]  = '`idcargoconsulta`';
         }
-        if ($this->isColumnModified(CargoconsultaPeer::IDCONSULTA)) {
-            $modifiedColumns[':p' . $index++]  = '`idconsulta`';
-        }
         if ($this->isColumnModified(CargoconsultaPeer::IDLUGARINVENTARIO)) {
             $modifiedColumns[':p' . $index++]  = '`idlugarinventario`';
         }
@@ -724,6 +721,9 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
         }
         if ($this->isColumnModified(CargoconsultaPeer::CARGOCONSULTA_TIPO)) {
             $modifiedColumns[':p' . $index++]  = '`cargoconsulta_tipo`';
+        }
+        if ($this->isColumnModified(CargoconsultaPeer::IDCONSULTA)) {
+            $modifiedColumns[':p' . $index++]  = '`idconsulta`';
         }
         if ($this->isColumnModified(CargoconsultaPeer::CARGOCONSULTA_FECHA)) {
             $modifiedColumns[':p' . $index++]  = '`cargoconsulta_fecha`';
@@ -748,9 +748,6 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
                     case '`idcargoconsulta`':
                         $stmt->bindValue($identifier, $this->idcargoconsulta, PDO::PARAM_INT);
                         break;
-                    case '`idconsulta`':
-                        $stmt->bindValue($identifier, $this->idconsulta, PDO::PARAM_INT);
-                        break;
                     case '`idlugarinventario`':
                         $stmt->bindValue($identifier, $this->idlugarinventario, PDO::PARAM_INT);
                         break;
@@ -759,6 +756,9 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
                         break;
                     case '`cargoconsulta_tipo`':
                         $stmt->bindValue($identifier, $this->cargoconsulta_tipo, PDO::PARAM_STR);
+                        break;
+                    case '`idconsulta`':
+                        $stmt->bindValue($identifier, $this->idconsulta, PDO::PARAM_INT);
                         break;
                     case '`cargoconsulta_fecha`':
                         $stmt->bindValue($identifier, $this->cargoconsulta_fecha, PDO::PARAM_STR);
@@ -931,16 +931,16 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
                 return $this->getIdcargoconsulta();
                 break;
             case 1:
-                return $this->getIdconsulta();
-                break;
-            case 2:
                 return $this->getIdlugarinventario();
                 break;
-            case 3:
+            case 2:
                 return $this->getIdservicio();
                 break;
-            case 4:
+            case 3:
                 return $this->getCargoconsultaTipo();
+                break;
+            case 4:
+                return $this->getIdconsulta();
                 break;
             case 5:
                 return $this->getCargoconsultaFecha();
@@ -981,10 +981,10 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
         $keys = CargoconsultaPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdcargoconsulta(),
-            $keys[1] => $this->getIdconsulta(),
-            $keys[2] => $this->getIdlugarinventario(),
-            $keys[3] => $this->getIdservicio(),
-            $keys[4] => $this->getCargoconsultaTipo(),
+            $keys[1] => $this->getIdlugarinventario(),
+            $keys[2] => $this->getIdservicio(),
+            $keys[3] => $this->getCargoconsultaTipo(),
+            $keys[4] => $this->getIdconsulta(),
             $keys[5] => $this->getCargoconsultaFecha(),
             $keys[6] => $this->getCantidad(),
             $keys[7] => $this->getMonto(),
@@ -1042,16 +1042,16 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
                 $this->setIdcargoconsulta($value);
                 break;
             case 1:
-                $this->setIdconsulta($value);
-                break;
-            case 2:
                 $this->setIdlugarinventario($value);
                 break;
-            case 3:
+            case 2:
                 $this->setIdservicio($value);
                 break;
-            case 4:
+            case 3:
                 $this->setCargoconsultaTipo($value);
+                break;
+            case 4:
+                $this->setIdconsulta($value);
                 break;
             case 5:
                 $this->setCargoconsultaFecha($value);
@@ -1087,10 +1087,10 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
         $keys = CargoconsultaPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdcargoconsulta($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setIdconsulta($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setIdlugarinventario($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setIdservicio($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setCargoconsultaTipo($arr[$keys[4]]);
+        if (array_key_exists($keys[1], $arr)) $this->setIdlugarinventario($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setIdservicio($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setCargoconsultaTipo($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setIdconsulta($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setCargoconsultaFecha($arr[$keys[5]]);
         if (array_key_exists($keys[6], $arr)) $this->setCantidad($arr[$keys[6]]);
         if (array_key_exists($keys[7], $arr)) $this->setMonto($arr[$keys[7]]);
@@ -1106,10 +1106,10 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
         $criteria = new Criteria(CargoconsultaPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(CargoconsultaPeer::IDCARGOCONSULTA)) $criteria->add(CargoconsultaPeer::IDCARGOCONSULTA, $this->idcargoconsulta);
-        if ($this->isColumnModified(CargoconsultaPeer::IDCONSULTA)) $criteria->add(CargoconsultaPeer::IDCONSULTA, $this->idconsulta);
         if ($this->isColumnModified(CargoconsultaPeer::IDLUGARINVENTARIO)) $criteria->add(CargoconsultaPeer::IDLUGARINVENTARIO, $this->idlugarinventario);
         if ($this->isColumnModified(CargoconsultaPeer::IDSERVICIO)) $criteria->add(CargoconsultaPeer::IDSERVICIO, $this->idservicio);
         if ($this->isColumnModified(CargoconsultaPeer::CARGOCONSULTA_TIPO)) $criteria->add(CargoconsultaPeer::CARGOCONSULTA_TIPO, $this->cargoconsulta_tipo);
+        if ($this->isColumnModified(CargoconsultaPeer::IDCONSULTA)) $criteria->add(CargoconsultaPeer::IDCONSULTA, $this->idconsulta);
         if ($this->isColumnModified(CargoconsultaPeer::CARGOCONSULTA_FECHA)) $criteria->add(CargoconsultaPeer::CARGOCONSULTA_FECHA, $this->cargoconsulta_fecha);
         if ($this->isColumnModified(CargoconsultaPeer::CANTIDAD)) $criteria->add(CargoconsultaPeer::CANTIDAD, $this->cantidad);
         if ($this->isColumnModified(CargoconsultaPeer::MONTO)) $criteria->add(CargoconsultaPeer::MONTO, $this->monto);
@@ -1176,10 +1176,10 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setIdconsulta($this->getIdconsulta());
         $copyObj->setIdlugarinventario($this->getIdlugarinventario());
         $copyObj->setIdservicio($this->getIdservicio());
         $copyObj->setCargoconsultaTipo($this->getCargoconsultaTipo());
+        $copyObj->setIdconsulta($this->getIdconsulta());
         $copyObj->setCargoconsultaFecha($this->getCargoconsultaFecha());
         $copyObj->setCantidad($this->getCantidad());
         $copyObj->setMonto($this->getMonto());
@@ -1403,10 +1403,10 @@ abstract class BaseCargoconsulta extends BaseObject implements Persistent
     public function clear()
     {
         $this->idcargoconsulta = null;
-        $this->idconsulta = null;
         $this->idlugarinventario = null;
         $this->idservicio = null;
         $this->cargoconsulta_tipo = null;
+        $this->idconsulta = null;
         $this->cargoconsulta_fecha = null;
         $this->cantidad = null;
         $this->monto = null;

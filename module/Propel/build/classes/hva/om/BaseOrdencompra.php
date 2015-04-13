@@ -1486,10 +1486,10 @@ abstract class BaseOrdencompra extends BaseObject implements Persistent
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Ordencompradetalle[] List of Ordencompradetalle objects
      */
-    public function getOrdencompradetallesJoinArticulovariante($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getOrdencompradetallesJoinArticulo($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = OrdencompradetalleQuery::create(null, $criteria);
-        $query->joinWith('Articulovariante', $join_behavior);
+        $query->joinWith('Articulo', $join_behavior);
 
         return $this->getOrdencompradetalles($query, $con);
     }

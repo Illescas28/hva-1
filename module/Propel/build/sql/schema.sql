@@ -20,7 +20,7 @@ CREATE TABLE `admision`
     `admision_diagnostico` TEXT,
     `admision_observaciones` TEXT,
     `admision_status` enum('pagada','no pagada','pendiente') DEFAULT 'pendiente',
-    `admision_total` DECIMAL(10,2),
+    `admision_total` VARCHAR(45),
     `admision_pagadaen` DATETIME,
     PRIMARY KEY (`idadmision`),
     INDEX `idmedico` (`idmedico`),
@@ -75,148 +75,31 @@ CREATE TABLE `articulo`
 (
     `idarticulo` INTEGER NOT NULL AUTO_INCREMENT,
     `idtipo` INTEGER NOT NULL,
+    `idudm` INTEGER NOT NULL,
     `articulo_nombre` VARCHAR(300),
+    `articulo_codigobarras` VARCHAR(100),
     `articulo_descripcion` TEXT,
+    `articulo_tipopresentacion` enum('Caja') NOT NULL,
     `articulo_cantidadpresentacion` INTEGER,
+    `articulo_existencia` DECIMAL(10,2),
+    `articulo_costo` DECIMAL(10,2),
+    `articulo_precio` DECIMAL(10,2),
+    `articulo_iva` DECIMAL(10,2),
+    `articulo_inventariominimo` DECIMAL(10,2),
+    `articulo_inventariomaximo` DECIMAL(10,2),
+    `articulo_reorden` DECIMAL(10,2),
+    `articulo_ubicacion` TEXT,
     PRIMARY KEY (`idarticulo`),
     INDEX `idtipo` (`idtipo`),
-    CONSTRAINT `idtipo_articulo`
+    INDEX `idudm` (`idudm`),
+    CONSTRAINT `idtipo_tipo`
         FOREIGN KEY (`idtipo`)
         REFERENCES `tipo` (`idtipo`)
         ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- articulovariante
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `articulovariante`;
-
-CREATE TABLE `articulovariante`
-(
-    `idarticulovariante` INTEGER NOT NULL AUTO_INCREMENT,
-    `idarticulo` INTEGER NOT NULL,
-    `articulovariante_codigobarras` VARCHAR(100),
-    `articulovariante_costo` DECIMAL(10,2),
-    `articulovariante_precio` DECIMAL(10,2),
-    `articulovariante_iva` enum('exento','0','16'),
-    `articulovariante_imagen` TEXT,
-    PRIMARY KEY (`idarticulovariante`),
-    INDEX `idproducto` (`idarticulo`),
-    CONSTRAINT `idproducto_articulovariante`
-        FOREIGN KEY (`idarticulo`)
-        REFERENCES `articulo` (`idarticulo`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- articulovariantereorden
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `articulovariantereorden`;
-
-CREATE TABLE `articulovariantereorden`
-(
-    `idarticulovariantereorden` INTEGER NOT NULL AUTO_INCREMENT,
-    `idlugar` INTEGER NOT NULL,
-    `idarticulovariante` INTEGER NOT NULL,
-    `minimo` DECIMAL(10,2) NOT NULL,
-    `maximo` DECIMAL(10,2) NOT NULL,
-    `reorden` DECIMAL(10,2) NOT NULL,
-    PRIMARY KEY (`idarticulovariantereorden`),
-    INDEX `idlugar` (`idlugar`),
-    INDEX `idarticulovariante` (`idarticulovariante`),
-    CONSTRAINT `idarticulovariante_articulovariantereorden`
-        FOREIGN KEY (`idarticulovariante`)
-        REFERENCES `articulovariante` (`idarticulovariante`)
-        ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT `idlugar_articulovariantereorden`
-        FOREIGN KEY (`idlugar`)
-        REFERENCES `lugar` (`idlugar`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- articulovariantevalor
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `articulovariantevalor`;
-
-CREATE TABLE `articulovariantevalor`
-(
-    `idarticulovariantevalor` INTEGER NOT NULL AUTO_INCREMENT,
-    `idarticulo` INTEGER NOT NULL,
-    `idpropiedad` INTEGER NOT NULL,
-    `idpropiedadvalor` INTEGER NOT NULL,
-    `idarticulovariante` INTEGER NOT NULL,
-    PRIMARY KEY (`idarticulovariantevalor`),
-    INDEX `idarticulo` (`idarticulo`),
-    INDEX `idpropiedad` (`idpropiedad`),
-    INDEX `idpropiedadvalor` (`idpropiedadvalor`),
-    INDEX `idarticulovariante` (`idarticulovariante`),
-    CONSTRAINT `idarticulo_articulovariantevalor`
-        FOREIGN KEY (`idarticulo`)
-        REFERENCES `articulo` (`idarticulo`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idarticulovariante_articulovariantevalor`
-        FOREIGN KEY (`idarticulovariante`)
-        REFERENCES `articulovariante` (`idarticulovariante`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idpropiedad_articulovariantevalor`
-        FOREIGN KEY (`idpropiedad`)
-        REFERENCES `propiedad` (`idpropiedad`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idpropiedadvalor_articulovariantevalor`
-        FOREIGN KEY (`idpropiedadvalor`)
-        REFERENCES `propiedadvalor` (`idpropiedadvalor`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- banco
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `banco`;
-
-CREATE TABLE `banco`
-(
-    `idbanco` INTEGER NOT NULL AUTO_INCREMENT,
-    `banco_nombre` VARCHAR(100) NOT NULL,
-    `banco_cuenta` VARCHAR(45) NOT NULL,
-    `banco_descripcion` TEXT,
-    `banco_balance` DECIMAL(10,2) NOT NULL,
-    PRIMARY KEY (`idbanco`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- bancotransaccion
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `bancotransaccion`;
-
-CREATE TABLE `bancotransaccion`
-(
-    `idbancotransaccion` INTEGER NOT NULL AUTO_INCREMENT,
-    `idbanco` INTEGER NOT NULL,
-    `bancotransaccion_tipo` enum('egreso','ingreso') NOT NULL,
-    `bancotransaccion_referencia` enum('caja chica','consulta','compra','admision') NOT NULL,
-    `idtransaccion` INTEGER,
-    `bancotransaccion_cantidad` DECIMAL(10,2) NOT NULL,
-    `bancotransaccion_fecha` DATETIME NOT NULL,
-    `bancotransaccion_nota` TEXT,
-    PRIMARY KEY (`idbancotransaccion`),
-    INDEX `idbanco` (`idbanco`),
-    CONSTRAINT `idbanco_bancotransaccion`
-        FOREIGN KEY (`idbanco`)
-        REFERENCES `banco` (`idbanco`)
+    CONSTRAINT `idudm_articulo`
+        FOREIGN KEY (`idudm`)
+        REFERENCES `udm` (`idudm`)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -275,10 +158,10 @@ DROP TABLE IF EXISTS `cargoadmision`;
 CREATE TABLE `cargoadmision`
 (
     `idcargoadmision` INTEGER NOT NULL AUTO_INCREMENT,
-    `idadmision` INTEGER NOT NULL,
     `idlugarinventario` INTEGER,
     `idservicio` INTEGER,
     `cargoadmision_tipo` enum('articulo','servicio') NOT NULL,
+    `idadmision` INTEGER NOT NULL,
     `cargoadmision_fecha` DATETIME NOT NULL,
     `cargoadmision_cantidad` DECIMAL(10,2) NOT NULL,
     `cargoadmision_monto` DECIMAL(10,2) NOT NULL,
@@ -312,10 +195,10 @@ DROP TABLE IF EXISTS `cargoconsulta`;
 CREATE TABLE `cargoconsulta`
 (
     `idcargoconsulta` INTEGER NOT NULL AUTO_INCREMENT,
-    `idconsulta` INTEGER NOT NULL,
     `idlugarinventario` INTEGER,
     `idservicio` INTEGER,
     `cargoconsulta_tipo` enum('articulo','servicio') NOT NULL,
+    `idconsulta` INTEGER NOT NULL,
     `cargoconsulta_fecha` DATETIME NOT NULL,
     `cantidad` DECIMAL(10,2) NOT NULL,
     `monto` DECIMAL(10,2) NOT NULL,
@@ -336,43 +219,6 @@ CREATE TABLE `cargoconsulta`
     CONSTRAINT `idservicio_cargoconsulta`
         FOREIGN KEY (`idservicio`)
         REFERENCES `servicio` (`idservicio`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- cargoventa
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `cargoventa`;
-
-CREATE TABLE `cargoventa`
-(
-    `idcargoventa` INTEGER NOT NULL AUTO_INCREMENT,
-    `idventa` INTEGER NOT NULL,
-    `idlugarinventario` INTEGER,
-    `idservicio` INTEGER,
-    `cargoventa_tipo` enum('articulo','servicio') NOT NULL,
-    `cargoventa_fecha` DATETIME NOT NULL,
-    `cantidad` DECIMAL(10,2) NOT NULL,
-    `monto` DECIMAL(10,2) NOT NULL,
-    PRIMARY KEY (`idcargoventa`),
-    INDEX `idlugarinventario` (`idlugarinventario`),
-    INDEX `idservicio` (`idservicio`),
-    INDEX `idventa` (`idventa`),
-    CONSTRAINT `idlugarinventario_cargoventa`
-        FOREIGN KEY (`idlugarinventario`)
-        REFERENCES `lugarinventario` (`idlugarinventario`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idservicio_cargoventa`
-        FOREIGN KEY (`idservicio`)
-        REFERENCES `servicio` (`idservicio`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idventa_cargoventa`
-        FOREIGN KEY (`idventa`)
-        REFERENCES `venta` (`idventa`)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -418,12 +264,12 @@ CREATE TABLE `consulta`
     `idpaciente` INTEGER NOT NULL,
     `idmedico` INTEGER NOT NULL,
     `idcuarto` INTEGER NOT NULL,
-    `consulta_fechaadmision` DATETIME NOT NULL,
-    `consulta_fechasalida` DATETIME,
+    `consulta_fechaAdmision` DATETIME NOT NULL,
+    `consulta_fechaSalida` DATETIME,
     `consulta_diagnostico` TEXT,
     `consulta_observaciones` TEXT,
     `consulta_status` enum('pagada','no pagada','pendiente') DEFAULT 'pendiente',
-    `consulta_total` DECIMAL(10,2),
+    `consulta_total` VARCHAR(45),
     PRIMARY KEY (`idconsulta`),
     INDEX `idmedico` (`idmedico`),
     INDEX `idpaciente` (`idpaciente`),
@@ -484,6 +330,99 @@ CREATE TABLE `cuarto`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
+-- datosfacturacion
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `datosfacturacion`;
+
+CREATE TABLE `datosfacturacion`
+(
+    `iddatosfacturacion` INTEGER NOT NULL AUTO_INCREMENT,
+    `idpaciente` INTEGER NOT NULL,
+    `datosfacturacion_razonsocial` VARCHAR(45),
+    `datosfacturacion_rfc` VARCHAR(45),
+    `datosfacturacion_calle` VARCHAR(45),
+    `datosfacturacion_noexterior` VARCHAR(45),
+    `datosfacturacion_nointerior` VARCHAR(45),
+    `datosfacturacion_colonia` VARCHAR(45),
+    `datosfacturacion_ciudad` VARCHAR(45),
+    `datosfacturacion_estado` VARCHAR(45),
+    `datosfacturacion_pais` VARCHAR(45),
+    `datosfacturacion_codigopostal` VARCHAR(45),
+    `datosfacturacion_telefono` VARCHAR(45),
+    `datosfacturacion_email` VARCHAR(45),
+    PRIMARY KEY (`iddatosfacturacion`),
+    INDEX `idpaciente` (`idpaciente`),
+    CONSTRAINT `idpaciente_datosfacturacion`
+        FOREIGN KEY (`idpaciente`)
+        REFERENCES `paciente` (`idpaciente`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- datosfacturacionempleado
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `datosfacturacionempleado`;
+
+CREATE TABLE `datosfacturacionempleado`
+(
+    `iddatosfacturacionempleado` INTEGER NOT NULL AUTO_INCREMENT,
+    `idempleado` INTEGER NOT NULL,
+    `datosfacturacionempleado_razonsocial` VARCHAR(45),
+    `datosfacturacionempleado_rfc` VARCHAR(45),
+    `datosfacturacionempleado_calle` VARCHAR(45),
+    `datosfacturacionempleado_noexterior` VARCHAR(45),
+    `datosfacturacionempleado_nointerior` VARCHAR(45),
+    `datosfacturacionempleado_colonia` VARCHAR(45),
+    `datosfacturacionempleado_ciudad` VARCHAR(45),
+    `datosfacturacionempleado_estado` VARCHAR(45),
+    `datosfacturacionempleado_pais` VARCHAR(45),
+    `datosfacturacionempleado_codigopostal` VARCHAR(45),
+    `datosfacturacionempleado_telefono` VARCHAR(45),
+    `datosfacturacionempleado_email` VARCHAR(45),
+    PRIMARY KEY (`iddatosfacturacionempleado`),
+    INDEX `idempleado` (`idempleado`),
+    CONSTRAINT `idempleado_datosfacturacionempleado`
+        FOREIGN KEY (`idempleado`)
+        REFERENCES `empleado` (`idempleado`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- datosfacturacionmedico
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `datosfacturacionmedico`;
+
+CREATE TABLE `datosfacturacionmedico`
+(
+    `iddatosfacturacion` INTEGER NOT NULL AUTO_INCREMENT,
+    `idmedico` INTEGER NOT NULL,
+    `datosfacturacionmedico_razonsocial` VARCHAR(45),
+    `datosfacturacionmedico_rfc` VARCHAR(45),
+    `datosfacturacionmedico_calle` VARCHAR(45),
+    `datosfacturacionmedico_noexterior` VARCHAR(45),
+    `datosfacturacionmedico_nointerior` VARCHAR(45),
+    `datosfacturacionmedico_colonia` VARCHAR(45),
+    `datosfacturacionmedico_ciudad` VARCHAR(45),
+    `datosfacturacionmedico_estado` VARCHAR(45),
+    `datosfacturacionmedico_pais` VARCHAR(45),
+    `datosfacturacionmedico_codigopostal` VARCHAR(45),
+    `datosfacturacionmedico_telefono` VARCHAR(45),
+    `datosfacturacionmedico_email` VARCHAR(45),
+    PRIMARY KEY (`iddatosfacturacion`),
+    INDEX `idmedico` (`idmedico`),
+    CONSTRAINT `idmedico_datosfacturacionmedico`
+        FOREIGN KEY (`idmedico`)
+        REFERENCES `medico` (`idmedico`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
 -- empleado
 -- ---------------------------------------------------------------------
 
@@ -492,49 +431,37 @@ DROP TABLE IF EXISTS `empleado`;
 CREATE TABLE `empleado`
 (
     `idempleado` INTEGER NOT NULL AUTO_INCREMENT,
-    `idrol` INTEGER NOT NULL,
     `empleado_nombre` VARCHAR(45) NOT NULL,
     `empleado_apellidopaterno` VARCHAR(45) NOT NULL,
     `empleado_apellidomaterno` VARCHAR(45) NOT NULL,
     `empleado_nombreusuario` VARCHAR(45) NOT NULL,
     `empleado_password` VARCHAR(45) NOT NULL,
     `empleado_email` VARCHAR(100) NOT NULL,
-    PRIMARY KEY (`idempleado`),
-    INDEX `idrol` (`idrol`),
-    CONSTRAINT `idrol_empleado`
-        FOREIGN KEY (`idrol`)
-        REFERENCES `rol` (`idrol`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    PRIMARY KEY (`idempleado`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- empleadofacturacion
+-- empleadomodulo
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `empleadofacturacion`;
+DROP TABLE IF EXISTS `empleadomodulo`;
 
-CREATE TABLE `empleadofacturacion`
+CREATE TABLE `empleadomodulo`
 (
-    `idempleadofacturacion` INTEGER NOT NULL AUTO_INCREMENT,
+    `idempleadomodulo` INTEGER NOT NULL AUTO_INCREMENT,
     `idempleado` INTEGER NOT NULL,
-    `empleadofacturacion_razonsocial` VARCHAR(45),
-    `empleadofacturacion_rfc` VARCHAR(45),
-    `empleadofacturacion_calle` VARCHAR(45),
-    `empleadofacturacion_noexterior` VARCHAR(45),
-    `empleadofacturacion_nointerior` VARCHAR(45),
-    `empleadofacturacion_colonia` VARCHAR(45),
-    `empleadofacturacion_ciudad` VARCHAR(45),
-    `empleadofacturacion_estado` VARCHAR(45),
-    `empleadofacturacion_pais` VARCHAR(45),
-    `empleadofacturacion_codigopostal` VARCHAR(45),
-    `empleadofacturacion_telefono` VARCHAR(45),
-    `empleadofacturacion_email` VARCHAR(45),
-    PRIMARY KEY (`idempleadofacturacion`),
+    `idmodulo` INTEGER NOT NULL,
+    PRIMARY KEY (`idempleadomodulo`),
     INDEX `idempleado` (`idempleado`),
-    CONSTRAINT `idempleado_empleadofacturacion`
+    INDEX `idmodulo` (`idmodulo`),
+    CONSTRAINT `idempleado_empleadomodulo`
         FOREIGN KEY (`idempleado`)
         REFERENCES `empleado` (`idempleado`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT `idmodulo_empleadomodulo`
+        FOREIGN KEY (`idmodulo`)
+        REFERENCES `modulo` (`idmodulo`)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -586,7 +513,7 @@ CREATE TABLE `factura`
         ON DELETE CASCADE,
     CONSTRAINT `iddatosfacturacion_factura`
         FOREIGN KEY (`iddatosfacturacion`)
-        REFERENCES `pacientefacturacion` (`idpacientefacturacion`)
+        REFERENCES `datosfacturacion` (`iddatosfacturacion`)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -675,7 +602,7 @@ CREATE TABLE `medico`
     `medico_ae` VARCHAR(45),
     PRIMARY KEY (`idmedico`),
     INDEX `idespecialidad` (`idespecialidad`),
-    CONSTRAINT `idespecialidad_medico`
+    CONSTRAINT `idespecialidad`
         FOREIGN KEY (`idespecialidad`)
         REFERENCES `especialidad` (`idespecialidad`)
         ON UPDATE CASCADE
@@ -702,37 +629,6 @@ CREATE TABLE `medicoespecialidad`
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT `idmedico_medicoespecialidad`
-        FOREIGN KEY (`idmedico`)
-        REFERENCES `medico` (`idmedico`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- medicofacturacion
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `medicofacturacion`;
-
-CREATE TABLE `medicofacturacion`
-(
-    `idmedicofacturacion` INTEGER NOT NULL AUTO_INCREMENT,
-    `idmedico` INTEGER NOT NULL,
-    `medicofacturacion_razonsocial` VARCHAR(45),
-    `medicofacturacion_rfc` VARCHAR(45),
-    `medicofacturacion_calle` VARCHAR(45),
-    `medicofacturacion_noexterior` VARCHAR(45),
-    `medicofacturacion_nointerior` VARCHAR(45),
-    `medicofacturacion_colonia` VARCHAR(45),
-    `medicofacturacion_ciudad` VARCHAR(45),
-    `medicofacturacion_estado` VARCHAR(45),
-    `medicofacturacion_pais` VARCHAR(45),
-    `medicofacturacion_codigopostal` VARCHAR(45),
-    `medicofacturacion_telefono` VARCHAR(45),
-    `medicofacturacion_email` VARCHAR(45),
-    PRIMARY KEY (`idmedicofacturacion`),
-    INDEX `idmedico` (`idmedico`),
-    CONSTRAINT `idmedico_medicofacturacion`
         FOREIGN KEY (`idmedico`)
         REFERENCES `medico` (`idmedico`)
         ON UPDATE CASCADE
@@ -787,7 +683,7 @@ CREATE TABLE `ordencompradetalle`
 (
     `idordencompradetalle` INTEGER NOT NULL AUTO_INCREMENT,
     `idordencompra` INTEGER NOT NULL,
-    `idarticulovariante` INTEGER NOT NULL,
+    `idarticulo` INTEGER NOT NULL,
     `ordencompradetalle_cantidad` DECIMAL(10,2) NOT NULL,
     `ordencompradetalle_costo` DECIMAL(10,2) NOT NULL,
     `ordencompradetalle_precio` DECIMAL(10,2) NOT NULL,
@@ -796,10 +692,10 @@ CREATE TABLE `ordencompradetalle`
     `ordencompradetalle_existencia` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`idordencompradetalle`),
     INDEX `irordencompra` (`idordencompra`),
-    INDEX `idarticulovariante` (`idarticulovariante`),
-    CONSTRAINT `idarticulovariante_ordencompradetalle`
-        FOREIGN KEY (`idarticulovariante`)
-        REFERENCES `articulovariante` (`idarticulovariante`)
+    INDEX `idarticulo` (`idarticulo`),
+    CONSTRAINT `idarticulo_ordencompradetalle`
+        FOREIGN KEY (`idarticulo`)
+        REFERENCES `articulo` (`idarticulo`)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT `idordencompra_ordencompradetalle`
@@ -843,79 +739,44 @@ CREATE TABLE `paciente`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- pacientefacturacion
+-- paquete
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `pacientefacturacion`;
+DROP TABLE IF EXISTS `paquete`;
 
-CREATE TABLE `pacientefacturacion`
+CREATE TABLE `paquete`
 (
-    `idpacientefacturacion` INTEGER NOT NULL AUTO_INCREMENT,
-    `idpaciente` INTEGER NOT NULL,
-    `pacientefacturacion_razonsocial` VARCHAR(45),
-    `pacientefacturacion_rfc` VARCHAR(45),
-    `pacientefacturacion_calle` VARCHAR(45),
-    `pacientefacturacion_noexterior` VARCHAR(45),
-    `pacientefacturacion_nointerior` VARCHAR(45),
-    `pacientefacturacion_colonia` VARCHAR(45),
-    `pacientefacturacion_ciudad` VARCHAR(45),
-    `pacientefacturacion_estado` VARCHAR(45),
-    `pacientefacturacion_pais` VARCHAR(45),
-    `pacientefacturacion_codigopostal` VARCHAR(45),
-    `pacientefacturacion_telefono` VARCHAR(45),
-    `pacientefacturacion_email` VARCHAR(45),
-    PRIMARY KEY (`idpacientefacturacion`),
-    INDEX `idpaciente` (`idpaciente`),
-    CONSTRAINT `idpaciente_pacientefacturacion`
-        FOREIGN KEY (`idpaciente`)
-        REFERENCES `paciente` (`idpaciente`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    `idpaquete` INTEGER NOT NULL AUTO_INCREMENT,
+    `paquete_nombre` VARCHAR(45) NOT NULL,
+    `paquete_descripcion` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`idpaquete`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- propiedad
+-- paquetedetalle
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `propiedad`;
+DROP TABLE IF EXISTS `paquetedetalle`;
 
-CREATE TABLE `propiedad`
+CREATE TABLE `paquetedetalle`
 (
-    `idpropiedad` INTEGER NOT NULL AUTO_INCREMENT,
-    `idarticulo` INTEGER NOT NULL,
-    `propiedad_nombre` VARCHAR(100) NOT NULL,
-    PRIMARY KEY (`idpropiedad`),
+    `idpaquetedetalle` INTEGER NOT NULL,
+    `idpaquete` INTEGER NOT NULL,
+    `idarticulo` INTEGER,
+    `idservicio` INTEGER,
+    `paquetedetalle_tipo` enum('articulo','servicio') NOT NULL,
+    `paquetedetalle_cantidad` DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (`idpaquetedetalle`),
     INDEX `idarticulo` (`idarticulo`),
-    CONSTRAINT `idarticulo_propiedad`
-        FOREIGN KEY (`idarticulo`)
-        REFERENCES `articulo` (`idarticulo`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- propiedadvalor
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `propiedadvalor`;
-
-CREATE TABLE `propiedadvalor`
-(
-    `idpropiedadvalor` INTEGER NOT NULL AUTO_INCREMENT,
-    `idpropiedad` INTEGER NOT NULL,
-    `idarticulo` INTEGER NOT NULL,
-    `propiedadvalor_nombre` VARCHAR(45),
-    PRIMARY KEY (`idpropiedadvalor`),
-    INDEX `idarticulo` (`idarticulo`),
-    INDEX `idpropiedad` (`idpropiedad`),
-    CONSTRAINT `idarticulo_propiedadvalor`
+    INDEX `idpaquete` (`idpaquete`),
+    CONSTRAINT `idarticulo`
         FOREIGN KEY (`idarticulo`)
         REFERENCES `articulo` (`idarticulo`)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT `idpropiedad_propiedadvalor`
-        FOREIGN KEY (`idpropiedad`)
-        REFERENCES `propiedad` (`idpropiedad`)
+    CONSTRAINT `idpaquete`
+        FOREIGN KEY (`idpaquete`)
+        REFERENCES `paquete` (`idpaquete`)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -943,46 +804,6 @@ CREATE TABLE `proveedor`
     `proveedor_telefonocelular` VARCHAR(45),
     `proveedor_fax` VARCHAR(45),
     PRIMARY KEY (`idproveedor`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- rol
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `rol`;
-
-CREATE TABLE `rol`
-(
-    `idrol` INTEGER NOT NULL AUTO_INCREMENT,
-    `rol_nombre` VARCHAR(100) NOT NULL,
-    `rol_descripcion` TEXT NOT NULL,
-    PRIMARY KEY (`idrol`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- rolmodulo
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `rolmodulo`;
-
-CREATE TABLE `rolmodulo`
-(
-    `idrolmodulo` INTEGER NOT NULL AUTO_INCREMENT,
-    `idrol` INTEGER NOT NULL,
-    `idmodulo` INTEGER NOT NULL,
-    PRIMARY KEY (`idrolmodulo`),
-    INDEX `idrol` (`idrol`),
-    INDEX `idmodulo` (`idmodulo`),
-    CONSTRAINT `idmodulo_rolmodulo`
-        FOREIGN KEY (`idmodulo`)
-        REFERENCES `modulo` (`idmodulo`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idrol_rolmodulo`
-        FOREIGN KEY (`idrol`)
-        REFERENCES `rol` (`idrol`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -1072,31 +893,17 @@ CREATE TABLE `traspasodetalles`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- venta
+-- udm
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `venta`;
+DROP TABLE IF EXISTS `udm`;
 
-CREATE TABLE `venta`
+CREATE TABLE `udm`
 (
-    `idventa` INTEGER NOT NULL AUTO_INCREMENT,
-    `idpaciente` INTEGER,
-    `idcajachica` INTEGER NOT NULL,
-    `venta_fecha` DATETIME NOT NULL,
-    `venta_cantidad` DECIMAL(10,2) NOT NULL,
-    PRIMARY KEY (`idventa`),
-    INDEX `idcajachica` (`idcajachica`),
-    INDEX `idpaciente` (`idpaciente`),
-    CONSTRAINT `cajachica_venta`
-        FOREIGN KEY (`idcajachica`)
-        REFERENCES `cajachica` (`idcajachica`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT `idpaciente_venta`
-        FOREIGN KEY (`idpaciente`)
-        REFERENCES `paciente` (`idpaciente`)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    `idudm` INTEGER NOT NULL AUTO_INCREMENT,
+    `udm_nombre` VARCHAR(45) NOT NULL,
+    `udm_descripcion` VARCHAR(45),
+    PRIMARY KEY (`idudm`)
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

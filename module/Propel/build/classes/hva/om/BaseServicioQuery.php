@@ -32,10 +32,6 @@
  * @method ServicioQuery rightJoinCargoconsulta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Cargoconsulta relation
  * @method ServicioQuery innerJoinCargoconsulta($relationAlias = null) Adds a INNER JOIN clause to the query using the Cargoconsulta relation
  *
- * @method ServicioQuery leftJoinCargoventa($relationAlias = null) Adds a LEFT JOIN clause to the query using the Cargoventa relation
- * @method ServicioQuery rightJoinCargoventa($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Cargoventa relation
- * @method ServicioQuery innerJoinCargoventa($relationAlias = null) Adds a INNER JOIN clause to the query using the Cargoventa relation
- *
  * @method Servicio findOne(PropelPDO $con = null) Return the first Servicio matching the query
  * @method Servicio findOneOrCreate(PropelPDO $con = null) Return the first Servicio matching the query, or a new Servicio object populated from the query conditions when no match is found
  *
@@ -619,80 +615,6 @@ abstract class BaseServicioQuery extends ModelCriteria
         return $this
             ->joinCargoconsulta($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Cargoconsulta', 'CargoconsultaQuery');
-    }
-
-    /**
-     * Filter the query by a related Cargoventa object
-     *
-     * @param   Cargoventa|PropelObjectCollection $cargoventa  the related object to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return                 ServicioQuery The current query, for fluid interface
-     * @throws PropelException - if the provided filter is invalid.
-     */
-    public function filterByCargoventa($cargoventa, $comparison = null)
-    {
-        if ($cargoventa instanceof Cargoventa) {
-            return $this
-                ->addUsingAlias(ServicioPeer::IDSERVICIO, $cargoventa->getIdservicio(), $comparison);
-        } elseif ($cargoventa instanceof PropelObjectCollection) {
-            return $this
-                ->useCargoventaQuery()
-                ->filterByPrimaryKeys($cargoventa->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByCargoventa() only accepts arguments of type Cargoventa or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Cargoventa relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return ServicioQuery The current query, for fluid interface
-     */
-    public function joinCargoventa($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Cargoventa');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Cargoventa');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Cargoventa relation Cargoventa object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   CargoventaQuery A secondary query class using the current class as primary query
-     */
-    public function useCargoventaQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        return $this
-            ->joinCargoventa($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Cargoventa', 'CargoventaQuery');
     }
 
     /**

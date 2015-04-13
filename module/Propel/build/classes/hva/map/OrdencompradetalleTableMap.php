@@ -40,7 +40,7 @@ class OrdencompradetalleTableMap extends TableMap
         // columns
         $this->addPrimaryKey('idordencompradetalle', 'Idordencompradetalle', 'INTEGER', true, null, null);
         $this->addForeignKey('idordencompra', 'Idordencompra', 'INTEGER', 'ordencompra', 'idordencompra', true, null, null);
-        $this->addForeignKey('idarticulovariante', 'Idarticulovariante', 'INTEGER', 'articulovariante', 'idarticulovariante', true, null, null);
+        $this->addForeignKey('idarticulo', 'Idarticulo', 'INTEGER', 'articulo', 'idarticulo', true, null, null);
         $this->addColumn('ordencompradetalle_cantidad', 'OrdencompradetalleCantidad', 'DECIMAL', true, 10, null);
         $this->addColumn('ordencompradetalle_costo', 'OrdencompradetalleCosto', 'DECIMAL', true, 10, null);
         $this->addColumn('ordencompradetalle_precio', 'OrdencompradetallePrecio', 'DECIMAL', true, 10, null);
@@ -55,7 +55,7 @@ class OrdencompradetalleTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Articulovariante', 'Articulovariante', RelationMap::MANY_TO_ONE, array('idarticulovariante' => 'idarticulovariante', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('Articulo', 'Articulo', RelationMap::MANY_TO_ONE, array('idarticulo' => 'idarticulo', ), 'CASCADE', 'CASCADE');
         $this->addRelation('Ordencompra', 'Ordencompra', RelationMap::MANY_TO_ONE, array('idordencompra' => 'idordencompra', ), 'CASCADE', 'CASCADE');
         $this->addRelation('Lugarinventario', 'Lugarinventario', RelationMap::ONE_TO_MANY, array('idordencompradetalle' => 'idordencompradetalle', ), 'CASCADE', 'CASCADE', 'Lugarinventarios');
     } // buildRelations()

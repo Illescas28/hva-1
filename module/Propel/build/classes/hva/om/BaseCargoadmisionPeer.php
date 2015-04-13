@@ -35,9 +35,6 @@ abstract class BaseCargoadmisionPeer
     /** the column name for the idcargoadmision field */
     const IDCARGOADMISION = 'cargoadmision.idcargoadmision';
 
-    /** the column name for the idadmision field */
-    const IDADMISION = 'cargoadmision.idadmision';
-
     /** the column name for the idlugarinventario field */
     const IDLUGARINVENTARIO = 'cargoadmision.idlugarinventario';
 
@@ -46,6 +43,9 @@ abstract class BaseCargoadmisionPeer
 
     /** the column name for the cargoadmision_tipo field */
     const CARGOADMISION_TIPO = 'cargoadmision.cargoadmision_tipo';
+
+    /** the column name for the idadmision field */
+    const IDADMISION = 'cargoadmision.idadmision';
 
     /** the column name for the cargoadmision_fecha field */
     const CARGOADMISION_FECHA = 'cargoadmision.cargoadmision_fecha';
@@ -79,11 +79,11 @@ abstract class BaseCargoadmisionPeer
      * e.g. CargoadmisionPeer::$fieldNames[CargoadmisionPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Idcargoadmision', 'Idadmision', 'Idlugarinventario', 'Idservicio', 'CargoadmisionTipo', 'CargoadmisionFecha', 'CargoadmisionCantidad', 'CargoadmisionMonto', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoadmision', 'idadmision', 'idlugarinventario', 'idservicio', 'cargoadmisionTipo', 'cargoadmisionFecha', 'cargoadmisionCantidad', 'cargoadmisionMonto', ),
-        BasePeer::TYPE_COLNAME => array (CargoadmisionPeer::IDCARGOADMISION, CargoadmisionPeer::IDADMISION, CargoadmisionPeer::IDLUGARINVENTARIO, CargoadmisionPeer::IDSERVICIO, CargoadmisionPeer::CARGOADMISION_TIPO, CargoadmisionPeer::CARGOADMISION_FECHA, CargoadmisionPeer::CARGOADMISION_CANTIDAD, CargoadmisionPeer::CARGOADMISION_MONTO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOADMISION', 'IDADMISION', 'IDLUGARINVENTARIO', 'IDSERVICIO', 'CARGOADMISION_TIPO', 'CARGOADMISION_FECHA', 'CARGOADMISION_CANTIDAD', 'CARGOADMISION_MONTO', ),
-        BasePeer::TYPE_FIELDNAME => array ('idcargoadmision', 'idadmision', 'idlugarinventario', 'idservicio', 'cargoadmision_tipo', 'cargoadmision_fecha', 'cargoadmision_cantidad', 'cargoadmision_monto', ),
+        BasePeer::TYPE_PHPNAME => array ('Idcargoadmision', 'Idlugarinventario', 'Idservicio', 'CargoadmisionTipo', 'Idadmision', 'CargoadmisionFecha', 'CargoadmisionCantidad', 'CargoadmisionMonto', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoadmision', 'idlugarinventario', 'idservicio', 'cargoadmisionTipo', 'idadmision', 'cargoadmisionFecha', 'cargoadmisionCantidad', 'cargoadmisionMonto', ),
+        BasePeer::TYPE_COLNAME => array (CargoadmisionPeer::IDCARGOADMISION, CargoadmisionPeer::IDLUGARINVENTARIO, CargoadmisionPeer::IDSERVICIO, CargoadmisionPeer::CARGOADMISION_TIPO, CargoadmisionPeer::IDADMISION, CargoadmisionPeer::CARGOADMISION_FECHA, CargoadmisionPeer::CARGOADMISION_CANTIDAD, CargoadmisionPeer::CARGOADMISION_MONTO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOADMISION', 'IDLUGARINVENTARIO', 'IDSERVICIO', 'CARGOADMISION_TIPO', 'IDADMISION', 'CARGOADMISION_FECHA', 'CARGOADMISION_CANTIDAD', 'CARGOADMISION_MONTO', ),
+        BasePeer::TYPE_FIELDNAME => array ('idcargoadmision', 'idlugarinventario', 'idservicio', 'cargoadmision_tipo', 'idadmision', 'cargoadmision_fecha', 'cargoadmision_cantidad', 'cargoadmision_monto', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -94,11 +94,11 @@ abstract class BaseCargoadmisionPeer
      * e.g. CargoadmisionPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Idcargoadmision' => 0, 'Idadmision' => 1, 'Idlugarinventario' => 2, 'Idservicio' => 3, 'CargoadmisionTipo' => 4, 'CargoadmisionFecha' => 5, 'CargoadmisionCantidad' => 6, 'CargoadmisionMonto' => 7, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoadmision' => 0, 'idadmision' => 1, 'idlugarinventario' => 2, 'idservicio' => 3, 'cargoadmisionTipo' => 4, 'cargoadmisionFecha' => 5, 'cargoadmisionCantidad' => 6, 'cargoadmisionMonto' => 7, ),
-        BasePeer::TYPE_COLNAME => array (CargoadmisionPeer::IDCARGOADMISION => 0, CargoadmisionPeer::IDADMISION => 1, CargoadmisionPeer::IDLUGARINVENTARIO => 2, CargoadmisionPeer::IDSERVICIO => 3, CargoadmisionPeer::CARGOADMISION_TIPO => 4, CargoadmisionPeer::CARGOADMISION_FECHA => 5, CargoadmisionPeer::CARGOADMISION_CANTIDAD => 6, CargoadmisionPeer::CARGOADMISION_MONTO => 7, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOADMISION' => 0, 'IDADMISION' => 1, 'IDLUGARINVENTARIO' => 2, 'IDSERVICIO' => 3, 'CARGOADMISION_TIPO' => 4, 'CARGOADMISION_FECHA' => 5, 'CARGOADMISION_CANTIDAD' => 6, 'CARGOADMISION_MONTO' => 7, ),
-        BasePeer::TYPE_FIELDNAME => array ('idcargoadmision' => 0, 'idadmision' => 1, 'idlugarinventario' => 2, 'idservicio' => 3, 'cargoadmision_tipo' => 4, 'cargoadmision_fecha' => 5, 'cargoadmision_cantidad' => 6, 'cargoadmision_monto' => 7, ),
+        BasePeer::TYPE_PHPNAME => array ('Idcargoadmision' => 0, 'Idlugarinventario' => 1, 'Idservicio' => 2, 'CargoadmisionTipo' => 3, 'Idadmision' => 4, 'CargoadmisionFecha' => 5, 'CargoadmisionCantidad' => 6, 'CargoadmisionMonto' => 7, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoadmision' => 0, 'idlugarinventario' => 1, 'idservicio' => 2, 'cargoadmisionTipo' => 3, 'idadmision' => 4, 'cargoadmisionFecha' => 5, 'cargoadmisionCantidad' => 6, 'cargoadmisionMonto' => 7, ),
+        BasePeer::TYPE_COLNAME => array (CargoadmisionPeer::IDCARGOADMISION => 0, CargoadmisionPeer::IDLUGARINVENTARIO => 1, CargoadmisionPeer::IDSERVICIO => 2, CargoadmisionPeer::CARGOADMISION_TIPO => 3, CargoadmisionPeer::IDADMISION => 4, CargoadmisionPeer::CARGOADMISION_FECHA => 5, CargoadmisionPeer::CARGOADMISION_CANTIDAD => 6, CargoadmisionPeer::CARGOADMISION_MONTO => 7, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOADMISION' => 0, 'IDLUGARINVENTARIO' => 1, 'IDSERVICIO' => 2, 'CARGOADMISION_TIPO' => 3, 'IDADMISION' => 4, 'CARGOADMISION_FECHA' => 5, 'CARGOADMISION_CANTIDAD' => 6, 'CARGOADMISION_MONTO' => 7, ),
+        BasePeer::TYPE_FIELDNAME => array ('idcargoadmision' => 0, 'idlugarinventario' => 1, 'idservicio' => 2, 'cargoadmision_tipo' => 3, 'idadmision' => 4, 'cargoadmision_fecha' => 5, 'cargoadmision_cantidad' => 6, 'cargoadmision_monto' => 7, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -227,19 +227,19 @@ abstract class BaseCargoadmisionPeer
     {
         if (null === $alias) {
             $criteria->addSelectColumn(CargoadmisionPeer::IDCARGOADMISION);
-            $criteria->addSelectColumn(CargoadmisionPeer::IDADMISION);
             $criteria->addSelectColumn(CargoadmisionPeer::IDLUGARINVENTARIO);
             $criteria->addSelectColumn(CargoadmisionPeer::IDSERVICIO);
             $criteria->addSelectColumn(CargoadmisionPeer::CARGOADMISION_TIPO);
+            $criteria->addSelectColumn(CargoadmisionPeer::IDADMISION);
             $criteria->addSelectColumn(CargoadmisionPeer::CARGOADMISION_FECHA);
             $criteria->addSelectColumn(CargoadmisionPeer::CARGOADMISION_CANTIDAD);
             $criteria->addSelectColumn(CargoadmisionPeer::CARGOADMISION_MONTO);
         } else {
             $criteria->addSelectColumn($alias . '.idcargoadmision');
-            $criteria->addSelectColumn($alias . '.idadmision');
             $criteria->addSelectColumn($alias . '.idlugarinventario');
             $criteria->addSelectColumn($alias . '.idservicio');
             $criteria->addSelectColumn($alias . '.cargoadmision_tipo');
+            $criteria->addSelectColumn($alias . '.idadmision');
             $criteria->addSelectColumn($alias . '.cargoadmision_fecha');
             $criteria->addSelectColumn($alias . '.cargoadmision_cantidad');
             $criteria->addSelectColumn($alias . '.cargoadmision_monto');

@@ -39,7 +39,7 @@ class FacturaTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('idfactura', 'Idfactura', 'INTEGER', true, null, null);
-        $this->addForeignKey('iddatosfacturacion', 'Iddatosfacturacion', 'INTEGER', 'pacientefacturacion', 'idpacientefacturacion', true, null, null);
+        $this->addForeignKey('iddatosfacturacion', 'Iddatosfacturacion', 'INTEGER', 'datosfacturacion', 'iddatosfacturacion', true, null, null);
         $this->addForeignKey('idconsulta', 'Idconsulta', 'INTEGER', 'consulta', 'idconsulta', true, null, null);
         $this->addColumn('factura_url_xml', 'FacturaUrlXml', 'VARCHAR', true, 45, null);
         $this->addColumn('factura_url_pdf', 'FacturaUrlPdf', 'VARCHAR', true, 45, null);
@@ -74,7 +74,7 @@ class FacturaTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('Consulta', 'Consulta', RelationMap::MANY_TO_ONE, array('idconsulta' => 'idconsulta', ), 'CASCADE', 'CASCADE');
-        $this->addRelation('Pacientefacturacion', 'Pacientefacturacion', RelationMap::MANY_TO_ONE, array('iddatosfacturacion' => 'idpacientefacturacion', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('Datosfacturacion', 'Datosfacturacion', RelationMap::MANY_TO_ONE, array('iddatosfacturacion' => 'iddatosfacturacion', ), 'CASCADE', 'CASCADE');
     } // buildRelations()
 
 } // FacturaTableMap

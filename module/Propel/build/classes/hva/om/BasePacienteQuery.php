@@ -68,13 +68,9 @@
  * @method PacienteQuery rightJoinConsulta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Consulta relation
  * @method PacienteQuery innerJoinConsulta($relationAlias = null) Adds a INNER JOIN clause to the query using the Consulta relation
  *
- * @method PacienteQuery leftJoinPacientefacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Pacientefacturacion relation
- * @method PacienteQuery rightJoinPacientefacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Pacientefacturacion relation
- * @method PacienteQuery innerJoinPacientefacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Pacientefacturacion relation
- *
- * @method PacienteQuery leftJoinVenta($relationAlias = null) Adds a LEFT JOIN clause to the query using the Venta relation
- * @method PacienteQuery rightJoinVenta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Venta relation
- * @method PacienteQuery innerJoinVenta($relationAlias = null) Adds a INNER JOIN clause to the query using the Venta relation
+ * @method PacienteQuery leftJoinDatosfacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Datosfacturacion relation
+ * @method PacienteQuery rightJoinDatosfacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Datosfacturacion relation
+ * @method PacienteQuery innerJoinDatosfacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Datosfacturacion relation
  *
  * @method Paciente findOne(PropelPDO $con = null) Return the first Paciente matching the query
  * @method Paciente findOneOrCreate(PropelPDO $con = null) Return the first Paciente matching the query, or a new Paciente object populated from the query conditions when no match is found
@@ -1193,41 +1189,41 @@ abstract class BasePacienteQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Pacientefacturacion object
+     * Filter the query by a related Datosfacturacion object
      *
-     * @param   Pacientefacturacion|PropelObjectCollection $pacientefacturacion  the related object to use as filter
+     * @param   Datosfacturacion|PropelObjectCollection $datosfacturacion  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 PacienteQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByPacientefacturacion($pacientefacturacion, $comparison = null)
+    public function filterByDatosfacturacion($datosfacturacion, $comparison = null)
     {
-        if ($pacientefacturacion instanceof Pacientefacturacion) {
+        if ($datosfacturacion instanceof Datosfacturacion) {
             return $this
-                ->addUsingAlias(PacientePeer::IDPACIENTE, $pacientefacturacion->getIdpaciente(), $comparison);
-        } elseif ($pacientefacturacion instanceof PropelObjectCollection) {
+                ->addUsingAlias(PacientePeer::IDPACIENTE, $datosfacturacion->getIdpaciente(), $comparison);
+        } elseif ($datosfacturacion instanceof PropelObjectCollection) {
             return $this
-                ->usePacientefacturacionQuery()
-                ->filterByPrimaryKeys($pacientefacturacion->getPrimaryKeys())
+                ->useDatosfacturacionQuery()
+                ->filterByPrimaryKeys($datosfacturacion->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByPacientefacturacion() only accepts arguments of type Pacientefacturacion or PropelCollection');
+            throw new PropelException('filterByDatosfacturacion() only accepts arguments of type Datosfacturacion or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Pacientefacturacion relation
+     * Adds a JOIN clause to the query using the Datosfacturacion relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return PacienteQuery The current query, for fluid interface
      */
-    public function joinPacientefacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinDatosfacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Pacientefacturacion');
+        $relationMap = $tableMap->getRelation('Datosfacturacion');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -1242,14 +1238,14 @@ abstract class BasePacienteQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Pacientefacturacion');
+            $this->addJoinObject($join, 'Datosfacturacion');
         }
 
         return $this;
     }
 
     /**
-     * Use the Pacientefacturacion relation Pacientefacturacion object
+     * Use the Datosfacturacion relation Datosfacturacion object
      *
      * @see       useQuery()
      *
@@ -1257,87 +1253,13 @@ abstract class BasePacienteQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   PacientefacturacionQuery A secondary query class using the current class as primary query
+     * @return   DatosfacturacionQuery A secondary query class using the current class as primary query
      */
-    public function usePacientefacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useDatosfacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPacientefacturacion($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Pacientefacturacion', 'PacientefacturacionQuery');
-    }
-
-    /**
-     * Filter the query by a related Venta object
-     *
-     * @param   Venta|PropelObjectCollection $venta  the related object to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return                 PacienteQuery The current query, for fluid interface
-     * @throws PropelException - if the provided filter is invalid.
-     */
-    public function filterByVenta($venta, $comparison = null)
-    {
-        if ($venta instanceof Venta) {
-            return $this
-                ->addUsingAlias(PacientePeer::IDPACIENTE, $venta->getIdpaciente(), $comparison);
-        } elseif ($venta instanceof PropelObjectCollection) {
-            return $this
-                ->useVentaQuery()
-                ->filterByPrimaryKeys($venta->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByVenta() only accepts arguments of type Venta or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Venta relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return PacienteQuery The current query, for fluid interface
-     */
-    public function joinVenta($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Venta');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Venta');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Venta relation Venta object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   VentaQuery A secondary query class using the current class as primary query
-     */
-    public function useVentaQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        return $this
-            ->joinVenta($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Venta', 'VentaQuery');
+            ->joinDatosfacturacion($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Datosfacturacion', 'DatosfacturacionQuery');
     }
 
     /**

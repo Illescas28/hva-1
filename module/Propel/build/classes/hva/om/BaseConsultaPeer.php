@@ -44,11 +44,11 @@ abstract class BaseConsultaPeer
     /** the column name for the idcuarto field */
     const IDCUARTO = 'consulta.idcuarto';
 
-    /** the column name for the consulta_fechaadmision field */
-    const CONSULTA_FECHAADMISION = 'consulta.consulta_fechaadmision';
+    /** the column name for the consulta_fechaAdmision field */
+    const CONSULTA_FECHAADMISION = 'consulta.consulta_fechaAdmision';
 
-    /** the column name for the consulta_fechasalida field */
-    const CONSULTA_FECHASALIDA = 'consulta.consulta_fechasalida';
+    /** the column name for the consulta_fechaSalida field */
+    const CONSULTA_FECHASALIDA = 'consulta.consulta_fechaSalida';
 
     /** the column name for the consulta_diagnostico field */
     const CONSULTA_DIAGNOSTICO = 'consulta.consulta_diagnostico';
@@ -90,7 +90,7 @@ abstract class BaseConsultaPeer
         BasePeer::TYPE_STUDLYPHPNAME => array ('idconsulta', 'idpaciente', 'idmedico', 'idcuarto', 'consultaFechaadmision', 'consultaFechasalida', 'consultaDiagnostico', 'consultaObservaciones', 'consultaStatus', 'consultaTotal', ),
         BasePeer::TYPE_COLNAME => array (ConsultaPeer::IDCONSULTA, ConsultaPeer::IDPACIENTE, ConsultaPeer::IDMEDICO, ConsultaPeer::IDCUARTO, ConsultaPeer::CONSULTA_FECHAADMISION, ConsultaPeer::CONSULTA_FECHASALIDA, ConsultaPeer::CONSULTA_DIAGNOSTICO, ConsultaPeer::CONSULTA_OBSERVACIONES, ConsultaPeer::CONSULTA_STATUS, ConsultaPeer::CONSULTA_TOTAL, ),
         BasePeer::TYPE_RAW_COLNAME => array ('IDCONSULTA', 'IDPACIENTE', 'IDMEDICO', 'IDCUARTO', 'CONSULTA_FECHAADMISION', 'CONSULTA_FECHASALIDA', 'CONSULTA_DIAGNOSTICO', 'CONSULTA_OBSERVACIONES', 'CONSULTA_STATUS', 'CONSULTA_TOTAL', ),
-        BasePeer::TYPE_FIELDNAME => array ('idconsulta', 'idpaciente', 'idmedico', 'idcuarto', 'consulta_fechaadmision', 'consulta_fechasalida', 'consulta_diagnostico', 'consulta_observaciones', 'consulta_status', 'consulta_total', ),
+        BasePeer::TYPE_FIELDNAME => array ('idconsulta', 'idpaciente', 'idmedico', 'idcuarto', 'consulta_fechaAdmision', 'consulta_fechaSalida', 'consulta_diagnostico', 'consulta_observaciones', 'consulta_status', 'consulta_total', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
@@ -105,7 +105,7 @@ abstract class BaseConsultaPeer
         BasePeer::TYPE_STUDLYPHPNAME => array ('idconsulta' => 0, 'idpaciente' => 1, 'idmedico' => 2, 'idcuarto' => 3, 'consultaFechaadmision' => 4, 'consultaFechasalida' => 5, 'consultaDiagnostico' => 6, 'consultaObservaciones' => 7, 'consultaStatus' => 8, 'consultaTotal' => 9, ),
         BasePeer::TYPE_COLNAME => array (ConsultaPeer::IDCONSULTA => 0, ConsultaPeer::IDPACIENTE => 1, ConsultaPeer::IDMEDICO => 2, ConsultaPeer::IDCUARTO => 3, ConsultaPeer::CONSULTA_FECHAADMISION => 4, ConsultaPeer::CONSULTA_FECHASALIDA => 5, ConsultaPeer::CONSULTA_DIAGNOSTICO => 6, ConsultaPeer::CONSULTA_OBSERVACIONES => 7, ConsultaPeer::CONSULTA_STATUS => 8, ConsultaPeer::CONSULTA_TOTAL => 9, ),
         BasePeer::TYPE_RAW_COLNAME => array ('IDCONSULTA' => 0, 'IDPACIENTE' => 1, 'IDMEDICO' => 2, 'IDCUARTO' => 3, 'CONSULTA_FECHAADMISION' => 4, 'CONSULTA_FECHASALIDA' => 5, 'CONSULTA_DIAGNOSTICO' => 6, 'CONSULTA_OBSERVACIONES' => 7, 'CONSULTA_STATUS' => 8, 'CONSULTA_TOTAL' => 9, ),
-        BasePeer::TYPE_FIELDNAME => array ('idconsulta' => 0, 'idpaciente' => 1, 'idmedico' => 2, 'idcuarto' => 3, 'consulta_fechaadmision' => 4, 'consulta_fechasalida' => 5, 'consulta_diagnostico' => 6, 'consulta_observaciones' => 7, 'consulta_status' => 8, 'consulta_total' => 9, ),
+        BasePeer::TYPE_FIELDNAME => array ('idconsulta' => 0, 'idpaciente' => 1, 'idmedico' => 2, 'idcuarto' => 3, 'consulta_fechaAdmision' => 4, 'consulta_fechaSalida' => 5, 'consulta_diagnostico' => 6, 'consulta_observaciones' => 7, 'consulta_status' => 8, 'consulta_total' => 9, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
@@ -249,8 +249,8 @@ abstract class BaseConsultaPeer
             $criteria->addSelectColumn($alias . '.idpaciente');
             $criteria->addSelectColumn($alias . '.idmedico');
             $criteria->addSelectColumn($alias . '.idcuarto');
-            $criteria->addSelectColumn($alias . '.consulta_fechaadmision');
-            $criteria->addSelectColumn($alias . '.consulta_fechasalida');
+            $criteria->addSelectColumn($alias . '.consulta_fechaAdmision');
+            $criteria->addSelectColumn($alias . '.consulta_fechaSalida');
             $criteria->addSelectColumn($alias . '.consulta_diagnostico');
             $criteria->addSelectColumn($alias . '.consulta_observaciones');
             $criteria->addSelectColumn($alias . '.consulta_status');

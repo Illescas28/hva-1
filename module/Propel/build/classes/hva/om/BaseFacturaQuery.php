@@ -46,9 +46,9 @@
  * @method FacturaQuery rightJoinConsulta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Consulta relation
  * @method FacturaQuery innerJoinConsulta($relationAlias = null) Adds a INNER JOIN clause to the query using the Consulta relation
  *
- * @method FacturaQuery leftJoinPacientefacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Pacientefacturacion relation
- * @method FacturaQuery rightJoinPacientefacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Pacientefacturacion relation
- * @method FacturaQuery innerJoinPacientefacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Pacientefacturacion relation
+ * @method FacturaQuery leftJoinDatosfacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Datosfacturacion relation
+ * @method FacturaQuery rightJoinDatosfacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Datosfacturacion relation
+ * @method FacturaQuery innerJoinDatosfacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Datosfacturacion relation
  *
  * @method Factura findOne(PropelPDO $con = null) Return the first Factura matching the query
  * @method Factura findOneOrCreate(PropelPDO $con = null) Return the first Factura matching the query, or a new Factura object populated from the query conditions when no match is found
@@ -332,7 +332,7 @@ abstract class BaseFacturaQuery extends ModelCriteria
      * $query->filterByIddatosfacturacion(array('max' => 12)); // WHERE iddatosfacturacion <= 12
      * </code>
      *
-     * @see       filterByPacientefacturacion()
+     * @see       filterByDatosfacturacion()
      *
      * @param     mixed $iddatosfacturacion The value to use as filter.
      *              Use scalar values for equality.
@@ -848,43 +848,43 @@ abstract class BaseFacturaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Pacientefacturacion object
+     * Filter the query by a related Datosfacturacion object
      *
-     * @param   Pacientefacturacion|PropelObjectCollection $pacientefacturacion The related object(s) to use as filter
+     * @param   Datosfacturacion|PropelObjectCollection $datosfacturacion The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 FacturaQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByPacientefacturacion($pacientefacturacion, $comparison = null)
+    public function filterByDatosfacturacion($datosfacturacion, $comparison = null)
     {
-        if ($pacientefacturacion instanceof Pacientefacturacion) {
+        if ($datosfacturacion instanceof Datosfacturacion) {
             return $this
-                ->addUsingAlias(FacturaPeer::IDDATOSFACTURACION, $pacientefacturacion->getIdpacientefacturacion(), $comparison);
-        } elseif ($pacientefacturacion instanceof PropelObjectCollection) {
+                ->addUsingAlias(FacturaPeer::IDDATOSFACTURACION, $datosfacturacion->getIddatosfacturacion(), $comparison);
+        } elseif ($datosfacturacion instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(FacturaPeer::IDDATOSFACTURACION, $pacientefacturacion->toKeyValue('PrimaryKey', 'Idpacientefacturacion'), $comparison);
+                ->addUsingAlias(FacturaPeer::IDDATOSFACTURACION, $datosfacturacion->toKeyValue('PrimaryKey', 'Iddatosfacturacion'), $comparison);
         } else {
-            throw new PropelException('filterByPacientefacturacion() only accepts arguments of type Pacientefacturacion or PropelCollection');
+            throw new PropelException('filterByDatosfacturacion() only accepts arguments of type Datosfacturacion or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Pacientefacturacion relation
+     * Adds a JOIN clause to the query using the Datosfacturacion relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return FacturaQuery The current query, for fluid interface
      */
-    public function joinPacientefacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinDatosfacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Pacientefacturacion');
+        $relationMap = $tableMap->getRelation('Datosfacturacion');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -899,14 +899,14 @@ abstract class BaseFacturaQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Pacientefacturacion');
+            $this->addJoinObject($join, 'Datosfacturacion');
         }
 
         return $this;
     }
 
     /**
-     * Use the Pacientefacturacion relation Pacientefacturacion object
+     * Use the Datosfacturacion relation Datosfacturacion object
      *
      * @see       useQuery()
      *
@@ -914,13 +914,13 @@ abstract class BaseFacturaQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   PacientefacturacionQuery A secondary query class using the current class as primary query
+     * @return   DatosfacturacionQuery A secondary query class using the current class as primary query
      */
-    public function usePacientefacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useDatosfacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPacientefacturacion($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Pacientefacturacion', 'PacientefacturacionQuery');
+            ->joinDatosfacturacion($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Datosfacturacion', 'DatosfacturacionQuery');
     }
 
     /**

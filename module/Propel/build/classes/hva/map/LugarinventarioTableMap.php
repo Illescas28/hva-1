@@ -54,7 +54,6 @@ class LugarinventarioTableMap extends TableMap
         $this->addRelation('Ordencompradetalle', 'Ordencompradetalle', RelationMap::MANY_TO_ONE, array('idordencompradetalle' => 'idordencompradetalle', ), 'CASCADE', 'CASCADE');
         $this->addRelation('Cargoadmision', 'Cargoadmision', RelationMap::ONE_TO_MANY, array('idlugarinventario' => 'idlugarinventario', ), 'CASCADE', 'CASCADE', 'Cargoadmisions');
         $this->addRelation('Cargoconsulta', 'Cargoconsulta', RelationMap::ONE_TO_MANY, array('idlugarinventario' => 'idlugarinventario', ), 'CASCADE', 'CASCADE', 'Cargoconsultas');
-        $this->addRelation('Cargoventa', 'Cargoventa', RelationMap::ONE_TO_MANY, array('idlugarinventario' => 'idlugarinventario', ), 'CASCADE', 'CASCADE', 'Cargoventas');
         $this->addRelation('Traspasodetalles', 'Traspasodetalles', RelationMap::ONE_TO_MANY, array('idlugarinventario' => 'idlugarinventario', ), 'CASCADE', 'CASCADE', 'Traspasodetalless');
     } // buildRelations()
 

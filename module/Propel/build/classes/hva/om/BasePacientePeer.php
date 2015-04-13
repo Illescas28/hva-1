@@ -532,12 +532,9 @@ abstract class BasePacientePeer
         // Invalidate objects in ConsultaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         ConsultaPeer::clearInstancePool();
-        // Invalidate objects in PacientefacturacionPeer instance pool,
+        // Invalidate objects in DatosfacturacionPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        PacientefacturacionPeer::clearInstancePool();
-        // Invalidate objects in VentaPeer instance pool,
-        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        VentaPeer::clearInstancePool();
+        DatosfacturacionPeer::clearInstancePool();
     }
 
     /**
@@ -890,17 +887,11 @@ abstract class BasePacientePeer
             $criteria->add(ConsultaPeer::IDPACIENTE, $obj->getIdpaciente());
             $affectedRows += ConsultaPeer::doDelete($criteria, $con);
 
-            // delete related Pacientefacturacion objects
-            $criteria = new Criteria(PacientefacturacionPeer::DATABASE_NAME);
+            // delete related Datosfacturacion objects
+            $criteria = new Criteria(DatosfacturacionPeer::DATABASE_NAME);
 
-            $criteria->add(PacientefacturacionPeer::IDPACIENTE, $obj->getIdpaciente());
-            $affectedRows += PacientefacturacionPeer::doDelete($criteria, $con);
-
-            // delete related Venta objects
-            $criteria = new Criteria(VentaPeer::DATABASE_NAME);
-
-            $criteria->add(VentaPeer::IDPACIENTE, $obj->getIdpaciente());
-            $affectedRows += VentaPeer::doDelete($criteria, $con);
+            $criteria->add(DatosfacturacionPeer::IDPACIENTE, $obj->getIdpaciente());
+            $affectedRows += DatosfacturacionPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

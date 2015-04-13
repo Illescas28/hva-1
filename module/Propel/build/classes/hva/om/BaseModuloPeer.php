@@ -365,9 +365,9 @@ abstract class BaseModuloPeer
      */
     public static function clearRelatedInstancePool()
     {
-        // Invalidate objects in RolmoduloPeer instance pool,
+        // Invalidate objects in EmpleadomoduloPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        RolmoduloPeer::clearInstancePool();
+        EmpleadomoduloPeer::clearInstancePool();
     }
 
     /**
@@ -702,11 +702,11 @@ abstract class BaseModuloPeer
         foreach ($objects as $obj) {
 
 
-            // delete related Rolmodulo objects
-            $criteria = new Criteria(RolmoduloPeer::DATABASE_NAME);
+            // delete related Empleadomodulo objects
+            $criteria = new Criteria(EmpleadomoduloPeer::DATABASE_NAME);
 
-            $criteria->add(RolmoduloPeer::IDMODULO, $obj->getIdmodulo());
-            $affectedRows += RolmoduloPeer::doDelete($criteria, $con);
+            $criteria->add(EmpleadomoduloPeer::IDMODULO, $obj->getIdmodulo());
+            $affectedRows += EmpleadomoduloPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

@@ -39,7 +39,6 @@ class CargoconsultaTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('idcargoconsulta', 'Idcargoconsulta', 'INTEGER', true, null, null);
-        $this->addForeignKey('idconsulta', 'Idconsulta', 'INTEGER', 'consulta', 'idconsulta', true, null, null);
         $this->addForeignKey('idlugarinventario', 'Idlugarinventario', 'INTEGER', 'lugarinventario', 'idlugarinventario', false, null, null);
         $this->addForeignKey('idservicio', 'Idservicio', 'INTEGER', 'servicio', 'idservicio', false, null, null);
         $this->addColumn('cargoconsulta_tipo', 'CargoconsultaTipo', 'CHAR', true, null, null);
@@ -47,6 +46,7 @@ class CargoconsultaTableMap extends TableMap
   0 => 'articulo',
   1 => 'servicio',
 ));
+        $this->addForeignKey('idconsulta', 'Idconsulta', 'INTEGER', 'consulta', 'idconsulta', true, null, null);
         $this->addColumn('cargoconsulta_fecha', 'CargoconsultaFecha', 'TIMESTAMP', true, null, null);
         $this->addColumn('cantidad', 'Cantidad', 'DECIMAL', true, 10, null);
         $this->addColumn('monto', 'Monto', 'DECIMAL', true, 10, null);
