@@ -171,7 +171,7 @@ class ServicioController extends AbstractActionController
             
             //Instanciamos nuestro servicio
             $servicio = ServicioQuery::create()->findPk($id);
-            var_dump($servicio);
+
             $servicio->delete();
             
             //Agregamos un mensaje

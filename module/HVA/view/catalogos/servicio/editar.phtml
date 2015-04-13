@@ -1,45 +1,47 @@
 <?php
-    $title = "Cuarto: ". $cuartoForm->get('cuarto_nombre')->getValue();
+    $title = "Servicio: ". $servicioForm->get('servicio_nombre')->getValue();
     $this->headTitle($title);
 ?>
 <h3><?php echo $this->escapeHtml($title); ?></h3>
-<?php $cuartoForm->setAttribute('action', '/catalogos/cuarto/editar/'.$id);?>
-<?php $cuartoForm->setAttribute('class', 'hva-form');?>
-<?php $cuartoForm->prepare();?>
-<?php echo $this->form()->openTag($cuartoForm); ?>
+<?php $servicioForm->setAttribute('action', '/catalogos/servicio/editar/'.$id);?>
+<?php $servicioForm->setAttribute('class', 'hva-form');?>
+<?php $servicioForm->prepare();?>
+<?php echo $this->form()->openTag($servicioForm); ?>
+<?php echo $this->form()->openTag($servicioForm); ?>
 <div class="row">
     <fieldset>
         <legend>Datos Generales</legend>
         <div class="row">
-            <div class="col s6">
+            <div class="col s4">
                 <div class="input-field">
-                    <?php echo $this->formText($cuartoForm->get('cuarto_nombre')); ?>
-                    <?php echo $this->formLabel($cuartoForm->get('cuarto_nombre')); ?>
+                    <?php echo $this->formText($servicioForm->get('servicio_nombre')); ?>
+                    <?php echo $this->formLabel($servicioForm->get('servicio_nombre')); ?>
                 </div>
             </div>
-            <div class="col s3">
-                <?php echo $this->formLabel($cuartoForm->get('cuarto_enuso')); ?>
-                <div class="input-field checkbox">
-                    <div class="switch">
-                        <label>
-                          No
-                          <input type="checkbox" name="cuarto_enuso" value="TRUE">
-                          <span class="lever"></span>
-                          Si
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="col s3">
-                <div class="input-field">
-                    <?php echo $this->formText($cuartoForm->get('cuarto_extension')); ?>
-                    <?php echo $this->formLabel($cuartoForm->get('cuarto_extension')); ?>
-                </div>
-            </div>
+        </div>
+        <div class="row">
             <div class="col s12">
                 <div class="input-field">
-                    <?php echo $this->formText($cuartoForm->get('cuarto_descripcion')); ?>
-                    <?php echo $this->formLabel($cuartoForm->get('cuarto_descripcion')); ?>
+                    <?php echo $this->formText($servicioForm->get('servicio_descripcion')); ?>
+                    <?php echo $this->formLabel($servicioForm->get('servicio_descripcion')); ?>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <?php echo $this->formText($servicioForm->get('servicio_costo')); ?>
+                    <?php echo $this->formLabel($servicioForm->get('servicio_costo')); ?>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <?php echo $this->formText($servicioForm->get('servicio_iva')); ?>
+                    <?php echo $this->formLabel($servicioForm->get('servicio_iva')); ?>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <?php echo $this->formText($servicioForm->get('servicio_precio')); ?>
+                    <?php echo $this->formLabel($servicioForm->get('servicio_precio')); ?>
                 </div>
             </div>
         </div>
