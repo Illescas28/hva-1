@@ -6,7 +6,7 @@ use Zend\Form\Form;
 
 class EspecialidadForm extends Form
 {
-    public function __construct(array $especialidades =null)
+    public function __construct()
     {
         // we want to ignore the name passed
         parent::__construct('EspecialidadForm');

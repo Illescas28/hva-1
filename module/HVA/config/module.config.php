@@ -176,6 +176,20 @@ return array(
                     ),
                 ),
             ),
+            'cuarto' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/catalogos/cuarto[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action' => 'nuevo|editar|eliminar',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Catalogos\Cuarto\Controller\Cuarto',
+                        'action'     => 'listar',
+                    ),
+                ),
+            ),
             'auth' => array(
                 'type'    => 'segment',
                 'options' => array(
@@ -224,7 +238,8 @@ return array(
             'Catalogos\Propiedad\Controller\Propiedad'                  => 'Catalogos\Propiedad\Controller\PropiedadController',
             'Catalogos\Producto\Controller\Producto'                    => 'Catalogos\Producto\Controller\ProductoController',
             'Catalogos\Medico\Controller\Medico'                        => 'Catalogos\Medico\Controller\MedicoController',
-            'Catalogos\Especialidad\Controller\Especialidad'            => 'Catalogos\Especialidad\Controller\EspecialidadController'
+            'Catalogos\Especialidad\Controller\Especialidad'            => 'Catalogos\Especialidad\Controller\EspecialidadController',
+            'Catalogos\Cuarto\Controller\Cuarto'                        => 'Catalogos\Cuarto\Controller\CuartoController'
 
         ),
     ),
