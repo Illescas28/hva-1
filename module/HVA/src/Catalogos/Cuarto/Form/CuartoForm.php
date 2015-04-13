@@ -21,7 +21,7 @@ class CuartoForm extends Form
         ));
         $this->add(array(
             'name' => 'cuarto_descripcion',
-            'type' => 'text',
+            'type' => 'Textarea',
             'options' => array(
                 'label' => 'Descripcion',
             ),
