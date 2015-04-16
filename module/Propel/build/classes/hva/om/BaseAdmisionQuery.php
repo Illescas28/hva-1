@@ -627,24 +627,37 @@ abstract class BaseAdmisionQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByAdmisionTotal('fooValue');   // WHERE admision_total = 'fooValue'
-     * $query->filterByAdmisionTotal('%fooValue%'); // WHERE admision_total LIKE '%fooValue%'
+     * $query->filterByAdmisionTotal(1234); // WHERE admision_total = 1234
+     * $query->filterByAdmisionTotal(array(12, 34)); // WHERE admision_total IN (12, 34)
+     * $query->filterByAdmisionTotal(array('min' => 12)); // WHERE admision_total >= 12
+     * $query->filterByAdmisionTotal(array('max' => 12)); // WHERE admision_total <= 12
      * </code>
      *
-     * @param     string $admisionTotal The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     mixed $admisionTotal The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return AdmisionQuery The current query, for fluid interface
      */
     public function filterByAdmisionTotal($admisionTotal = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($admisionTotal)) {
+        if (is_array($admisionTotal)) {
+            $useMinMax = false;
+            if (isset($admisionTotal['min'])) {
+                $this->addUsingAlias(AdmisionPeer::ADMISION_TOTAL, $admisionTotal['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($admisionTotal['max'])) {
+                $this->addUsingAlias(AdmisionPeer::ADMISION_TOTAL, $admisionTotal['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $admisionTotal)) {
-                $admisionTotal = str_replace('*', '%', $admisionTotal);
-                $comparison = Criteria::LIKE;
             }
         }
 

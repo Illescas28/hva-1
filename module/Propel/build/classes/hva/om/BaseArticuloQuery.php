@@ -8,37 +8,13 @@
  *
  * @method ArticuloQuery orderByIdarticulo($order = Criteria::ASC) Order by the idarticulo column
  * @method ArticuloQuery orderByIdtipo($order = Criteria::ASC) Order by the idtipo column
- * @method ArticuloQuery orderByIdudm($order = Criteria::ASC) Order by the idudm column
  * @method ArticuloQuery orderByArticuloNombre($order = Criteria::ASC) Order by the articulo_nombre column
- * @method ArticuloQuery orderByArticuloCodigobarras($order = Criteria::ASC) Order by the articulo_codigobarras column
  * @method ArticuloQuery orderByArticuloDescripcion($order = Criteria::ASC) Order by the articulo_descripcion column
- * @method ArticuloQuery orderByArticuloTipopresentacion($order = Criteria::ASC) Order by the articulo_tipopresentacion column
- * @method ArticuloQuery orderByArticuloCantidadpresentacion($order = Criteria::ASC) Order by the articulo_cantidadpresentacion column
- * @method ArticuloQuery orderByArticuloExistencia($order = Criteria::ASC) Order by the articulo_existencia column
- * @method ArticuloQuery orderByArticuloCosto($order = Criteria::ASC) Order by the articulo_costo column
- * @method ArticuloQuery orderByArticuloPrecio($order = Criteria::ASC) Order by the articulo_precio column
- * @method ArticuloQuery orderByArticuloIva($order = Criteria::ASC) Order by the articulo_iva column
- * @method ArticuloQuery orderByArticuloInventariominimo($order = Criteria::ASC) Order by the articulo_inventariominimo column
- * @method ArticuloQuery orderByArticuloInventariomaximo($order = Criteria::ASC) Order by the articulo_inventariomaximo column
- * @method ArticuloQuery orderByArticuloReorden($order = Criteria::ASC) Order by the articulo_reorden column
- * @method ArticuloQuery orderByArticuloUbicacion($order = Criteria::ASC) Order by the articulo_ubicacion column
  *
  * @method ArticuloQuery groupByIdarticulo() Group by the idarticulo column
  * @method ArticuloQuery groupByIdtipo() Group by the idtipo column
- * @method ArticuloQuery groupByIdudm() Group by the idudm column
  * @method ArticuloQuery groupByArticuloNombre() Group by the articulo_nombre column
- * @method ArticuloQuery groupByArticuloCodigobarras() Group by the articulo_codigobarras column
  * @method ArticuloQuery groupByArticuloDescripcion() Group by the articulo_descripcion column
- * @method ArticuloQuery groupByArticuloTipopresentacion() Group by the articulo_tipopresentacion column
- * @method ArticuloQuery groupByArticuloCantidadpresentacion() Group by the articulo_cantidadpresentacion column
- * @method ArticuloQuery groupByArticuloExistencia() Group by the articulo_existencia column
- * @method ArticuloQuery groupByArticuloCosto() Group by the articulo_costo column
- * @method ArticuloQuery groupByArticuloPrecio() Group by the articulo_precio column
- * @method ArticuloQuery groupByArticuloIva() Group by the articulo_iva column
- * @method ArticuloQuery groupByArticuloInventariominimo() Group by the articulo_inventariominimo column
- * @method ArticuloQuery groupByArticuloInventariomaximo() Group by the articulo_inventariomaximo column
- * @method ArticuloQuery groupByArticuloReorden() Group by the articulo_reorden column
- * @method ArticuloQuery groupByArticuloUbicacion() Group by the articulo_ubicacion column
  *
  * @method ArticuloQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method ArticuloQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -48,53 +24,33 @@
  * @method ArticuloQuery rightJoinTipo($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tipo relation
  * @method ArticuloQuery innerJoinTipo($relationAlias = null) Adds a INNER JOIN clause to the query using the Tipo relation
  *
- * @method ArticuloQuery leftJoinUdm($relationAlias = null) Adds a LEFT JOIN clause to the query using the Udm relation
- * @method ArticuloQuery rightJoinUdm($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Udm relation
- * @method ArticuloQuery innerJoinUdm($relationAlias = null) Adds a INNER JOIN clause to the query using the Udm relation
+ * @method ArticuloQuery leftJoinArticulovariante($relationAlias = null) Adds a LEFT JOIN clause to the query using the Articulovariante relation
+ * @method ArticuloQuery rightJoinArticulovariante($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Articulovariante relation
+ * @method ArticuloQuery innerJoinArticulovariante($relationAlias = null) Adds a INNER JOIN clause to the query using the Articulovariante relation
  *
- * @method ArticuloQuery leftJoinOrdencompradetalle($relationAlias = null) Adds a LEFT JOIN clause to the query using the Ordencompradetalle relation
- * @method ArticuloQuery rightJoinOrdencompradetalle($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Ordencompradetalle relation
- * @method ArticuloQuery innerJoinOrdencompradetalle($relationAlias = null) Adds a INNER JOIN clause to the query using the Ordencompradetalle relation
+ * @method ArticuloQuery leftJoinArticulovariantevalor($relationAlias = null) Adds a LEFT JOIN clause to the query using the Articulovariantevalor relation
+ * @method ArticuloQuery rightJoinArticulovariantevalor($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Articulovariantevalor relation
+ * @method ArticuloQuery innerJoinArticulovariantevalor($relationAlias = null) Adds a INNER JOIN clause to the query using the Articulovariantevalor relation
  *
- * @method ArticuloQuery leftJoinPaquetedetalle($relationAlias = null) Adds a LEFT JOIN clause to the query using the Paquetedetalle relation
- * @method ArticuloQuery rightJoinPaquetedetalle($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Paquetedetalle relation
- * @method ArticuloQuery innerJoinPaquetedetalle($relationAlias = null) Adds a INNER JOIN clause to the query using the Paquetedetalle relation
+ * @method ArticuloQuery leftJoinPropiedad($relationAlias = null) Adds a LEFT JOIN clause to the query using the Propiedad relation
+ * @method ArticuloQuery rightJoinPropiedad($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Propiedad relation
+ * @method ArticuloQuery innerJoinPropiedad($relationAlias = null) Adds a INNER JOIN clause to the query using the Propiedad relation
+ *
+ * @method ArticuloQuery leftJoinPropiedadvalor($relationAlias = null) Adds a LEFT JOIN clause to the query using the Propiedadvalor relation
+ * @method ArticuloQuery rightJoinPropiedadvalor($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Propiedadvalor relation
+ * @method ArticuloQuery innerJoinPropiedadvalor($relationAlias = null) Adds a INNER JOIN clause to the query using the Propiedadvalor relation
  *
  * @method Articulo findOne(PropelPDO $con = null) Return the first Articulo matching the query
  * @method Articulo findOneOrCreate(PropelPDO $con = null) Return the first Articulo matching the query, or a new Articulo object populated from the query conditions when no match is found
  *
  * @method Articulo findOneByIdtipo(int $idtipo) Return the first Articulo filtered by the idtipo column
- * @method Articulo findOneByIdudm(int $idudm) Return the first Articulo filtered by the idudm column
  * @method Articulo findOneByArticuloNombre(string $articulo_nombre) Return the first Articulo filtered by the articulo_nombre column
- * @method Articulo findOneByArticuloCodigobarras(string $articulo_codigobarras) Return the first Articulo filtered by the articulo_codigobarras column
  * @method Articulo findOneByArticuloDescripcion(string $articulo_descripcion) Return the first Articulo filtered by the articulo_descripcion column
- * @method Articulo findOneByArticuloTipopresentacion(string $articulo_tipopresentacion) Return the first Articulo filtered by the articulo_tipopresentacion column
- * @method Articulo findOneByArticuloCantidadpresentacion(int $articulo_cantidadpresentacion) Return the first Articulo filtered by the articulo_cantidadpresentacion column
- * @method Articulo findOneByArticuloExistencia(string $articulo_existencia) Return the first Articulo filtered by the articulo_existencia column
- * @method Articulo findOneByArticuloCosto(string $articulo_costo) Return the first Articulo filtered by the articulo_costo column
- * @method Articulo findOneByArticuloPrecio(string $articulo_precio) Return the first Articulo filtered by the articulo_precio column
- * @method Articulo findOneByArticuloIva(string $articulo_iva) Return the first Articulo filtered by the articulo_iva column
- * @method Articulo findOneByArticuloInventariominimo(string $articulo_inventariominimo) Return the first Articulo filtered by the articulo_inventariominimo column
- * @method Articulo findOneByArticuloInventariomaximo(string $articulo_inventariomaximo) Return the first Articulo filtered by the articulo_inventariomaximo column
- * @method Articulo findOneByArticuloReorden(string $articulo_reorden) Return the first Articulo filtered by the articulo_reorden column
- * @method Articulo findOneByArticuloUbicacion(string $articulo_ubicacion) Return the first Articulo filtered by the articulo_ubicacion column
  *
  * @method array findByIdarticulo(int $idarticulo) Return Articulo objects filtered by the idarticulo column
  * @method array findByIdtipo(int $idtipo) Return Articulo objects filtered by the idtipo column
- * @method array findByIdudm(int $idudm) Return Articulo objects filtered by the idudm column
  * @method array findByArticuloNombre(string $articulo_nombre) Return Articulo objects filtered by the articulo_nombre column
- * @method array findByArticuloCodigobarras(string $articulo_codigobarras) Return Articulo objects filtered by the articulo_codigobarras column
  * @method array findByArticuloDescripcion(string $articulo_descripcion) Return Articulo objects filtered by the articulo_descripcion column
- * @method array findByArticuloTipopresentacion(string $articulo_tipopresentacion) Return Articulo objects filtered by the articulo_tipopresentacion column
- * @method array findByArticuloCantidadpresentacion(int $articulo_cantidadpresentacion) Return Articulo objects filtered by the articulo_cantidadpresentacion column
- * @method array findByArticuloExistencia(string $articulo_existencia) Return Articulo objects filtered by the articulo_existencia column
- * @method array findByArticuloCosto(string $articulo_costo) Return Articulo objects filtered by the articulo_costo column
- * @method array findByArticuloPrecio(string $articulo_precio) Return Articulo objects filtered by the articulo_precio column
- * @method array findByArticuloIva(string $articulo_iva) Return Articulo objects filtered by the articulo_iva column
- * @method array findByArticuloInventariominimo(string $articulo_inventariominimo) Return Articulo objects filtered by the articulo_inventariominimo column
- * @method array findByArticuloInventariomaximo(string $articulo_inventariomaximo) Return Articulo objects filtered by the articulo_inventariomaximo column
- * @method array findByArticuloReorden(string $articulo_reorden) Return Articulo objects filtered by the articulo_reorden column
- * @method array findByArticuloUbicacion(string $articulo_ubicacion) Return Articulo objects filtered by the articulo_ubicacion column
  *
  * @package    propel.generator.hva.om
  */
@@ -202,7 +158,7 @@ abstract class BaseArticuloQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idarticulo`, `idtipo`, `idudm`, `articulo_nombre`, `articulo_codigobarras`, `articulo_descripcion`, `articulo_tipopresentacion`, `articulo_cantidadpresentacion`, `articulo_existencia`, `articulo_costo`, `articulo_precio`, `articulo_iva`, `articulo_inventariominimo`, `articulo_inventariomaximo`, `articulo_reorden`, `articulo_ubicacion` FROM `articulo` WHERE `idarticulo` = :p0';
+        $sql = 'SELECT `idarticulo`, `idtipo`, `articulo_nombre`, `articulo_descripcion` FROM `articulo` WHERE `idarticulo` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -378,50 +334,6 @@ abstract class BaseArticuloQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the idudm column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByIdudm(1234); // WHERE idudm = 1234
-     * $query->filterByIdudm(array(12, 34)); // WHERE idudm IN (12, 34)
-     * $query->filterByIdudm(array('min' => 12)); // WHERE idudm >= 12
-     * $query->filterByIdudm(array('max' => 12)); // WHERE idudm <= 12
-     * </code>
-     *
-     * @see       filterByUdm()
-     *
-     * @param     mixed $idudm The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByIdudm($idudm = null, $comparison = null)
-    {
-        if (is_array($idudm)) {
-            $useMinMax = false;
-            if (isset($idudm['min'])) {
-                $this->addUsingAlias(ArticuloPeer::IDUDM, $idudm['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($idudm['max'])) {
-                $this->addUsingAlias(ArticuloPeer::IDUDM, $idudm['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::IDUDM, $idudm, $comparison);
-    }
-
-    /**
      * Filter the query on the articulo_nombre column
      *
      * Example usage:
@@ -451,35 +363,6 @@ abstract class BaseArticuloQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the articulo_codigobarras column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloCodigobarras('fooValue');   // WHERE articulo_codigobarras = 'fooValue'
-     * $query->filterByArticuloCodigobarras('%fooValue%'); // WHERE articulo_codigobarras LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $articuloCodigobarras The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloCodigobarras($articuloCodigobarras = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($articuloCodigobarras)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $articuloCodigobarras)) {
-                $articuloCodigobarras = str_replace('*', '%', $articuloCodigobarras);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_CODIGOBARRAS, $articuloCodigobarras, $comparison);
-    }
-
-    /**
      * Filter the query on the articulo_descripcion column
      *
      * Example usage:
@@ -506,400 +389,6 @@ abstract class BaseArticuloQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ArticuloPeer::ARTICULO_DESCRIPCION, $articuloDescripcion, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_tipopresentacion column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloTipopresentacion('fooValue');   // WHERE articulo_tipopresentacion = 'fooValue'
-     * $query->filterByArticuloTipopresentacion('%fooValue%'); // WHERE articulo_tipopresentacion LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $articuloTipopresentacion The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloTipopresentacion($articuloTipopresentacion = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($articuloTipopresentacion)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $articuloTipopresentacion)) {
-                $articuloTipopresentacion = str_replace('*', '%', $articuloTipopresentacion);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_TIPOPRESENTACION, $articuloTipopresentacion, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_cantidadpresentacion column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloCantidadpresentacion(1234); // WHERE articulo_cantidadpresentacion = 1234
-     * $query->filterByArticuloCantidadpresentacion(array(12, 34)); // WHERE articulo_cantidadpresentacion IN (12, 34)
-     * $query->filterByArticuloCantidadpresentacion(array('min' => 12)); // WHERE articulo_cantidadpresentacion >= 12
-     * $query->filterByArticuloCantidadpresentacion(array('max' => 12)); // WHERE articulo_cantidadpresentacion <= 12
-     * </code>
-     *
-     * @param     mixed $articuloCantidadpresentacion The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloCantidadpresentacion($articuloCantidadpresentacion = null, $comparison = null)
-    {
-        if (is_array($articuloCantidadpresentacion)) {
-            $useMinMax = false;
-            if (isset($articuloCantidadpresentacion['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_CANTIDADPRESENTACION, $articuloCantidadpresentacion['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloCantidadpresentacion['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_CANTIDADPRESENTACION, $articuloCantidadpresentacion['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_CANTIDADPRESENTACION, $articuloCantidadpresentacion, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_existencia column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloExistencia(1234); // WHERE articulo_existencia = 1234
-     * $query->filterByArticuloExistencia(array(12, 34)); // WHERE articulo_existencia IN (12, 34)
-     * $query->filterByArticuloExistencia(array('min' => 12)); // WHERE articulo_existencia >= 12
-     * $query->filterByArticuloExistencia(array('max' => 12)); // WHERE articulo_existencia <= 12
-     * </code>
-     *
-     * @param     mixed $articuloExistencia The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloExistencia($articuloExistencia = null, $comparison = null)
-    {
-        if (is_array($articuloExistencia)) {
-            $useMinMax = false;
-            if (isset($articuloExistencia['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_EXISTENCIA, $articuloExistencia['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloExistencia['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_EXISTENCIA, $articuloExistencia['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_EXISTENCIA, $articuloExistencia, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_costo column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloCosto(1234); // WHERE articulo_costo = 1234
-     * $query->filterByArticuloCosto(array(12, 34)); // WHERE articulo_costo IN (12, 34)
-     * $query->filterByArticuloCosto(array('min' => 12)); // WHERE articulo_costo >= 12
-     * $query->filterByArticuloCosto(array('max' => 12)); // WHERE articulo_costo <= 12
-     * </code>
-     *
-     * @param     mixed $articuloCosto The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloCosto($articuloCosto = null, $comparison = null)
-    {
-        if (is_array($articuloCosto)) {
-            $useMinMax = false;
-            if (isset($articuloCosto['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_COSTO, $articuloCosto['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloCosto['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_COSTO, $articuloCosto['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_COSTO, $articuloCosto, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_precio column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloPrecio(1234); // WHERE articulo_precio = 1234
-     * $query->filterByArticuloPrecio(array(12, 34)); // WHERE articulo_precio IN (12, 34)
-     * $query->filterByArticuloPrecio(array('min' => 12)); // WHERE articulo_precio >= 12
-     * $query->filterByArticuloPrecio(array('max' => 12)); // WHERE articulo_precio <= 12
-     * </code>
-     *
-     * @param     mixed $articuloPrecio The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloPrecio($articuloPrecio = null, $comparison = null)
-    {
-        if (is_array($articuloPrecio)) {
-            $useMinMax = false;
-            if (isset($articuloPrecio['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_PRECIO, $articuloPrecio['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloPrecio['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_PRECIO, $articuloPrecio['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_PRECIO, $articuloPrecio, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_iva column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloIva(1234); // WHERE articulo_iva = 1234
-     * $query->filterByArticuloIva(array(12, 34)); // WHERE articulo_iva IN (12, 34)
-     * $query->filterByArticuloIva(array('min' => 12)); // WHERE articulo_iva >= 12
-     * $query->filterByArticuloIva(array('max' => 12)); // WHERE articulo_iva <= 12
-     * </code>
-     *
-     * @param     mixed $articuloIva The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloIva($articuloIva = null, $comparison = null)
-    {
-        if (is_array($articuloIva)) {
-            $useMinMax = false;
-            if (isset($articuloIva['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_IVA, $articuloIva['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloIva['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_IVA, $articuloIva['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_IVA, $articuloIva, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_inventariominimo column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloInventariominimo(1234); // WHERE articulo_inventariominimo = 1234
-     * $query->filterByArticuloInventariominimo(array(12, 34)); // WHERE articulo_inventariominimo IN (12, 34)
-     * $query->filterByArticuloInventariominimo(array('min' => 12)); // WHERE articulo_inventariominimo >= 12
-     * $query->filterByArticuloInventariominimo(array('max' => 12)); // WHERE articulo_inventariominimo <= 12
-     * </code>
-     *
-     * @param     mixed $articuloInventariominimo The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloInventariominimo($articuloInventariominimo = null, $comparison = null)
-    {
-        if (is_array($articuloInventariominimo)) {
-            $useMinMax = false;
-            if (isset($articuloInventariominimo['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_INVENTARIOMINIMO, $articuloInventariominimo['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloInventariominimo['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_INVENTARIOMINIMO, $articuloInventariominimo['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_INVENTARIOMINIMO, $articuloInventariominimo, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_inventariomaximo column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloInventariomaximo(1234); // WHERE articulo_inventariomaximo = 1234
-     * $query->filterByArticuloInventariomaximo(array(12, 34)); // WHERE articulo_inventariomaximo IN (12, 34)
-     * $query->filterByArticuloInventariomaximo(array('min' => 12)); // WHERE articulo_inventariomaximo >= 12
-     * $query->filterByArticuloInventariomaximo(array('max' => 12)); // WHERE articulo_inventariomaximo <= 12
-     * </code>
-     *
-     * @param     mixed $articuloInventariomaximo The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloInventariomaximo($articuloInventariomaximo = null, $comparison = null)
-    {
-        if (is_array($articuloInventariomaximo)) {
-            $useMinMax = false;
-            if (isset($articuloInventariomaximo['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_INVENTARIOMAXIMO, $articuloInventariomaximo['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloInventariomaximo['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_INVENTARIOMAXIMO, $articuloInventariomaximo['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_INVENTARIOMAXIMO, $articuloInventariomaximo, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_reorden column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloReorden(1234); // WHERE articulo_reorden = 1234
-     * $query->filterByArticuloReorden(array(12, 34)); // WHERE articulo_reorden IN (12, 34)
-     * $query->filterByArticuloReorden(array('min' => 12)); // WHERE articulo_reorden >= 12
-     * $query->filterByArticuloReorden(array('max' => 12)); // WHERE articulo_reorden <= 12
-     * </code>
-     *
-     * @param     mixed $articuloReorden The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloReorden($articuloReorden = null, $comparison = null)
-    {
-        if (is_array($articuloReorden)) {
-            $useMinMax = false;
-            if (isset($articuloReorden['min'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_REORDEN, $articuloReorden['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($articuloReorden['max'])) {
-                $this->addUsingAlias(ArticuloPeer::ARTICULO_REORDEN, $articuloReorden['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_REORDEN, $articuloReorden, $comparison);
-    }
-
-    /**
-     * Filter the query on the articulo_ubicacion column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByArticuloUbicacion('fooValue');   // WHERE articulo_ubicacion = 'fooValue'
-     * $query->filterByArticuloUbicacion('%fooValue%'); // WHERE articulo_ubicacion LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $articuloUbicacion The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function filterByArticuloUbicacion($articuloUbicacion = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($articuloUbicacion)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $articuloUbicacion)) {
-                $articuloUbicacion = str_replace('*', '%', $articuloUbicacion);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(ArticuloPeer::ARTICULO_UBICACION, $articuloUbicacion, $comparison);
     }
 
     /**
@@ -979,117 +468,41 @@ abstract class BaseArticuloQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Udm object
+     * Filter the query by a related Articulovariante object
      *
-     * @param   Udm|PropelObjectCollection $udm The related object(s) to use as filter
+     * @param   Articulovariante|PropelObjectCollection $articulovariante  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 ArticuloQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByUdm($udm, $comparison = null)
+    public function filterByArticulovariante($articulovariante, $comparison = null)
     {
-        if ($udm instanceof Udm) {
+        if ($articulovariante instanceof Articulovariante) {
             return $this
-                ->addUsingAlias(ArticuloPeer::IDUDM, $udm->getIdudm(), $comparison);
-        } elseif ($udm instanceof PropelObjectCollection) {
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-
+                ->addUsingAlias(ArticuloPeer::IDARTICULO, $articulovariante->getIdarticulo(), $comparison);
+        } elseif ($articulovariante instanceof PropelObjectCollection) {
             return $this
-                ->addUsingAlias(ArticuloPeer::IDUDM, $udm->toKeyValue('PrimaryKey', 'Idudm'), $comparison);
-        } else {
-            throw new PropelException('filterByUdm() only accepts arguments of type Udm or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Udm relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return ArticuloQuery The current query, for fluid interface
-     */
-    public function joinUdm($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Udm');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Udm');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Udm relation Udm object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   UdmQuery A secondary query class using the current class as primary query
-     */
-    public function useUdmQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinUdm($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Udm', 'UdmQuery');
-    }
-
-    /**
-     * Filter the query by a related Ordencompradetalle object
-     *
-     * @param   Ordencompradetalle|PropelObjectCollection $ordencompradetalle  the related object to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return                 ArticuloQuery The current query, for fluid interface
-     * @throws PropelException - if the provided filter is invalid.
-     */
-    public function filterByOrdencompradetalle($ordencompradetalle, $comparison = null)
-    {
-        if ($ordencompradetalle instanceof Ordencompradetalle) {
-            return $this
-                ->addUsingAlias(ArticuloPeer::IDARTICULO, $ordencompradetalle->getIdarticulo(), $comparison);
-        } elseif ($ordencompradetalle instanceof PropelObjectCollection) {
-            return $this
-                ->useOrdencompradetalleQuery()
-                ->filterByPrimaryKeys($ordencompradetalle->getPrimaryKeys())
+                ->useArticulovarianteQuery()
+                ->filterByPrimaryKeys($articulovariante->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByOrdencompradetalle() only accepts arguments of type Ordencompradetalle or PropelCollection');
+            throw new PropelException('filterByArticulovariante() only accepts arguments of type Articulovariante or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Ordencompradetalle relation
+     * Adds a JOIN clause to the query using the Articulovariante relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return ArticuloQuery The current query, for fluid interface
      */
-    public function joinOrdencompradetalle($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinArticulovariante($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Ordencompradetalle');
+        $relationMap = $tableMap->getRelation('Articulovariante');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -1104,14 +517,14 @@ abstract class BaseArticuloQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Ordencompradetalle');
+            $this->addJoinObject($join, 'Articulovariante');
         }
 
         return $this;
     }
 
     /**
-     * Use the Ordencompradetalle relation Ordencompradetalle object
+     * Use the Articulovariante relation Articulovariante object
      *
      * @see       useQuery()
      *
@@ -1119,51 +532,51 @@ abstract class BaseArticuloQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   OrdencompradetalleQuery A secondary query class using the current class as primary query
+     * @return   ArticulovarianteQuery A secondary query class using the current class as primary query
      */
-    public function useOrdencompradetalleQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useArticulovarianteQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinOrdencompradetalle($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Ordencompradetalle', 'OrdencompradetalleQuery');
+            ->joinArticulovariante($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Articulovariante', 'ArticulovarianteQuery');
     }
 
     /**
-     * Filter the query by a related Paquetedetalle object
+     * Filter the query by a related Articulovariantevalor object
      *
-     * @param   Paquetedetalle|PropelObjectCollection $paquetedetalle  the related object to use as filter
+     * @param   Articulovariantevalor|PropelObjectCollection $articulovariantevalor  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 ArticuloQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByPaquetedetalle($paquetedetalle, $comparison = null)
+    public function filterByArticulovariantevalor($articulovariantevalor, $comparison = null)
     {
-        if ($paquetedetalle instanceof Paquetedetalle) {
+        if ($articulovariantevalor instanceof Articulovariantevalor) {
             return $this
-                ->addUsingAlias(ArticuloPeer::IDARTICULO, $paquetedetalle->getIdarticulo(), $comparison);
-        } elseif ($paquetedetalle instanceof PropelObjectCollection) {
+                ->addUsingAlias(ArticuloPeer::IDARTICULO, $articulovariantevalor->getIdarticulo(), $comparison);
+        } elseif ($articulovariantevalor instanceof PropelObjectCollection) {
             return $this
-                ->usePaquetedetalleQuery()
-                ->filterByPrimaryKeys($paquetedetalle->getPrimaryKeys())
+                ->useArticulovariantevalorQuery()
+                ->filterByPrimaryKeys($articulovariantevalor->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByPaquetedetalle() only accepts arguments of type Paquetedetalle or PropelCollection');
+            throw new PropelException('filterByArticulovariantevalor() only accepts arguments of type Articulovariantevalor or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Paquetedetalle relation
+     * Adds a JOIN clause to the query using the Articulovariantevalor relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return ArticuloQuery The current query, for fluid interface
      */
-    public function joinPaquetedetalle($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinArticulovariantevalor($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Paquetedetalle');
+        $relationMap = $tableMap->getRelation('Articulovariantevalor');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -1178,14 +591,14 @@ abstract class BaseArticuloQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Paquetedetalle');
+            $this->addJoinObject($join, 'Articulovariantevalor');
         }
 
         return $this;
     }
 
     /**
-     * Use the Paquetedetalle relation Paquetedetalle object
+     * Use the Articulovariantevalor relation Articulovariantevalor object
      *
      * @see       useQuery()
      *
@@ -1193,13 +606,161 @@ abstract class BaseArticuloQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   PaquetedetalleQuery A secondary query class using the current class as primary query
+     * @return   ArticulovariantevalorQuery A secondary query class using the current class as primary query
      */
-    public function usePaquetedetalleQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function useArticulovariantevalorQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPaquetedetalle($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Paquetedetalle', 'PaquetedetalleQuery');
+            ->joinArticulovariantevalor($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Articulovariantevalor', 'ArticulovariantevalorQuery');
+    }
+
+    /**
+     * Filter the query by a related Propiedad object
+     *
+     * @param   Propiedad|PropelObjectCollection $propiedad  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 ArticuloQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByPropiedad($propiedad, $comparison = null)
+    {
+        if ($propiedad instanceof Propiedad) {
+            return $this
+                ->addUsingAlias(ArticuloPeer::IDARTICULO, $propiedad->getIdarticulo(), $comparison);
+        } elseif ($propiedad instanceof PropelObjectCollection) {
+            return $this
+                ->usePropiedadQuery()
+                ->filterByPrimaryKeys($propiedad->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByPropiedad() only accepts arguments of type Propiedad or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Propiedad relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return ArticuloQuery The current query, for fluid interface
+     */
+    public function joinPropiedad($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Propiedad');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Propiedad');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Propiedad relation Propiedad object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   PropiedadQuery A secondary query class using the current class as primary query
+     */
+    public function usePropiedadQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinPropiedad($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Propiedad', 'PropiedadQuery');
+    }
+
+    /**
+     * Filter the query by a related Propiedadvalor object
+     *
+     * @param   Propiedadvalor|PropelObjectCollection $propiedadvalor  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 ArticuloQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByPropiedadvalor($propiedadvalor, $comparison = null)
+    {
+        if ($propiedadvalor instanceof Propiedadvalor) {
+            return $this
+                ->addUsingAlias(ArticuloPeer::IDARTICULO, $propiedadvalor->getIdarticulo(), $comparison);
+        } elseif ($propiedadvalor instanceof PropelObjectCollection) {
+            return $this
+                ->usePropiedadvalorQuery()
+                ->filterByPrimaryKeys($propiedadvalor->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByPropiedadvalor() only accepts arguments of type Propiedadvalor or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Propiedadvalor relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return ArticuloQuery The current query, for fluid interface
+     */
+    public function joinPropiedadvalor($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Propiedadvalor');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Propiedadvalor');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Propiedadvalor relation Propiedadvalor object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   PropiedadvalorQuery A secondary query class using the current class as primary query
+     */
+    public function usePropiedadvalorQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinPropiedadvalor($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Propiedadvalor', 'PropiedadvalorQuery');
     }
 
     /**

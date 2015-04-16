@@ -35,6 +35,9 @@ abstract class BaseCargoconsultaPeer
     /** the column name for the idcargoconsulta field */
     const IDCARGOCONSULTA = 'cargoconsulta.idcargoconsulta';
 
+    /** the column name for the idconsulta field */
+    const IDCONSULTA = 'cargoconsulta.idconsulta';
+
     /** the column name for the idlugarinventario field */
     const IDLUGARINVENTARIO = 'cargoconsulta.idlugarinventario';
 
@@ -43,9 +46,6 @@ abstract class BaseCargoconsultaPeer
 
     /** the column name for the cargoconsulta_tipo field */
     const CARGOCONSULTA_TIPO = 'cargoconsulta.cargoconsulta_tipo';
-
-    /** the column name for the idconsulta field */
-    const IDCONSULTA = 'cargoconsulta.idconsulta';
 
     /** the column name for the cargoconsulta_fecha field */
     const CARGOCONSULTA_FECHA = 'cargoconsulta.cargoconsulta_fecha';
@@ -79,11 +79,11 @@ abstract class BaseCargoconsultaPeer
      * e.g. CargoconsultaPeer::$fieldNames[CargoconsultaPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Idcargoconsulta', 'Idlugarinventario', 'Idservicio', 'CargoconsultaTipo', 'Idconsulta', 'CargoconsultaFecha', 'Cantidad', 'Monto', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoconsulta', 'idlugarinventario', 'idservicio', 'cargoconsultaTipo', 'idconsulta', 'cargoconsultaFecha', 'cantidad', 'monto', ),
-        BasePeer::TYPE_COLNAME => array (CargoconsultaPeer::IDCARGOCONSULTA, CargoconsultaPeer::IDLUGARINVENTARIO, CargoconsultaPeer::IDSERVICIO, CargoconsultaPeer::CARGOCONSULTA_TIPO, CargoconsultaPeer::IDCONSULTA, CargoconsultaPeer::CARGOCONSULTA_FECHA, CargoconsultaPeer::CANTIDAD, CargoconsultaPeer::MONTO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOCONSULTA', 'IDLUGARINVENTARIO', 'IDSERVICIO', 'CARGOCONSULTA_TIPO', 'IDCONSULTA', 'CARGOCONSULTA_FECHA', 'CANTIDAD', 'MONTO', ),
-        BasePeer::TYPE_FIELDNAME => array ('idcargoconsulta', 'idlugarinventario', 'idservicio', 'cargoconsulta_tipo', 'idconsulta', 'cargoconsulta_fecha', 'cantidad', 'monto', ),
+        BasePeer::TYPE_PHPNAME => array ('Idcargoconsulta', 'Idconsulta', 'Idlugarinventario', 'Idservicio', 'CargoconsultaTipo', 'CargoconsultaFecha', 'Cantidad', 'Monto', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoconsulta', 'idconsulta', 'idlugarinventario', 'idservicio', 'cargoconsultaTipo', 'cargoconsultaFecha', 'cantidad', 'monto', ),
+        BasePeer::TYPE_COLNAME => array (CargoconsultaPeer::IDCARGOCONSULTA, CargoconsultaPeer::IDCONSULTA, CargoconsultaPeer::IDLUGARINVENTARIO, CargoconsultaPeer::IDSERVICIO, CargoconsultaPeer::CARGOCONSULTA_TIPO, CargoconsultaPeer::CARGOCONSULTA_FECHA, CargoconsultaPeer::CANTIDAD, CargoconsultaPeer::MONTO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOCONSULTA', 'IDCONSULTA', 'IDLUGARINVENTARIO', 'IDSERVICIO', 'CARGOCONSULTA_TIPO', 'CARGOCONSULTA_FECHA', 'CANTIDAD', 'MONTO', ),
+        BasePeer::TYPE_FIELDNAME => array ('idcargoconsulta', 'idconsulta', 'idlugarinventario', 'idservicio', 'cargoconsulta_tipo', 'cargoconsulta_fecha', 'cantidad', 'monto', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -94,11 +94,11 @@ abstract class BaseCargoconsultaPeer
      * e.g. CargoconsultaPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Idcargoconsulta' => 0, 'Idlugarinventario' => 1, 'Idservicio' => 2, 'CargoconsultaTipo' => 3, 'Idconsulta' => 4, 'CargoconsultaFecha' => 5, 'Cantidad' => 6, 'Monto' => 7, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoconsulta' => 0, 'idlugarinventario' => 1, 'idservicio' => 2, 'cargoconsultaTipo' => 3, 'idconsulta' => 4, 'cargoconsultaFecha' => 5, 'cantidad' => 6, 'monto' => 7, ),
-        BasePeer::TYPE_COLNAME => array (CargoconsultaPeer::IDCARGOCONSULTA => 0, CargoconsultaPeer::IDLUGARINVENTARIO => 1, CargoconsultaPeer::IDSERVICIO => 2, CargoconsultaPeer::CARGOCONSULTA_TIPO => 3, CargoconsultaPeer::IDCONSULTA => 4, CargoconsultaPeer::CARGOCONSULTA_FECHA => 5, CargoconsultaPeer::CANTIDAD => 6, CargoconsultaPeer::MONTO => 7, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOCONSULTA' => 0, 'IDLUGARINVENTARIO' => 1, 'IDSERVICIO' => 2, 'CARGOCONSULTA_TIPO' => 3, 'IDCONSULTA' => 4, 'CARGOCONSULTA_FECHA' => 5, 'CANTIDAD' => 6, 'MONTO' => 7, ),
-        BasePeer::TYPE_FIELDNAME => array ('idcargoconsulta' => 0, 'idlugarinventario' => 1, 'idservicio' => 2, 'cargoconsulta_tipo' => 3, 'idconsulta' => 4, 'cargoconsulta_fecha' => 5, 'cantidad' => 6, 'monto' => 7, ),
+        BasePeer::TYPE_PHPNAME => array ('Idcargoconsulta' => 0, 'Idconsulta' => 1, 'Idlugarinventario' => 2, 'Idservicio' => 3, 'CargoconsultaTipo' => 4, 'CargoconsultaFecha' => 5, 'Cantidad' => 6, 'Monto' => 7, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idcargoconsulta' => 0, 'idconsulta' => 1, 'idlugarinventario' => 2, 'idservicio' => 3, 'cargoconsultaTipo' => 4, 'cargoconsultaFecha' => 5, 'cantidad' => 6, 'monto' => 7, ),
+        BasePeer::TYPE_COLNAME => array (CargoconsultaPeer::IDCARGOCONSULTA => 0, CargoconsultaPeer::IDCONSULTA => 1, CargoconsultaPeer::IDLUGARINVENTARIO => 2, CargoconsultaPeer::IDSERVICIO => 3, CargoconsultaPeer::CARGOCONSULTA_TIPO => 4, CargoconsultaPeer::CARGOCONSULTA_FECHA => 5, CargoconsultaPeer::CANTIDAD => 6, CargoconsultaPeer::MONTO => 7, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDCARGOCONSULTA' => 0, 'IDCONSULTA' => 1, 'IDLUGARINVENTARIO' => 2, 'IDSERVICIO' => 3, 'CARGOCONSULTA_TIPO' => 4, 'CARGOCONSULTA_FECHA' => 5, 'CANTIDAD' => 6, 'MONTO' => 7, ),
+        BasePeer::TYPE_FIELDNAME => array ('idcargoconsulta' => 0, 'idconsulta' => 1, 'idlugarinventario' => 2, 'idservicio' => 3, 'cargoconsulta_tipo' => 4, 'cargoconsulta_fecha' => 5, 'cantidad' => 6, 'monto' => 7, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -227,19 +227,19 @@ abstract class BaseCargoconsultaPeer
     {
         if (null === $alias) {
             $criteria->addSelectColumn(CargoconsultaPeer::IDCARGOCONSULTA);
+            $criteria->addSelectColumn(CargoconsultaPeer::IDCONSULTA);
             $criteria->addSelectColumn(CargoconsultaPeer::IDLUGARINVENTARIO);
             $criteria->addSelectColumn(CargoconsultaPeer::IDSERVICIO);
             $criteria->addSelectColumn(CargoconsultaPeer::CARGOCONSULTA_TIPO);
-            $criteria->addSelectColumn(CargoconsultaPeer::IDCONSULTA);
             $criteria->addSelectColumn(CargoconsultaPeer::CARGOCONSULTA_FECHA);
             $criteria->addSelectColumn(CargoconsultaPeer::CANTIDAD);
             $criteria->addSelectColumn(CargoconsultaPeer::MONTO);
         } else {
             $criteria->addSelectColumn($alias . '.idcargoconsulta');
+            $criteria->addSelectColumn($alias . '.idconsulta');
             $criteria->addSelectColumn($alias . '.idlugarinventario');
             $criteria->addSelectColumn($alias . '.idservicio');
             $criteria->addSelectColumn($alias . '.cargoconsulta_tipo');
-            $criteria->addSelectColumn($alias . '.idconsulta');
             $criteria->addSelectColumn($alias . '.cargoconsulta_fecha');
             $criteria->addSelectColumn($alias . '.cantidad');
             $criteria->addSelectColumn($alias . '.monto');

@@ -8,7 +8,7 @@
  *
  * @method OrdencompradetalleQuery orderByIdordencompradetalle($order = Criteria::ASC) Order by the idordencompradetalle column
  * @method OrdencompradetalleQuery orderByIdordencompra($order = Criteria::ASC) Order by the idordencompra column
- * @method OrdencompradetalleQuery orderByIdarticulo($order = Criteria::ASC) Order by the idarticulo column
+ * @method OrdencompradetalleQuery orderByIdarticulovariante($order = Criteria::ASC) Order by the idarticulovariante column
  * @method OrdencompradetalleQuery orderByOrdencompradetalleCantidad($order = Criteria::ASC) Order by the ordencompradetalle_cantidad column
  * @method OrdencompradetalleQuery orderByOrdencompradetalleCosto($order = Criteria::ASC) Order by the ordencompradetalle_costo column
  * @method OrdencompradetalleQuery orderByOrdencompradetallePrecio($order = Criteria::ASC) Order by the ordencompradetalle_precio column
@@ -18,7 +18,7 @@
  *
  * @method OrdencompradetalleQuery groupByIdordencompradetalle() Group by the idordencompradetalle column
  * @method OrdencompradetalleQuery groupByIdordencompra() Group by the idordencompra column
- * @method OrdencompradetalleQuery groupByIdarticulo() Group by the idarticulo column
+ * @method OrdencompradetalleQuery groupByIdarticulovariante() Group by the idarticulovariante column
  * @method OrdencompradetalleQuery groupByOrdencompradetalleCantidad() Group by the ordencompradetalle_cantidad column
  * @method OrdencompradetalleQuery groupByOrdencompradetalleCosto() Group by the ordencompradetalle_costo column
  * @method OrdencompradetalleQuery groupByOrdencompradetallePrecio() Group by the ordencompradetalle_precio column
@@ -30,9 +30,9 @@
  * @method OrdencompradetalleQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method OrdencompradetalleQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method OrdencompradetalleQuery leftJoinArticulo($relationAlias = null) Adds a LEFT JOIN clause to the query using the Articulo relation
- * @method OrdencompradetalleQuery rightJoinArticulo($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Articulo relation
- * @method OrdencompradetalleQuery innerJoinArticulo($relationAlias = null) Adds a INNER JOIN clause to the query using the Articulo relation
+ * @method OrdencompradetalleQuery leftJoinArticulovariante($relationAlias = null) Adds a LEFT JOIN clause to the query using the Articulovariante relation
+ * @method OrdencompradetalleQuery rightJoinArticulovariante($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Articulovariante relation
+ * @method OrdencompradetalleQuery innerJoinArticulovariante($relationAlias = null) Adds a INNER JOIN clause to the query using the Articulovariante relation
  *
  * @method OrdencompradetalleQuery leftJoinOrdencompra($relationAlias = null) Adds a LEFT JOIN clause to the query using the Ordencompra relation
  * @method OrdencompradetalleQuery rightJoinOrdencompra($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Ordencompra relation
@@ -46,7 +46,7 @@
  * @method Ordencompradetalle findOneOrCreate(PropelPDO $con = null) Return the first Ordencompradetalle matching the query, or a new Ordencompradetalle object populated from the query conditions when no match is found
  *
  * @method Ordencompradetalle findOneByIdordencompra(int $idordencompra) Return the first Ordencompradetalle filtered by the idordencompra column
- * @method Ordencompradetalle findOneByIdarticulo(int $idarticulo) Return the first Ordencompradetalle filtered by the idarticulo column
+ * @method Ordencompradetalle findOneByIdarticulovariante(int $idarticulovariante) Return the first Ordencompradetalle filtered by the idarticulovariante column
  * @method Ordencompradetalle findOneByOrdencompradetalleCantidad(string $ordencompradetalle_cantidad) Return the first Ordencompradetalle filtered by the ordencompradetalle_cantidad column
  * @method Ordencompradetalle findOneByOrdencompradetalleCosto(string $ordencompradetalle_costo) Return the first Ordencompradetalle filtered by the ordencompradetalle_costo column
  * @method Ordencompradetalle findOneByOrdencompradetallePrecio(string $ordencompradetalle_precio) Return the first Ordencompradetalle filtered by the ordencompradetalle_precio column
@@ -56,7 +56,7 @@
  *
  * @method array findByIdordencompradetalle(int $idordencompradetalle) Return Ordencompradetalle objects filtered by the idordencompradetalle column
  * @method array findByIdordencompra(int $idordencompra) Return Ordencompradetalle objects filtered by the idordencompra column
- * @method array findByIdarticulo(int $idarticulo) Return Ordencompradetalle objects filtered by the idarticulo column
+ * @method array findByIdarticulovariante(int $idarticulovariante) Return Ordencompradetalle objects filtered by the idarticulovariante column
  * @method array findByOrdencompradetalleCantidad(string $ordencompradetalle_cantidad) Return Ordencompradetalle objects filtered by the ordencompradetalle_cantidad column
  * @method array findByOrdencompradetalleCosto(string $ordencompradetalle_costo) Return Ordencompradetalle objects filtered by the ordencompradetalle_costo column
  * @method array findByOrdencompradetallePrecio(string $ordencompradetalle_precio) Return Ordencompradetalle objects filtered by the ordencompradetalle_precio column
@@ -170,7 +170,7 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idordencompradetalle`, `idordencompra`, `idarticulo`, `ordencompradetalle_cantidad`, `ordencompradetalle_costo`, `ordencompradetalle_precio`, `ordencompradetalle_importe`, `ordencompradetalle_caducidad`, `ordencompradetalle_existencia` FROM `ordencompradetalle` WHERE `idordencompradetalle` = :p0';
+        $sql = 'SELECT `idordencompradetalle`, `idordencompra`, `idarticulovariante`, `ordencompradetalle_cantidad`, `ordencompradetalle_costo`, `ordencompradetalle_precio`, `ordencompradetalle_importe`, `ordencompradetalle_caducidad`, `ordencompradetalle_existencia` FROM `ordencompradetalle` WHERE `idordencompradetalle` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -346,19 +346,19 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the idarticulo column
+     * Filter the query on the idarticulovariante column
      *
      * Example usage:
      * <code>
-     * $query->filterByIdarticulo(1234); // WHERE idarticulo = 1234
-     * $query->filterByIdarticulo(array(12, 34)); // WHERE idarticulo IN (12, 34)
-     * $query->filterByIdarticulo(array('min' => 12)); // WHERE idarticulo >= 12
-     * $query->filterByIdarticulo(array('max' => 12)); // WHERE idarticulo <= 12
+     * $query->filterByIdarticulovariante(1234); // WHERE idarticulovariante = 1234
+     * $query->filterByIdarticulovariante(array(12, 34)); // WHERE idarticulovariante IN (12, 34)
+     * $query->filterByIdarticulovariante(array('min' => 12)); // WHERE idarticulovariante >= 12
+     * $query->filterByIdarticulovariante(array('max' => 12)); // WHERE idarticulovariante <= 12
      * </code>
      *
-     * @see       filterByArticulo()
+     * @see       filterByArticulovariante()
      *
-     * @param     mixed $idarticulo The value to use as filter.
+     * @param     mixed $idarticulovariante The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -366,16 +366,16 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
      *
      * @return OrdencompradetalleQuery The current query, for fluid interface
      */
-    public function filterByIdarticulo($idarticulo = null, $comparison = null)
+    public function filterByIdarticulovariante($idarticulovariante = null, $comparison = null)
     {
-        if (is_array($idarticulo)) {
+        if (is_array($idarticulovariante)) {
             $useMinMax = false;
-            if (isset($idarticulo['min'])) {
-                $this->addUsingAlias(OrdencompradetallePeer::IDARTICULO, $idarticulo['min'], Criteria::GREATER_EQUAL);
+            if (isset($idarticulovariante['min'])) {
+                $this->addUsingAlias(OrdencompradetallePeer::IDARTICULOVARIANTE, $idarticulovariante['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($idarticulo['max'])) {
-                $this->addUsingAlias(OrdencompradetallePeer::IDARTICULO, $idarticulo['max'], Criteria::LESS_EQUAL);
+            if (isset($idarticulovariante['max'])) {
+                $this->addUsingAlias(OrdencompradetallePeer::IDARTICULOVARIANTE, $idarticulovariante['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -386,7 +386,7 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(OrdencompradetallePeer::IDARTICULO, $idarticulo, $comparison);
+        return $this->addUsingAlias(OrdencompradetallePeer::IDARTICULOVARIANTE, $idarticulovariante, $comparison);
     }
 
     /**
@@ -643,43 +643,43 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Articulo object
+     * Filter the query by a related Articulovariante object
      *
-     * @param   Articulo|PropelObjectCollection $articulo The related object(s) to use as filter
+     * @param   Articulovariante|PropelObjectCollection $articulovariante The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 OrdencompradetalleQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByArticulo($articulo, $comparison = null)
+    public function filterByArticulovariante($articulovariante, $comparison = null)
     {
-        if ($articulo instanceof Articulo) {
+        if ($articulovariante instanceof Articulovariante) {
             return $this
-                ->addUsingAlias(OrdencompradetallePeer::IDARTICULO, $articulo->getIdarticulo(), $comparison);
-        } elseif ($articulo instanceof PropelObjectCollection) {
+                ->addUsingAlias(OrdencompradetallePeer::IDARTICULOVARIANTE, $articulovariante->getIdarticulovariante(), $comparison);
+        } elseif ($articulovariante instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(OrdencompradetallePeer::IDARTICULO, $articulo->toKeyValue('PrimaryKey', 'Idarticulo'), $comparison);
+                ->addUsingAlias(OrdencompradetallePeer::IDARTICULOVARIANTE, $articulovariante->toKeyValue('PrimaryKey', 'Idarticulovariante'), $comparison);
         } else {
-            throw new PropelException('filterByArticulo() only accepts arguments of type Articulo or PropelCollection');
+            throw new PropelException('filterByArticulovariante() only accepts arguments of type Articulovariante or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Articulo relation
+     * Adds a JOIN clause to the query using the Articulovariante relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return OrdencompradetalleQuery The current query, for fluid interface
      */
-    public function joinArticulo($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinArticulovariante($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Articulo');
+        $relationMap = $tableMap->getRelation('Articulovariante');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -694,14 +694,14 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Articulo');
+            $this->addJoinObject($join, 'Articulovariante');
         }
 
         return $this;
     }
 
     /**
-     * Use the Articulo relation Articulo object
+     * Use the Articulovariante relation Articulovariante object
      *
      * @see       useQuery()
      *
@@ -709,13 +709,13 @@ abstract class BaseOrdencompradetalleQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   ArticuloQuery A secondary query class using the current class as primary query
+     * @return   ArticulovarianteQuery A secondary query class using the current class as primary query
      */
-    public function useArticuloQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useArticulovarianteQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinArticulo($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Articulo', 'ArticuloQuery');
+            ->joinArticulovariante($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Articulovariante', 'ArticulovarianteQuery');
     }
 
     /**

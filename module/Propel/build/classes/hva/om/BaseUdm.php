@@ -48,12 +48,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
     protected $udm_descripcion;
 
     /**
-     * @var        PropelObjectCollection|Articulo[] Collection to store aggregation of Articulo objects.
-     */
-    protected $collArticulos;
-    protected $collArticulosPartial;
-
-    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -72,12 +66,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
      * @var        boolean
      */
     protected $alreadyInClearAllReferencesDeep = false;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $articulosScheduledForDeletion = null;
 
     /**
      * Get the [idudm] column value.
@@ -281,8 +269,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collArticulos = null;
-
         } // if (deep)
     }
 
@@ -405,23 +391,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
                 }
                 $affectedRows += 1;
                 $this->resetModified();
-            }
-
-            if ($this->articulosScheduledForDeletion !== null) {
-                if (!$this->articulosScheduledForDeletion->isEmpty()) {
-                    ArticuloQuery::create()
-                        ->filterByPrimaryKeys($this->articulosScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->articulosScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collArticulos !== null) {
-                foreach ($this->collArticulos as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -578,14 +547,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
             }
 
 
-                if ($this->collArticulos !== null) {
-                    foreach ($this->collArticulos as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
-
 
             $this->alreadyInValidation = false;
         }
@@ -647,11 +608,10 @@ abstract class BaseUdm extends BaseObject implements Persistent
      *                    Defaults to BasePeer::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to true.
      * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
-     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
+    public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
         if (isset($alreadyDumpedObjects['Udm'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
@@ -668,11 +628,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
             $result[$key] = $virtualColumn;
         }
 
-        if ($includeForeignObjects) {
-            if (null !== $this->collArticulos) {
-                $result['Articulos'] = $this->collArticulos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-        }
 
         return $result;
     }
@@ -821,24 +776,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
     {
         $copyObj->setUdmNombre($this->getUdmNombre());
         $copyObj->setUdmDescripcion($this->getUdmDescripcion());
-
-        if ($deepCopy && !$this->startCopy) {
-            // important: temporarily setNew(false) because this affects the behavior of
-            // the getter/setter methods for fkey referrer objects.
-            $copyObj->setNew(false);
-            // store object hash to prevent cycle
-            $this->startCopy = true;
-
-            foreach ($this->getArticulos() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addArticulo($relObj->copy($deepCopy));
-                }
-            }
-
-            //unflag object copy
-            $this->startCopy = false;
-        } // if ($deepCopy)
-
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setIdudm(NULL); // this is a auto-increment column, so set to default value
@@ -885,272 +822,6 @@ abstract class BaseUdm extends BaseObject implements Persistent
         return self::$peer;
     }
 
-
-    /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
-     *
-     * @param string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('Articulo' == $relationName) {
-            $this->initArticulos();
-        }
-    }
-
-    /**
-     * Clears out the collArticulos collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Udm The current object (for fluent API support)
-     * @see        addArticulos()
-     */
-    public function clearArticulos()
-    {
-        $this->collArticulos = null; // important to set this to null since that means it is uninitialized
-        $this->collArticulosPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collArticulos collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialArticulos($v = true)
-    {
-        $this->collArticulosPartial = $v;
-    }
-
-    /**
-     * Initializes the collArticulos collection.
-     *
-     * By default this just sets the collArticulos collection to an empty array (like clearcollArticulos());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initArticulos($overrideExisting = true)
-    {
-        if (null !== $this->collArticulos && !$overrideExisting) {
-            return;
-        }
-        $this->collArticulos = new PropelObjectCollection();
-        $this->collArticulos->setModel('Articulo');
-    }
-
-    /**
-     * Gets an array of Articulo objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Udm is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Articulo[] List of Articulo objects
-     * @throws PropelException
-     */
-    public function getArticulos($criteria = null, PropelPDO $con = null)
-    {
-        $partial = $this->collArticulosPartial && !$this->isNew();
-        if (null === $this->collArticulos || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collArticulos) {
-                // return empty collection
-                $this->initArticulos();
-            } else {
-                $collArticulos = ArticuloQuery::create(null, $criteria)
-                    ->filterByUdm($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collArticulosPartial && count($collArticulos)) {
-                      $this->initArticulos(false);
-
-                      foreach ($collArticulos as $obj) {
-                        if (false == $this->collArticulos->contains($obj)) {
-                          $this->collArticulos->append($obj);
-                        }
-                      }
-
-                      $this->collArticulosPartial = true;
-                    }
-
-                    $collArticulos->getInternalIterator()->rewind();
-
-                    return $collArticulos;
-                }
-
-                if ($partial && $this->collArticulos) {
-                    foreach ($this->collArticulos as $obj) {
-                        if ($obj->isNew()) {
-                            $collArticulos[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collArticulos = $collArticulos;
-                $this->collArticulosPartial = false;
-            }
-        }
-
-        return $this->collArticulos;
-    }
-
-    /**
-     * Sets a collection of Articulo objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $articulos A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Udm The current object (for fluent API support)
-     */
-    public function setArticulos(PropelCollection $articulos, PropelPDO $con = null)
-    {
-        $articulosToDelete = $this->getArticulos(new Criteria(), $con)->diff($articulos);
-
-
-        $this->articulosScheduledForDeletion = $articulosToDelete;
-
-        foreach ($articulosToDelete as $articuloRemoved) {
-            $articuloRemoved->setUdm(null);
-        }
-
-        $this->collArticulos = null;
-        foreach ($articulos as $articulo) {
-            $this->addArticulo($articulo);
-        }
-
-        $this->collArticulos = $articulos;
-        $this->collArticulosPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Articulo objects.
-     *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Articulo objects.
-     * @throws PropelException
-     */
-    public function countArticulos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        $partial = $this->collArticulosPartial && !$this->isNew();
-        if (null === $this->collArticulos || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collArticulos) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getArticulos());
-            }
-            $query = ArticuloQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByUdm($this)
-                ->count($con);
-        }
-
-        return count($this->collArticulos);
-    }
-
-    /**
-     * Method called to associate a Articulo object to this object
-     * through the Articulo foreign key attribute.
-     *
-     * @param    Articulo $l Articulo
-     * @return Udm The current object (for fluent API support)
-     */
-    public function addArticulo(Articulo $l)
-    {
-        if ($this->collArticulos === null) {
-            $this->initArticulos();
-            $this->collArticulosPartial = true;
-        }
-
-        if (!in_array($l, $this->collArticulos->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddArticulo($l);
-
-            if ($this->articulosScheduledForDeletion and $this->articulosScheduledForDeletion->contains($l)) {
-                $this->articulosScheduledForDeletion->remove($this->articulosScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	Articulo $articulo The articulo object to add.
-     */
-    protected function doAddArticulo($articulo)
-    {
-        $this->collArticulos[]= $articulo;
-        $articulo->setUdm($this);
-    }
-
-    /**
-     * @param	Articulo $articulo The articulo object to remove.
-     * @return Udm The current object (for fluent API support)
-     */
-    public function removeArticulo($articulo)
-    {
-        if ($this->getArticulos()->contains($articulo)) {
-            $this->collArticulos->remove($this->collArticulos->search($articulo));
-            if (null === $this->articulosScheduledForDeletion) {
-                $this->articulosScheduledForDeletion = clone $this->collArticulos;
-                $this->articulosScheduledForDeletion->clear();
-            }
-            $this->articulosScheduledForDeletion[]= clone $articulo;
-            $articulo->setUdm(null);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Udm is new, it will return
-     * an empty collection; or if this Udm has previously
-     * been saved, it will retrieve related Articulos from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Udm.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Articulo[] List of Articulo objects
-     */
-    public function getArticulosJoinTipo($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $query = ArticuloQuery::create(null, $criteria);
-        $query->joinWith('Tipo', $join_behavior);
-
-        return $this->getArticulos($query, $con);
-    }
-
     /**
      * Clears the current object and sets all attributes to their default values
      */
@@ -1181,19 +852,10 @@ abstract class BaseUdm extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collArticulos) {
-                foreach ($this->collArticulos as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collArticulos instanceof PropelCollection) {
-            $this->collArticulos->clearIterator();
-        }
-        $this->collArticulos = null;
     }
 
     /**

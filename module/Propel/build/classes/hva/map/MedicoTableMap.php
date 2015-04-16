@@ -69,8 +69,8 @@ class MedicoTableMap extends TableMap
         $this->addRelation('Admision', 'Admision', RelationMap::ONE_TO_MANY, array('idmedico' => 'idmedico', ), 'CASCADE', 'CASCADE', 'Admisions');
         $this->addRelation('Cita', 'Cita', RelationMap::ONE_TO_MANY, array('idmedico' => 'idmedico', ), 'CASCADE', 'CASCADE', 'Citas');
         $this->addRelation('Consulta', 'Consulta', RelationMap::ONE_TO_MANY, array('idmedico' => 'idmedico', ), 'CASCADE', 'CASCADE', 'Consultas');
-        $this->addRelation('Datosfacturacionmedico', 'Datosfacturacionmedico', RelationMap::ONE_TO_MANY, array('idmedico' => 'idmedico', ), 'CASCADE', 'CASCADE', 'Datosfacturacionmedicos');
         $this->addRelation('Medicoespecialidad', 'Medicoespecialidad', RelationMap::ONE_TO_MANY, array('idmedico' => 'idmedico', ), 'CASCADE', 'CASCADE', 'Medicoespecialidads');
+        $this->addRelation('Medicofacturacion', 'Medicofacturacion', RelationMap::ONE_TO_MANY, array('idmedico' => 'idmedico', ), 'CASCADE', 'CASCADE', 'Medicofacturacions');
     } // buildRelations()
 
 } // MedicoTableMap

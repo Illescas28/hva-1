@@ -19,7 +19,7 @@
  * @method PacienteQuery orderByPacientePais($order = Criteria::ASC) Order by the paciente_pais column
  * @method PacienteQuery orderByPacienteTelefono($order = Criteria::ASC) Order by the paciente_telefono column
  * @method PacienteQuery orderByPacienteTelefonocelular($order = Criteria::ASC) Order by the paciente_telefonocelular column
- * @method PacienteQuery orderByPacienteEdad($order = Criteria::ASC) Order by the paciente_edad column
+ * @method PacienteQuery orderByPacienteFechanacimiento($order = Criteria::ASC) Order by the paciente_fechanacimiento column
  * @method PacienteQuery orderByPacienteSexo($order = Criteria::ASC) Order by the paciente_sexo column
  * @method PacienteQuery orderByPacienteEstadocivil($order = Criteria::ASC) Order by the paciente_estadocivil column
  * @method PacienteQuery orderByPacienteOcupacion($order = Criteria::ASC) Order by the paciente_ocupacion column
@@ -42,7 +42,7 @@
  * @method PacienteQuery groupByPacientePais() Group by the paciente_pais column
  * @method PacienteQuery groupByPacienteTelefono() Group by the paciente_telefono column
  * @method PacienteQuery groupByPacienteTelefonocelular() Group by the paciente_telefonocelular column
- * @method PacienteQuery groupByPacienteEdad() Group by the paciente_edad column
+ * @method PacienteQuery groupByPacienteFechanacimiento() Group by the paciente_fechanacimiento column
  * @method PacienteQuery groupByPacienteSexo() Group by the paciente_sexo column
  * @method PacienteQuery groupByPacienteEstadocivil() Group by the paciente_estadocivil column
  * @method PacienteQuery groupByPacienteOcupacion() Group by the paciente_ocupacion column
@@ -68,9 +68,13 @@
  * @method PacienteQuery rightJoinConsulta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Consulta relation
  * @method PacienteQuery innerJoinConsulta($relationAlias = null) Adds a INNER JOIN clause to the query using the Consulta relation
  *
- * @method PacienteQuery leftJoinDatosfacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Datosfacturacion relation
- * @method PacienteQuery rightJoinDatosfacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Datosfacturacion relation
- * @method PacienteQuery innerJoinDatosfacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Datosfacturacion relation
+ * @method PacienteQuery leftJoinPacientefacturacion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Pacientefacturacion relation
+ * @method PacienteQuery rightJoinPacientefacturacion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Pacientefacturacion relation
+ * @method PacienteQuery innerJoinPacientefacturacion($relationAlias = null) Adds a INNER JOIN clause to the query using the Pacientefacturacion relation
+ *
+ * @method PacienteQuery leftJoinVenta($relationAlias = null) Adds a LEFT JOIN clause to the query using the Venta relation
+ * @method PacienteQuery rightJoinVenta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Venta relation
+ * @method PacienteQuery innerJoinVenta($relationAlias = null) Adds a INNER JOIN clause to the query using the Venta relation
  *
  * @method Paciente findOne(PropelPDO $con = null) Return the first Paciente matching the query
  * @method Paciente findOneOrCreate(PropelPDO $con = null) Return the first Paciente matching the query, or a new Paciente object populated from the query conditions when no match is found
@@ -87,7 +91,7 @@
  * @method Paciente findOneByPacientePais(string $paciente_pais) Return the first Paciente filtered by the paciente_pais column
  * @method Paciente findOneByPacienteTelefono(string $paciente_telefono) Return the first Paciente filtered by the paciente_telefono column
  * @method Paciente findOneByPacienteTelefonocelular(string $paciente_telefonocelular) Return the first Paciente filtered by the paciente_telefonocelular column
- * @method Paciente findOneByPacienteEdad(string $paciente_edad) Return the first Paciente filtered by the paciente_edad column
+ * @method Paciente findOneByPacienteFechanacimiento(string $paciente_fechanacimiento) Return the first Paciente filtered by the paciente_fechanacimiento column
  * @method Paciente findOneByPacienteSexo(string $paciente_sexo) Return the first Paciente filtered by the paciente_sexo column
  * @method Paciente findOneByPacienteEstadocivil(string $paciente_estadocivil) Return the first Paciente filtered by the paciente_estadocivil column
  * @method Paciente findOneByPacienteOcupacion(string $paciente_ocupacion) Return the first Paciente filtered by the paciente_ocupacion column
@@ -110,7 +114,7 @@
  * @method array findByPacientePais(string $paciente_pais) Return Paciente objects filtered by the paciente_pais column
  * @method array findByPacienteTelefono(string $paciente_telefono) Return Paciente objects filtered by the paciente_telefono column
  * @method array findByPacienteTelefonocelular(string $paciente_telefonocelular) Return Paciente objects filtered by the paciente_telefonocelular column
- * @method array findByPacienteEdad(string $paciente_edad) Return Paciente objects filtered by the paciente_edad column
+ * @method array findByPacienteFechanacimiento(string $paciente_fechanacimiento) Return Paciente objects filtered by the paciente_fechanacimiento column
  * @method array findByPacienteSexo(string $paciente_sexo) Return Paciente objects filtered by the paciente_sexo column
  * @method array findByPacienteEstadocivil(string $paciente_estadocivil) Return Paciente objects filtered by the paciente_estadocivil column
  * @method array findByPacienteOcupacion(string $paciente_ocupacion) Return Paciente objects filtered by the paciente_ocupacion column
@@ -226,7 +230,7 @@ abstract class BasePacienteQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idpaciente`, `paciente_nombre`, `paciente_ap`, `paciente_am`, `paciente_calle`, `paciente_noexterior`, `paciente_nointerior`, `paciente_colonia`, `paciente_ciudad`, `paciente_estado`, `paciente_pais`, `paciente_telefono`, `paciente_telefonocelular`, `paciente_edad`, `paciente_sexo`, `paciente_estadocivil`, `paciente_ocupacion`, `paciente_conyuge`, `paciente_padre`, `paciente_madre`, `paciente_responsable`, `paciente_telefonoresponsable` FROM `paciente` WHERE `idpaciente` = :p0';
+        $sql = 'SELECT `idpaciente`, `paciente_nombre`, `paciente_ap`, `paciente_am`, `paciente_calle`, `paciente_noexterior`, `paciente_nointerior`, `paciente_colonia`, `paciente_ciudad`, `paciente_estado`, `paciente_pais`, `paciente_telefono`, `paciente_telefonocelular`, `paciente_fechanacimiento`, `paciente_sexo`, `paciente_estadocivil`, `paciente_ocupacion`, `paciente_conyuge`, `paciente_padre`, `paciente_madre`, `paciente_responsable`, `paciente_telefonoresponsable` FROM `paciente` WHERE `idpaciente` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -706,32 +710,46 @@ abstract class BasePacienteQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the paciente_edad column
+     * Filter the query on the paciente_fechanacimiento column
      *
      * Example usage:
      * <code>
-     * $query->filterByPacienteEdad('fooValue');   // WHERE paciente_edad = 'fooValue'
-     * $query->filterByPacienteEdad('%fooValue%'); // WHERE paciente_edad LIKE '%fooValue%'
+     * $query->filterByPacienteFechanacimiento('2011-03-14'); // WHERE paciente_fechanacimiento = '2011-03-14'
+     * $query->filterByPacienteFechanacimiento('now'); // WHERE paciente_fechanacimiento = '2011-03-14'
+     * $query->filterByPacienteFechanacimiento(array('max' => 'yesterday')); // WHERE paciente_fechanacimiento < '2011-03-13'
      * </code>
      *
-     * @param     string $pacienteEdad The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     mixed $pacienteFechanacimiento The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return PacienteQuery The current query, for fluid interface
      */
-    public function filterByPacienteEdad($pacienteEdad = null, $comparison = null)
+    public function filterByPacienteFechanacimiento($pacienteFechanacimiento = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($pacienteEdad)) {
+        if (is_array($pacienteFechanacimiento)) {
+            $useMinMax = false;
+            if (isset($pacienteFechanacimiento['min'])) {
+                $this->addUsingAlias(PacientePeer::PACIENTE_FECHANACIMIENTO, $pacienteFechanacimiento['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($pacienteFechanacimiento['max'])) {
+                $this->addUsingAlias(PacientePeer::PACIENTE_FECHANACIMIENTO, $pacienteFechanacimiento['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $pacienteEdad)) {
-                $pacienteEdad = str_replace('*', '%', $pacienteEdad);
-                $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(PacientePeer::PACIENTE_EDAD, $pacienteEdad, $comparison);
+        return $this->addUsingAlias(PacientePeer::PACIENTE_FECHANACIMIENTO, $pacienteFechanacimiento, $comparison);
     }
 
     /**
@@ -1189,41 +1207,41 @@ abstract class BasePacienteQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Datosfacturacion object
+     * Filter the query by a related Pacientefacturacion object
      *
-     * @param   Datosfacturacion|PropelObjectCollection $datosfacturacion  the related object to use as filter
+     * @param   Pacientefacturacion|PropelObjectCollection $pacientefacturacion  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 PacienteQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByDatosfacturacion($datosfacturacion, $comparison = null)
+    public function filterByPacientefacturacion($pacientefacturacion, $comparison = null)
     {
-        if ($datosfacturacion instanceof Datosfacturacion) {
+        if ($pacientefacturacion instanceof Pacientefacturacion) {
             return $this
-                ->addUsingAlias(PacientePeer::IDPACIENTE, $datosfacturacion->getIdpaciente(), $comparison);
-        } elseif ($datosfacturacion instanceof PropelObjectCollection) {
+                ->addUsingAlias(PacientePeer::IDPACIENTE, $pacientefacturacion->getIdpaciente(), $comparison);
+        } elseif ($pacientefacturacion instanceof PropelObjectCollection) {
             return $this
-                ->useDatosfacturacionQuery()
-                ->filterByPrimaryKeys($datosfacturacion->getPrimaryKeys())
+                ->usePacientefacturacionQuery()
+                ->filterByPrimaryKeys($pacientefacturacion->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByDatosfacturacion() only accepts arguments of type Datosfacturacion or PropelCollection');
+            throw new PropelException('filterByPacientefacturacion() only accepts arguments of type Pacientefacturacion or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Datosfacturacion relation
+     * Adds a JOIN clause to the query using the Pacientefacturacion relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return PacienteQuery The current query, for fluid interface
      */
-    public function joinDatosfacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinPacientefacturacion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Datosfacturacion');
+        $relationMap = $tableMap->getRelation('Pacientefacturacion');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -1238,14 +1256,14 @@ abstract class BasePacienteQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Datosfacturacion');
+            $this->addJoinObject($join, 'Pacientefacturacion');
         }
 
         return $this;
     }
 
     /**
-     * Use the Datosfacturacion relation Datosfacturacion object
+     * Use the Pacientefacturacion relation Pacientefacturacion object
      *
      * @see       useQuery()
      *
@@ -1253,13 +1271,87 @@ abstract class BasePacienteQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   DatosfacturacionQuery A secondary query class using the current class as primary query
+     * @return   PacientefacturacionQuery A secondary query class using the current class as primary query
      */
-    public function useDatosfacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function usePacientefacturacionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinDatosfacturacion($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Datosfacturacion', 'DatosfacturacionQuery');
+            ->joinPacientefacturacion($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Pacientefacturacion', 'PacientefacturacionQuery');
+    }
+
+    /**
+     * Filter the query by a related Venta object
+     *
+     * @param   Venta|PropelObjectCollection $venta  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 PacienteQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByVenta($venta, $comparison = null)
+    {
+        if ($venta instanceof Venta) {
+            return $this
+                ->addUsingAlias(PacientePeer::IDPACIENTE, $venta->getIdpaciente(), $comparison);
+        } elseif ($venta instanceof PropelObjectCollection) {
+            return $this
+                ->useVentaQuery()
+                ->filterByPrimaryKeys($venta->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByVenta() only accepts arguments of type Venta or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Venta relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return PacienteQuery The current query, for fluid interface
+     */
+    public function joinVenta($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Venta');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Venta');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Venta relation Venta object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   VentaQuery A secondary query class using the current class as primary query
+     */
+    public function useVentaQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinVenta($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Venta', 'VentaQuery');
     }
 
     /**

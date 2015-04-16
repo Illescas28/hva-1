@@ -563,7 +563,7 @@ abstract class BaseConsulta extends BaseObject implements Persistent
      */
     public function setConsultaTotal($v)
     {
-        if ($v !== null) {
+        if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 
@@ -947,10 +947,10 @@ abstract class BaseConsulta extends BaseObject implements Persistent
             $modifiedColumns[':p' . $index++]  = '`idcuarto`';
         }
         if ($this->isColumnModified(ConsultaPeer::CONSULTA_FECHAADMISION)) {
-            $modifiedColumns[':p' . $index++]  = '`consulta_fechaAdmision`';
+            $modifiedColumns[':p' . $index++]  = '`consulta_fechaadmision`';
         }
         if ($this->isColumnModified(ConsultaPeer::CONSULTA_FECHASALIDA)) {
-            $modifiedColumns[':p' . $index++]  = '`consulta_fechaSalida`';
+            $modifiedColumns[':p' . $index++]  = '`consulta_fechasalida`';
         }
         if ($this->isColumnModified(ConsultaPeer::CONSULTA_DIAGNOSTICO)) {
             $modifiedColumns[':p' . $index++]  = '`consulta_diagnostico`';
@@ -987,10 +987,10 @@ abstract class BaseConsulta extends BaseObject implements Persistent
                     case '`idcuarto`':
                         $stmt->bindValue($identifier, $this->idcuarto, PDO::PARAM_INT);
                         break;
-                    case '`consulta_fechaAdmision`':
+                    case '`consulta_fechaadmision`':
                         $stmt->bindValue($identifier, $this->consulta_fechaadmision, PDO::PARAM_STR);
                         break;
-                    case '`consulta_fechaSalida`':
+                    case '`consulta_fechasalida`':
                         $stmt->bindValue($identifier, $this->consulta_fechasalida, PDO::PARAM_STR);
                         break;
                     case '`consulta_diagnostico`':
@@ -2461,10 +2461,10 @@ abstract class BaseConsulta extends BaseObject implements Persistent
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Factura[] List of Factura objects
      */
-    public function getFacturasJoinDatosfacturacion($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getFacturasJoinPacientefacturacion($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = FacturaQuery::create(null, $criteria);
-        $query->joinWith('Datosfacturacion', $join_behavior);
+        $query->joinWith('Pacientefacturacion', $join_behavior);
 
         return $this->getFacturas($query, $con);
     }

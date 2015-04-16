@@ -49,7 +49,6 @@ class UdmTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Articulo', 'Articulo', RelationMap::ONE_TO_MANY, array('idudm' => 'idudm', ), 'CASCADE', 'CASCADE', 'Articulos');
     } // buildRelations()
 
 } // UdmTableMap

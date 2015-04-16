@@ -52,7 +52,7 @@ class AdmisionTableMap extends TableMap
   1 => 'no pagada',
   2 => 'pendiente',
 ));
-        $this->addColumn('admision_total', 'AdmisionTotal', 'VARCHAR', false, 45, null);
+        $this->addColumn('admision_total', 'AdmisionTotal', 'DECIMAL', false, 10, null);
         $this->addColumn('admision_pagadaen', 'AdmisionPagadaen', 'TIMESTAMP', false, null, null);
         // validators
     } // initialize()

@@ -54,6 +54,7 @@ class ServicioTableMap extends TableMap
     {
         $this->addRelation('Cargoadmision', 'Cargoadmision', RelationMap::ONE_TO_MANY, array('idservicio' => 'idservicio', ), 'CASCADE', 'CASCADE', 'Cargoadmisions');
         $this->addRelation('Cargoconsulta', 'Cargoconsulta', RelationMap::ONE_TO_MANY, array('idservicio' => 'idservicio', ), 'CASCADE', 'CASCADE', 'Cargoconsultas');
+        $this->addRelation('Cargoventa', 'Cargoventa', RelationMap::ONE_TO_MANY, array('idservicio' => 'idservicio', ), 'CASCADE', 'CASCADE', 'Cargoventas');
     } // buildRelations()
 
 } // ServicioTableMap

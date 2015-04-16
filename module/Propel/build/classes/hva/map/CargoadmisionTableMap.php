@@ -39,6 +39,7 @@ class CargoadmisionTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('idcargoadmision', 'Idcargoadmision', 'INTEGER', true, null, null);
+        $this->addForeignKey('idadmision', 'Idadmision', 'INTEGER', 'admision', 'idadmision', true, null, null);
         $this->addForeignKey('idlugarinventario', 'Idlugarinventario', 'INTEGER', 'lugarinventario', 'idlugarinventario', false, null, null);
         $this->addForeignKey('idservicio', 'Idservicio', 'INTEGER', 'servicio', 'idservicio', false, null, null);
         $this->addColumn('cargoadmision_tipo', 'CargoadmisionTipo', 'CHAR', true, null, null);
@@ -46,7 +47,6 @@ class CargoadmisionTableMap extends TableMap
   0 => 'articulo',
   1 => 'servicio',
 ));
-        $this->addForeignKey('idadmision', 'Idadmision', 'INTEGER', 'admision', 'idadmision', true, null, null);
         $this->addColumn('cargoadmision_fecha', 'CargoadmisionFecha', 'TIMESTAMP', true, null, null);
         $this->addColumn('cargoadmision_cantidad', 'CargoadmisionCantidad', 'DECIMAL', true, 10, null);
         $this->addColumn('cargoadmision_monto', 'CargoadmisionMonto', 'DECIMAL', true, 10, null);

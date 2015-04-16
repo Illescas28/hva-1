@@ -167,16 +167,16 @@ abstract class BaseMedico extends BaseObject implements Persistent
     protected $collConsultasPartial;
 
     /**
-     * @var        PropelObjectCollection|Datosfacturacionmedico[] Collection to store aggregation of Datosfacturacionmedico objects.
-     */
-    protected $collDatosfacturacionmedicos;
-    protected $collDatosfacturacionmedicosPartial;
-
-    /**
      * @var        PropelObjectCollection|Medicoespecialidad[] Collection to store aggregation of Medicoespecialidad objects.
      */
     protected $collMedicoespecialidads;
     protected $collMedicoespecialidadsPartial;
+
+    /**
+     * @var        PropelObjectCollection|Medicofacturacion[] Collection to store aggregation of Medicofacturacion objects.
+     */
+    protected $collMedicofacturacions;
+    protected $collMedicofacturacionsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -220,13 +220,13 @@ abstract class BaseMedico extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $datosfacturacionmedicosScheduledForDeletion = null;
+    protected $medicoespecialidadsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $medicoespecialidadsScheduledForDeletion = null;
+    protected $medicofacturacionsScheduledForDeletion = null;
 
     /**
      * Get the [idmedico] column value.
@@ -972,9 +972,9 @@ abstract class BaseMedico extends BaseObject implements Persistent
 
             $this->collConsultas = null;
 
-            $this->collDatosfacturacionmedicos = null;
-
             $this->collMedicoespecialidads = null;
+
+            $this->collMedicofacturacions = null;
 
         } // if (deep)
     }
@@ -1163,23 +1163,6 @@ abstract class BaseMedico extends BaseObject implements Persistent
                 }
             }
 
-            if ($this->datosfacturacionmedicosScheduledForDeletion !== null) {
-                if (!$this->datosfacturacionmedicosScheduledForDeletion->isEmpty()) {
-                    DatosfacturacionmedicoQuery::create()
-                        ->filterByPrimaryKeys($this->datosfacturacionmedicosScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->datosfacturacionmedicosScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collDatosfacturacionmedicos !== null) {
-                foreach ($this->collDatosfacturacionmedicos as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
             if ($this->medicoespecialidadsScheduledForDeletion !== null) {
                 if (!$this->medicoespecialidadsScheduledForDeletion->isEmpty()) {
                     MedicoespecialidadQuery::create()
@@ -1191,6 +1174,23 @@ abstract class BaseMedico extends BaseObject implements Persistent
 
             if ($this->collMedicoespecialidads !== null) {
                 foreach ($this->collMedicoespecialidads as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->medicofacturacionsScheduledForDeletion !== null) {
+                if (!$this->medicofacturacionsScheduledForDeletion->isEmpty()) {
+                    MedicofacturacionQuery::create()
+                        ->filterByPrimaryKeys($this->medicofacturacionsScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->medicofacturacionsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collMedicofacturacions !== null) {
+                foreach ($this->collMedicofacturacions as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1483,16 +1483,16 @@ abstract class BaseMedico extends BaseObject implements Persistent
                     }
                 }
 
-                if ($this->collDatosfacturacionmedicos !== null) {
-                    foreach ($this->collDatosfacturacionmedicos as $referrerFK) {
+                if ($this->collMedicoespecialidads !== null) {
+                    foreach ($this->collMedicoespecialidads as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
                     }
                 }
 
-                if ($this->collMedicoespecialidads !== null) {
-                    foreach ($this->collMedicoespecialidads as $referrerFK) {
+                if ($this->collMedicofacturacions !== null) {
+                    foreach ($this->collMedicofacturacions as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -1658,11 +1658,11 @@ abstract class BaseMedico extends BaseObject implements Persistent
             if (null !== $this->collConsultas) {
                 $result['Consultas'] = $this->collConsultas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
-            if (null !== $this->collDatosfacturacionmedicos) {
-                $result['Datosfacturacionmedicos'] = $this->collDatosfacturacionmedicos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
             if (null !== $this->collMedicoespecialidads) {
                 $result['Medicoespecialidads'] = $this->collMedicoespecialidads->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collMedicofacturacions) {
+                $result['Medicofacturacions'] = $this->collMedicofacturacions->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1935,15 +1935,15 @@ abstract class BaseMedico extends BaseObject implements Persistent
                 }
             }
 
-            foreach ($this->getDatosfacturacionmedicos() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addDatosfacturacionmedico($relObj->copy($deepCopy));
-                }
-            }
-
             foreach ($this->getMedicoespecialidads() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addMedicoespecialidad($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getMedicofacturacions() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addMedicofacturacion($relObj->copy($deepCopy));
                 }
             }
 
@@ -2069,11 +2069,11 @@ abstract class BaseMedico extends BaseObject implements Persistent
         if ('Consulta' == $relationName) {
             $this->initConsultas();
         }
-        if ('Datosfacturacionmedico' == $relationName) {
-            $this->initDatosfacturacionmedicos();
-        }
         if ('Medicoespecialidad' == $relationName) {
             $this->initMedicoespecialidads();
+        }
+        if ('Medicofacturacion' == $relationName) {
+            $this->initMedicofacturacions();
         }
     }
 
@@ -2878,231 +2878,6 @@ abstract class BaseMedico extends BaseObject implements Persistent
     }
 
     /**
-     * Clears out the collDatosfacturacionmedicos collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Medico The current object (for fluent API support)
-     * @see        addDatosfacturacionmedicos()
-     */
-    public function clearDatosfacturacionmedicos()
-    {
-        $this->collDatosfacturacionmedicos = null; // important to set this to null since that means it is uninitialized
-        $this->collDatosfacturacionmedicosPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collDatosfacturacionmedicos collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialDatosfacturacionmedicos($v = true)
-    {
-        $this->collDatosfacturacionmedicosPartial = $v;
-    }
-
-    /**
-     * Initializes the collDatosfacturacionmedicos collection.
-     *
-     * By default this just sets the collDatosfacturacionmedicos collection to an empty array (like clearcollDatosfacturacionmedicos());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initDatosfacturacionmedicos($overrideExisting = true)
-    {
-        if (null !== $this->collDatosfacturacionmedicos && !$overrideExisting) {
-            return;
-        }
-        $this->collDatosfacturacionmedicos = new PropelObjectCollection();
-        $this->collDatosfacturacionmedicos->setModel('Datosfacturacionmedico');
-    }
-
-    /**
-     * Gets an array of Datosfacturacionmedico objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Medico is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Datosfacturacionmedico[] List of Datosfacturacionmedico objects
-     * @throws PropelException
-     */
-    public function getDatosfacturacionmedicos($criteria = null, PropelPDO $con = null)
-    {
-        $partial = $this->collDatosfacturacionmedicosPartial && !$this->isNew();
-        if (null === $this->collDatosfacturacionmedicos || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collDatosfacturacionmedicos) {
-                // return empty collection
-                $this->initDatosfacturacionmedicos();
-            } else {
-                $collDatosfacturacionmedicos = DatosfacturacionmedicoQuery::create(null, $criteria)
-                    ->filterByMedico($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collDatosfacturacionmedicosPartial && count($collDatosfacturacionmedicos)) {
-                      $this->initDatosfacturacionmedicos(false);
-
-                      foreach ($collDatosfacturacionmedicos as $obj) {
-                        if (false == $this->collDatosfacturacionmedicos->contains($obj)) {
-                          $this->collDatosfacturacionmedicos->append($obj);
-                        }
-                      }
-
-                      $this->collDatosfacturacionmedicosPartial = true;
-                    }
-
-                    $collDatosfacturacionmedicos->getInternalIterator()->rewind();
-
-                    return $collDatosfacturacionmedicos;
-                }
-
-                if ($partial && $this->collDatosfacturacionmedicos) {
-                    foreach ($this->collDatosfacturacionmedicos as $obj) {
-                        if ($obj->isNew()) {
-                            $collDatosfacturacionmedicos[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collDatosfacturacionmedicos = $collDatosfacturacionmedicos;
-                $this->collDatosfacturacionmedicosPartial = false;
-            }
-        }
-
-        return $this->collDatosfacturacionmedicos;
-    }
-
-    /**
-     * Sets a collection of Datosfacturacionmedico objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $datosfacturacionmedicos A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Medico The current object (for fluent API support)
-     */
-    public function setDatosfacturacionmedicos(PropelCollection $datosfacturacionmedicos, PropelPDO $con = null)
-    {
-        $datosfacturacionmedicosToDelete = $this->getDatosfacturacionmedicos(new Criteria(), $con)->diff($datosfacturacionmedicos);
-
-
-        $this->datosfacturacionmedicosScheduledForDeletion = $datosfacturacionmedicosToDelete;
-
-        foreach ($datosfacturacionmedicosToDelete as $datosfacturacionmedicoRemoved) {
-            $datosfacturacionmedicoRemoved->setMedico(null);
-        }
-
-        $this->collDatosfacturacionmedicos = null;
-        foreach ($datosfacturacionmedicos as $datosfacturacionmedico) {
-            $this->addDatosfacturacionmedico($datosfacturacionmedico);
-        }
-
-        $this->collDatosfacturacionmedicos = $datosfacturacionmedicos;
-        $this->collDatosfacturacionmedicosPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Datosfacturacionmedico objects.
-     *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Datosfacturacionmedico objects.
-     * @throws PropelException
-     */
-    public function countDatosfacturacionmedicos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        $partial = $this->collDatosfacturacionmedicosPartial && !$this->isNew();
-        if (null === $this->collDatosfacturacionmedicos || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collDatosfacturacionmedicos) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getDatosfacturacionmedicos());
-            }
-            $query = DatosfacturacionmedicoQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByMedico($this)
-                ->count($con);
-        }
-
-        return count($this->collDatosfacturacionmedicos);
-    }
-
-    /**
-     * Method called to associate a Datosfacturacionmedico object to this object
-     * through the Datosfacturacionmedico foreign key attribute.
-     *
-     * @param    Datosfacturacionmedico $l Datosfacturacionmedico
-     * @return Medico The current object (for fluent API support)
-     */
-    public function addDatosfacturacionmedico(Datosfacturacionmedico $l)
-    {
-        if ($this->collDatosfacturacionmedicos === null) {
-            $this->initDatosfacturacionmedicos();
-            $this->collDatosfacturacionmedicosPartial = true;
-        }
-
-        if (!in_array($l, $this->collDatosfacturacionmedicos->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddDatosfacturacionmedico($l);
-
-            if ($this->datosfacturacionmedicosScheduledForDeletion and $this->datosfacturacionmedicosScheduledForDeletion->contains($l)) {
-                $this->datosfacturacionmedicosScheduledForDeletion->remove($this->datosfacturacionmedicosScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	Datosfacturacionmedico $datosfacturacionmedico The datosfacturacionmedico object to add.
-     */
-    protected function doAddDatosfacturacionmedico($datosfacturacionmedico)
-    {
-        $this->collDatosfacturacionmedicos[]= $datosfacturacionmedico;
-        $datosfacturacionmedico->setMedico($this);
-    }
-
-    /**
-     * @param	Datosfacturacionmedico $datosfacturacionmedico The datosfacturacionmedico object to remove.
-     * @return Medico The current object (for fluent API support)
-     */
-    public function removeDatosfacturacionmedico($datosfacturacionmedico)
-    {
-        if ($this->getDatosfacturacionmedicos()->contains($datosfacturacionmedico)) {
-            $this->collDatosfacturacionmedicos->remove($this->collDatosfacturacionmedicos->search($datosfacturacionmedico));
-            if (null === $this->datosfacturacionmedicosScheduledForDeletion) {
-                $this->datosfacturacionmedicosScheduledForDeletion = clone $this->collDatosfacturacionmedicos;
-                $this->datosfacturacionmedicosScheduledForDeletion->clear();
-            }
-            $this->datosfacturacionmedicosScheduledForDeletion[]= clone $datosfacturacionmedico;
-            $datosfacturacionmedico->setMedico(null);
-        }
-
-        return $this;
-    }
-
-    /**
      * Clears out the collMedicoespecialidads collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
@@ -3353,6 +3128,231 @@ abstract class BaseMedico extends BaseObject implements Persistent
     }
 
     /**
+     * Clears out the collMedicofacturacions collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return Medico The current object (for fluent API support)
+     * @see        addMedicofacturacions()
+     */
+    public function clearMedicofacturacions()
+    {
+        $this->collMedicofacturacions = null; // important to set this to null since that means it is uninitialized
+        $this->collMedicofacturacionsPartial = null;
+
+        return $this;
+    }
+
+    /**
+     * reset is the collMedicofacturacions collection loaded partially
+     *
+     * @return void
+     */
+    public function resetPartialMedicofacturacions($v = true)
+    {
+        $this->collMedicofacturacionsPartial = $v;
+    }
+
+    /**
+     * Initializes the collMedicofacturacions collection.
+     *
+     * By default this just sets the collMedicofacturacions collection to an empty array (like clearcollMedicofacturacions());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initMedicofacturacions($overrideExisting = true)
+    {
+        if (null !== $this->collMedicofacturacions && !$overrideExisting) {
+            return;
+        }
+        $this->collMedicofacturacions = new PropelObjectCollection();
+        $this->collMedicofacturacions->setModel('Medicofacturacion');
+    }
+
+    /**
+     * Gets an array of Medicofacturacion objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this Medico is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Medicofacturacion[] List of Medicofacturacion objects
+     * @throws PropelException
+     */
+    public function getMedicofacturacions($criteria = null, PropelPDO $con = null)
+    {
+        $partial = $this->collMedicofacturacionsPartial && !$this->isNew();
+        if (null === $this->collMedicofacturacions || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collMedicofacturacions) {
+                // return empty collection
+                $this->initMedicofacturacions();
+            } else {
+                $collMedicofacturacions = MedicofacturacionQuery::create(null, $criteria)
+                    ->filterByMedico($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    if (false !== $this->collMedicofacturacionsPartial && count($collMedicofacturacions)) {
+                      $this->initMedicofacturacions(false);
+
+                      foreach ($collMedicofacturacions as $obj) {
+                        if (false == $this->collMedicofacturacions->contains($obj)) {
+                          $this->collMedicofacturacions->append($obj);
+                        }
+                      }
+
+                      $this->collMedicofacturacionsPartial = true;
+                    }
+
+                    $collMedicofacturacions->getInternalIterator()->rewind();
+
+                    return $collMedicofacturacions;
+                }
+
+                if ($partial && $this->collMedicofacturacions) {
+                    foreach ($this->collMedicofacturacions as $obj) {
+                        if ($obj->isNew()) {
+                            $collMedicofacturacions[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collMedicofacturacions = $collMedicofacturacions;
+                $this->collMedicofacturacionsPartial = false;
+            }
+        }
+
+        return $this->collMedicofacturacions;
+    }
+
+    /**
+     * Sets a collection of Medicofacturacion objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param PropelCollection $medicofacturacions A Propel collection.
+     * @param PropelPDO $con Optional connection object
+     * @return Medico The current object (for fluent API support)
+     */
+    public function setMedicofacturacions(PropelCollection $medicofacturacions, PropelPDO $con = null)
+    {
+        $medicofacturacionsToDelete = $this->getMedicofacturacions(new Criteria(), $con)->diff($medicofacturacions);
+
+
+        $this->medicofacturacionsScheduledForDeletion = $medicofacturacionsToDelete;
+
+        foreach ($medicofacturacionsToDelete as $medicofacturacionRemoved) {
+            $medicofacturacionRemoved->setMedico(null);
+        }
+
+        $this->collMedicofacturacions = null;
+        foreach ($medicofacturacions as $medicofacturacion) {
+            $this->addMedicofacturacion($medicofacturacion);
+        }
+
+        $this->collMedicofacturacions = $medicofacturacions;
+        $this->collMedicofacturacionsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Medicofacturacion objects.
+     *
+     * @param Criteria $criteria
+     * @param boolean $distinct
+     * @param PropelPDO $con
+     * @return int             Count of related Medicofacturacion objects.
+     * @throws PropelException
+     */
+    public function countMedicofacturacions(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        $partial = $this->collMedicofacturacionsPartial && !$this->isNew();
+        if (null === $this->collMedicofacturacions || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collMedicofacturacions) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getMedicofacturacions());
+            }
+            $query = MedicofacturacionQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByMedico($this)
+                ->count($con);
+        }
+
+        return count($this->collMedicofacturacions);
+    }
+
+    /**
+     * Method called to associate a Medicofacturacion object to this object
+     * through the Medicofacturacion foreign key attribute.
+     *
+     * @param    Medicofacturacion $l Medicofacturacion
+     * @return Medico The current object (for fluent API support)
+     */
+    public function addMedicofacturacion(Medicofacturacion $l)
+    {
+        if ($this->collMedicofacturacions === null) {
+            $this->initMedicofacturacions();
+            $this->collMedicofacturacionsPartial = true;
+        }
+
+        if (!in_array($l, $this->collMedicofacturacions->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddMedicofacturacion($l);
+
+            if ($this->medicofacturacionsScheduledForDeletion and $this->medicofacturacionsScheduledForDeletion->contains($l)) {
+                $this->medicofacturacionsScheduledForDeletion->remove($this->medicofacturacionsScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Medicofacturacion $medicofacturacion The medicofacturacion object to add.
+     */
+    protected function doAddMedicofacturacion($medicofacturacion)
+    {
+        $this->collMedicofacturacions[]= $medicofacturacion;
+        $medicofacturacion->setMedico($this);
+    }
+
+    /**
+     * @param	Medicofacturacion $medicofacturacion The medicofacturacion object to remove.
+     * @return Medico The current object (for fluent API support)
+     */
+    public function removeMedicofacturacion($medicofacturacion)
+    {
+        if ($this->getMedicofacturacions()->contains($medicofacturacion)) {
+            $this->collMedicofacturacions->remove($this->collMedicofacturacions->search($medicofacturacion));
+            if (null === $this->medicofacturacionsScheduledForDeletion) {
+                $this->medicofacturacionsScheduledForDeletion = clone $this->collMedicofacturacions;
+                $this->medicofacturacionsScheduledForDeletion->clear();
+            }
+            $this->medicofacturacionsScheduledForDeletion[]= clone $medicofacturacion;
+            $medicofacturacion->setMedico(null);
+        }
+
+        return $this;
+    }
+
+    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
@@ -3413,13 +3413,13 @@ abstract class BaseMedico extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collDatosfacturacionmedicos) {
-                foreach ($this->collDatosfacturacionmedicos as $o) {
+            if ($this->collMedicoespecialidads) {
+                foreach ($this->collMedicoespecialidads as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collMedicoespecialidads) {
-                foreach ($this->collMedicoespecialidads as $o) {
+            if ($this->collMedicofacturacions) {
+                foreach ($this->collMedicofacturacions as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -3442,14 +3442,14 @@ abstract class BaseMedico extends BaseObject implements Persistent
             $this->collConsultas->clearIterator();
         }
         $this->collConsultas = null;
-        if ($this->collDatosfacturacionmedicos instanceof PropelCollection) {
-            $this->collDatosfacturacionmedicos->clearIterator();
-        }
-        $this->collDatosfacturacionmedicos = null;
         if ($this->collMedicoespecialidads instanceof PropelCollection) {
             $this->collMedicoespecialidads->clearIterator();
         }
         $this->collMedicoespecialidads = null;
+        if ($this->collMedicofacturacions instanceof PropelCollection) {
+            $this->collMedicofacturacions->clearIterator();
+        }
+        $this->collMedicofacturacions = null;
         $this->aEspecialidad = null;
     }
 

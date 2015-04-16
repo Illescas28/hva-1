@@ -36,6 +36,12 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
     protected $idcargoadmision;
 
     /**
+     * The value for the idadmision field.
+     * @var        int
+     */
+    protected $idadmision;
+
+    /**
      * The value for the idlugarinventario field.
      * @var        int
      */
@@ -52,12 +58,6 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
      * @var        string
      */
     protected $cargoadmision_tipo;
-
-    /**
-     * The value for the idadmision field.
-     * @var        int
-     */
-    protected $idadmision;
 
     /**
      * The value for the cargoadmision_fecha field.
@@ -124,6 +124,17 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
     }
 
     /**
+     * Get the [idadmision] column value.
+     *
+     * @return int
+     */
+    public function getIdadmision()
+    {
+
+        return $this->idadmision;
+    }
+
+    /**
      * Get the [idlugarinventario] column value.
      *
      * @return int
@@ -154,17 +165,6 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
     {
 
         return $this->cargoadmision_tipo;
-    }
-
-    /**
-     * Get the [idadmision] column value.
-     *
-     * @return int
-     */
-    public function getIdadmision()
-    {
-
-        return $this->idadmision;
     }
 
     /**
@@ -251,6 +251,31 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
     } // setIdcargoadmision()
 
     /**
+     * Set the value of [idadmision] column.
+     *
+     * @param  int $v new value
+     * @return Cargoadmision The current object (for fluent API support)
+     */
+    public function setIdadmision($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->idadmision !== $v) {
+            $this->idadmision = $v;
+            $this->modifiedColumns[] = CargoadmisionPeer::IDADMISION;
+        }
+
+        if ($this->aAdmision !== null && $this->aAdmision->getIdadmision() !== $v) {
+            $this->aAdmision = null;
+        }
+
+
+        return $this;
+    } // setIdadmision()
+
+    /**
      * Set the value of [idlugarinventario] column.
      *
      * @param  int $v new value
@@ -320,31 +345,6 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
 
         return $this;
     } // setCargoadmisionTipo()
-
-    /**
-     * Set the value of [idadmision] column.
-     *
-     * @param  int $v new value
-     * @return Cargoadmision The current object (for fluent API support)
-     */
-    public function setIdadmision($v)
-    {
-        if ($v !== null && is_numeric($v)) {
-            $v = (int) $v;
-        }
-
-        if ($this->idadmision !== $v) {
-            $this->idadmision = $v;
-            $this->modifiedColumns[] = CargoadmisionPeer::IDADMISION;
-        }
-
-        if ($this->aAdmision !== null && $this->aAdmision->getIdadmision() !== $v) {
-            $this->aAdmision = null;
-        }
-
-
-        return $this;
-    } // setIdadmision()
 
     /**
      * Sets the value of [cargoadmision_fecha] column to a normalized version of the date/time value specified.
@@ -444,10 +444,10 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
         try {
 
             $this->idcargoadmision = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->idlugarinventario = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->idservicio = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->cargoadmision_tipo = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->idadmision = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+            $this->idadmision = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->idlugarinventario = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->idservicio = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->cargoadmision_tipo = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->cargoadmision_fecha = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->cargoadmision_cantidad = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->cargoadmision_monto = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
@@ -483,14 +483,14 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
+        if ($this->aAdmision !== null && $this->idadmision !== $this->aAdmision->getIdadmision()) {
+            $this->aAdmision = null;
+        }
         if ($this->aLugarinventario !== null && $this->idlugarinventario !== $this->aLugarinventario->getIdlugarinventario()) {
             $this->aLugarinventario = null;
         }
         if ($this->aServicio !== null && $this->idservicio !== $this->aServicio->getIdservicio()) {
             $this->aServicio = null;
-        }
-        if ($this->aAdmision !== null && $this->idadmision !== $this->aAdmision->getIdadmision()) {
-            $this->aAdmision = null;
         }
     } // ensureConsistency
 
@@ -713,6 +713,9 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
         if ($this->isColumnModified(CargoadmisionPeer::IDCARGOADMISION)) {
             $modifiedColumns[':p' . $index++]  = '`idcargoadmision`';
         }
+        if ($this->isColumnModified(CargoadmisionPeer::IDADMISION)) {
+            $modifiedColumns[':p' . $index++]  = '`idadmision`';
+        }
         if ($this->isColumnModified(CargoadmisionPeer::IDLUGARINVENTARIO)) {
             $modifiedColumns[':p' . $index++]  = '`idlugarinventario`';
         }
@@ -721,9 +724,6 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
         }
         if ($this->isColumnModified(CargoadmisionPeer::CARGOADMISION_TIPO)) {
             $modifiedColumns[':p' . $index++]  = '`cargoadmision_tipo`';
-        }
-        if ($this->isColumnModified(CargoadmisionPeer::IDADMISION)) {
-            $modifiedColumns[':p' . $index++]  = '`idadmision`';
         }
         if ($this->isColumnModified(CargoadmisionPeer::CARGOADMISION_FECHA)) {
             $modifiedColumns[':p' . $index++]  = '`cargoadmision_fecha`';
@@ -748,6 +748,9 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
                     case '`idcargoadmision`':
                         $stmt->bindValue($identifier, $this->idcargoadmision, PDO::PARAM_INT);
                         break;
+                    case '`idadmision`':
+                        $stmt->bindValue($identifier, $this->idadmision, PDO::PARAM_INT);
+                        break;
                     case '`idlugarinventario`':
                         $stmt->bindValue($identifier, $this->idlugarinventario, PDO::PARAM_INT);
                         break;
@@ -756,9 +759,6 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
                         break;
                     case '`cargoadmision_tipo`':
                         $stmt->bindValue($identifier, $this->cargoadmision_tipo, PDO::PARAM_STR);
-                        break;
-                    case '`idadmision`':
-                        $stmt->bindValue($identifier, $this->idadmision, PDO::PARAM_INT);
                         break;
                     case '`cargoadmision_fecha`':
                         $stmt->bindValue($identifier, $this->cargoadmision_fecha, PDO::PARAM_STR);
@@ -931,16 +931,16 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
                 return $this->getIdcargoadmision();
                 break;
             case 1:
-                return $this->getIdlugarinventario();
+                return $this->getIdadmision();
                 break;
             case 2:
-                return $this->getIdservicio();
+                return $this->getIdlugarinventario();
                 break;
             case 3:
-                return $this->getCargoadmisionTipo();
+                return $this->getIdservicio();
                 break;
             case 4:
-                return $this->getIdadmision();
+                return $this->getCargoadmisionTipo();
                 break;
             case 5:
                 return $this->getCargoadmisionFecha();
@@ -981,10 +981,10 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
         $keys = CargoadmisionPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdcargoadmision(),
-            $keys[1] => $this->getIdlugarinventario(),
-            $keys[2] => $this->getIdservicio(),
-            $keys[3] => $this->getCargoadmisionTipo(),
-            $keys[4] => $this->getIdadmision(),
+            $keys[1] => $this->getIdadmision(),
+            $keys[2] => $this->getIdlugarinventario(),
+            $keys[3] => $this->getIdservicio(),
+            $keys[4] => $this->getCargoadmisionTipo(),
             $keys[5] => $this->getCargoadmisionFecha(),
             $keys[6] => $this->getCargoadmisionCantidad(),
             $keys[7] => $this->getCargoadmisionMonto(),
@@ -1042,16 +1042,16 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
                 $this->setIdcargoadmision($value);
                 break;
             case 1:
-                $this->setIdlugarinventario($value);
+                $this->setIdadmision($value);
                 break;
             case 2:
-                $this->setIdservicio($value);
+                $this->setIdlugarinventario($value);
                 break;
             case 3:
-                $this->setCargoadmisionTipo($value);
+                $this->setIdservicio($value);
                 break;
             case 4:
-                $this->setIdadmision($value);
+                $this->setCargoadmisionTipo($value);
                 break;
             case 5:
                 $this->setCargoadmisionFecha($value);
@@ -1087,10 +1087,10 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
         $keys = CargoadmisionPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdcargoadmision($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setIdlugarinventario($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setIdservicio($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setCargoadmisionTipo($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setIdadmision($arr[$keys[4]]);
+        if (array_key_exists($keys[1], $arr)) $this->setIdadmision($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setIdlugarinventario($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setIdservicio($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setCargoadmisionTipo($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setCargoadmisionFecha($arr[$keys[5]]);
         if (array_key_exists($keys[6], $arr)) $this->setCargoadmisionCantidad($arr[$keys[6]]);
         if (array_key_exists($keys[7], $arr)) $this->setCargoadmisionMonto($arr[$keys[7]]);
@@ -1106,10 +1106,10 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
         $criteria = new Criteria(CargoadmisionPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(CargoadmisionPeer::IDCARGOADMISION)) $criteria->add(CargoadmisionPeer::IDCARGOADMISION, $this->idcargoadmision);
+        if ($this->isColumnModified(CargoadmisionPeer::IDADMISION)) $criteria->add(CargoadmisionPeer::IDADMISION, $this->idadmision);
         if ($this->isColumnModified(CargoadmisionPeer::IDLUGARINVENTARIO)) $criteria->add(CargoadmisionPeer::IDLUGARINVENTARIO, $this->idlugarinventario);
         if ($this->isColumnModified(CargoadmisionPeer::IDSERVICIO)) $criteria->add(CargoadmisionPeer::IDSERVICIO, $this->idservicio);
         if ($this->isColumnModified(CargoadmisionPeer::CARGOADMISION_TIPO)) $criteria->add(CargoadmisionPeer::CARGOADMISION_TIPO, $this->cargoadmision_tipo);
-        if ($this->isColumnModified(CargoadmisionPeer::IDADMISION)) $criteria->add(CargoadmisionPeer::IDADMISION, $this->idadmision);
         if ($this->isColumnModified(CargoadmisionPeer::CARGOADMISION_FECHA)) $criteria->add(CargoadmisionPeer::CARGOADMISION_FECHA, $this->cargoadmision_fecha);
         if ($this->isColumnModified(CargoadmisionPeer::CARGOADMISION_CANTIDAD)) $criteria->add(CargoadmisionPeer::CARGOADMISION_CANTIDAD, $this->cargoadmision_cantidad);
         if ($this->isColumnModified(CargoadmisionPeer::CARGOADMISION_MONTO)) $criteria->add(CargoadmisionPeer::CARGOADMISION_MONTO, $this->cargoadmision_monto);
@@ -1176,10 +1176,10 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setIdadmision($this->getIdadmision());
         $copyObj->setIdlugarinventario($this->getIdlugarinventario());
         $copyObj->setIdservicio($this->getIdservicio());
         $copyObj->setCargoadmisionTipo($this->getCargoadmisionTipo());
-        $copyObj->setIdadmision($this->getIdadmision());
         $copyObj->setCargoadmisionFecha($this->getCargoadmisionFecha());
         $copyObj->setCargoadmisionCantidad($this->getCargoadmisionCantidad());
         $copyObj->setCargoadmisionMonto($this->getCargoadmisionMonto());
@@ -1403,10 +1403,10 @@ abstract class BaseCargoadmision extends BaseObject implements Persistent
     public function clear()
     {
         $this->idcargoadmision = null;
+        $this->idadmision = null;
         $this->idlugarinventario = null;
         $this->idservicio = null;
         $this->cargoadmision_tipo = null;
-        $this->idadmision = null;
         $this->cargoadmision_fecha = null;
         $this->cargoadmision_cantidad = null;
         $this->cargoadmision_monto = null;

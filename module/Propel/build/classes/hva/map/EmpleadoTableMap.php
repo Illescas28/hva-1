@@ -39,6 +39,7 @@ class EmpleadoTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('idempleado', 'Idempleado', 'INTEGER', true, null, null);
+        $this->addForeignKey('idrol', 'Idrol', 'INTEGER', 'rol', 'idrol', true, null, null);
         $this->addColumn('empleado_nombre', 'EmpleadoNombre', 'VARCHAR', true, 45, null);
         $this->addColumn('empleado_apellidopaterno', 'EmpleadoApellidopaterno', 'VARCHAR', true, 45, null);
         $this->addColumn('empleado_apellidomaterno', 'EmpleadoApellidomaterno', 'VARCHAR', true, 45, null);
@@ -53,8 +54,8 @@ class EmpleadoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Datosfacturacionempleado', 'Datosfacturacionempleado', RelationMap::ONE_TO_MANY, array('idempleado' => 'idempleado', ), 'CASCADE', 'CASCADE', 'Datosfacturacionempleados');
-        $this->addRelation('Empleadomodulo', 'Empleadomodulo', RelationMap::ONE_TO_MANY, array('idempleado' => 'idempleado', ), 'CASCADE', 'CASCADE', 'Empleadomodulos');
+        $this->addRelation('Rol', 'Rol', RelationMap::MANY_TO_ONE, array('idrol' => 'idrol', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('Empleadofacturacion', 'Empleadofacturacion', RelationMap::ONE_TO_MANY, array('idempleado' => 'idempleado', ), 'CASCADE', 'CASCADE', 'Empleadofacturacions');
     } // buildRelations()
 
 } // EmpleadoTableMap

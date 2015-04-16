@@ -597,7 +597,7 @@ abstract class BaseAdmision extends BaseObject implements Persistent
      */
     public function setAdmisionTotal($v)
     {
-        if ($v !== null) {
+        if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 

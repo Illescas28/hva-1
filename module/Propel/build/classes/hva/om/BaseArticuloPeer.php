@@ -24,13 +24,13 @@ abstract class BaseArticuloPeer
     const TM_CLASS = 'ArticuloTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 16;
+    const NUM_COLUMNS = 4;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 16;
+    const NUM_HYDRATE_COLUMNS = 4;
 
     /** the column name for the idarticulo field */
     const IDARTICULO = 'articulo.idarticulo';
@@ -38,50 +38,11 @@ abstract class BaseArticuloPeer
     /** the column name for the idtipo field */
     const IDTIPO = 'articulo.idtipo';
 
-    /** the column name for the idudm field */
-    const IDUDM = 'articulo.idudm';
-
     /** the column name for the articulo_nombre field */
     const ARTICULO_NOMBRE = 'articulo.articulo_nombre';
 
-    /** the column name for the articulo_codigobarras field */
-    const ARTICULO_CODIGOBARRAS = 'articulo.articulo_codigobarras';
-
     /** the column name for the articulo_descripcion field */
     const ARTICULO_DESCRIPCION = 'articulo.articulo_descripcion';
-
-    /** the column name for the articulo_tipopresentacion field */
-    const ARTICULO_TIPOPRESENTACION = 'articulo.articulo_tipopresentacion';
-
-    /** the column name for the articulo_cantidadpresentacion field */
-    const ARTICULO_CANTIDADPRESENTACION = 'articulo.articulo_cantidadpresentacion';
-
-    /** the column name for the articulo_existencia field */
-    const ARTICULO_EXISTENCIA = 'articulo.articulo_existencia';
-
-    /** the column name for the articulo_costo field */
-    const ARTICULO_COSTO = 'articulo.articulo_costo';
-
-    /** the column name for the articulo_precio field */
-    const ARTICULO_PRECIO = 'articulo.articulo_precio';
-
-    /** the column name for the articulo_iva field */
-    const ARTICULO_IVA = 'articulo.articulo_iva';
-
-    /** the column name for the articulo_inventariominimo field */
-    const ARTICULO_INVENTARIOMINIMO = 'articulo.articulo_inventariominimo';
-
-    /** the column name for the articulo_inventariomaximo field */
-    const ARTICULO_INVENTARIOMAXIMO = 'articulo.articulo_inventariomaximo';
-
-    /** the column name for the articulo_reorden field */
-    const ARTICULO_REORDEN = 'articulo.articulo_reorden';
-
-    /** the column name for the articulo_ubicacion field */
-    const ARTICULO_UBICACION = 'articulo.articulo_ubicacion';
-
-    /** The enumerated values for the articulo_tipopresentacion field */
-    const ARTICULO_TIPOPRESENTACION_CAJA = 'Caja';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -102,12 +63,12 @@ abstract class BaseArticuloPeer
      * e.g. ArticuloPeer::$fieldNames[ArticuloPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Idarticulo', 'Idtipo', 'Idudm', 'ArticuloNombre', 'ArticuloCodigobarras', 'ArticuloDescripcion', 'ArticuloTipopresentacion', 'ArticuloCantidadpresentacion', 'ArticuloExistencia', 'ArticuloCosto', 'ArticuloPrecio', 'ArticuloIva', 'ArticuloInventariominimo', 'ArticuloInventariomaximo', 'ArticuloReorden', 'ArticuloUbicacion', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idarticulo', 'idtipo', 'idudm', 'articuloNombre', 'articuloCodigobarras', 'articuloDescripcion', 'articuloTipopresentacion', 'articuloCantidadpresentacion', 'articuloExistencia', 'articuloCosto', 'articuloPrecio', 'articuloIva', 'articuloInventariominimo', 'articuloInventariomaximo', 'articuloReorden', 'articuloUbicacion', ),
-        BasePeer::TYPE_COLNAME => array (ArticuloPeer::IDARTICULO, ArticuloPeer::IDTIPO, ArticuloPeer::IDUDM, ArticuloPeer::ARTICULO_NOMBRE, ArticuloPeer::ARTICULO_CODIGOBARRAS, ArticuloPeer::ARTICULO_DESCRIPCION, ArticuloPeer::ARTICULO_TIPOPRESENTACION, ArticuloPeer::ARTICULO_CANTIDADPRESENTACION, ArticuloPeer::ARTICULO_EXISTENCIA, ArticuloPeer::ARTICULO_COSTO, ArticuloPeer::ARTICULO_PRECIO, ArticuloPeer::ARTICULO_IVA, ArticuloPeer::ARTICULO_INVENTARIOMINIMO, ArticuloPeer::ARTICULO_INVENTARIOMAXIMO, ArticuloPeer::ARTICULO_REORDEN, ArticuloPeer::ARTICULO_UBICACION, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDARTICULO', 'IDTIPO', 'IDUDM', 'ARTICULO_NOMBRE', 'ARTICULO_CODIGOBARRAS', 'ARTICULO_DESCRIPCION', 'ARTICULO_TIPOPRESENTACION', 'ARTICULO_CANTIDADPRESENTACION', 'ARTICULO_EXISTENCIA', 'ARTICULO_COSTO', 'ARTICULO_PRECIO', 'ARTICULO_IVA', 'ARTICULO_INVENTARIOMINIMO', 'ARTICULO_INVENTARIOMAXIMO', 'ARTICULO_REORDEN', 'ARTICULO_UBICACION', ),
-        BasePeer::TYPE_FIELDNAME => array ('idarticulo', 'idtipo', 'idudm', 'articulo_nombre', 'articulo_codigobarras', 'articulo_descripcion', 'articulo_tipopresentacion', 'articulo_cantidadpresentacion', 'articulo_existencia', 'articulo_costo', 'articulo_precio', 'articulo_iva', 'articulo_inventariominimo', 'articulo_inventariomaximo', 'articulo_reorden', 'articulo_ubicacion', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+        BasePeer::TYPE_PHPNAME => array ('Idarticulo', 'Idtipo', 'ArticuloNombre', 'ArticuloDescripcion', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idarticulo', 'idtipo', 'articuloNombre', 'articuloDescripcion', ),
+        BasePeer::TYPE_COLNAME => array (ArticuloPeer::IDARTICULO, ArticuloPeer::IDTIPO, ArticuloPeer::ARTICULO_NOMBRE, ArticuloPeer::ARTICULO_DESCRIPCION, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDARTICULO', 'IDTIPO', 'ARTICULO_NOMBRE', 'ARTICULO_DESCRIPCION', ),
+        BasePeer::TYPE_FIELDNAME => array ('idarticulo', 'idtipo', 'articulo_nombre', 'articulo_descripcion', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -117,19 +78,12 @@ abstract class BaseArticuloPeer
      * e.g. ArticuloPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Idarticulo' => 0, 'Idtipo' => 1, 'Idudm' => 2, 'ArticuloNombre' => 3, 'ArticuloCodigobarras' => 4, 'ArticuloDescripcion' => 5, 'ArticuloTipopresentacion' => 6, 'ArticuloCantidadpresentacion' => 7, 'ArticuloExistencia' => 8, 'ArticuloCosto' => 9, 'ArticuloPrecio' => 10, 'ArticuloIva' => 11, 'ArticuloInventariominimo' => 12, 'ArticuloInventariomaximo' => 13, 'ArticuloReorden' => 14, 'ArticuloUbicacion' => 15, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idarticulo' => 0, 'idtipo' => 1, 'idudm' => 2, 'articuloNombre' => 3, 'articuloCodigobarras' => 4, 'articuloDescripcion' => 5, 'articuloTipopresentacion' => 6, 'articuloCantidadpresentacion' => 7, 'articuloExistencia' => 8, 'articuloCosto' => 9, 'articuloPrecio' => 10, 'articuloIva' => 11, 'articuloInventariominimo' => 12, 'articuloInventariomaximo' => 13, 'articuloReorden' => 14, 'articuloUbicacion' => 15, ),
-        BasePeer::TYPE_COLNAME => array (ArticuloPeer::IDARTICULO => 0, ArticuloPeer::IDTIPO => 1, ArticuloPeer::IDUDM => 2, ArticuloPeer::ARTICULO_NOMBRE => 3, ArticuloPeer::ARTICULO_CODIGOBARRAS => 4, ArticuloPeer::ARTICULO_DESCRIPCION => 5, ArticuloPeer::ARTICULO_TIPOPRESENTACION => 6, ArticuloPeer::ARTICULO_CANTIDADPRESENTACION => 7, ArticuloPeer::ARTICULO_EXISTENCIA => 8, ArticuloPeer::ARTICULO_COSTO => 9, ArticuloPeer::ARTICULO_PRECIO => 10, ArticuloPeer::ARTICULO_IVA => 11, ArticuloPeer::ARTICULO_INVENTARIOMINIMO => 12, ArticuloPeer::ARTICULO_INVENTARIOMAXIMO => 13, ArticuloPeer::ARTICULO_REORDEN => 14, ArticuloPeer::ARTICULO_UBICACION => 15, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDARTICULO' => 0, 'IDTIPO' => 1, 'IDUDM' => 2, 'ARTICULO_NOMBRE' => 3, 'ARTICULO_CODIGOBARRAS' => 4, 'ARTICULO_DESCRIPCION' => 5, 'ARTICULO_TIPOPRESENTACION' => 6, 'ARTICULO_CANTIDADPRESENTACION' => 7, 'ARTICULO_EXISTENCIA' => 8, 'ARTICULO_COSTO' => 9, 'ARTICULO_PRECIO' => 10, 'ARTICULO_IVA' => 11, 'ARTICULO_INVENTARIOMINIMO' => 12, 'ARTICULO_INVENTARIOMAXIMO' => 13, 'ARTICULO_REORDEN' => 14, 'ARTICULO_UBICACION' => 15, ),
-        BasePeer::TYPE_FIELDNAME => array ('idarticulo' => 0, 'idtipo' => 1, 'idudm' => 2, 'articulo_nombre' => 3, 'articulo_codigobarras' => 4, 'articulo_descripcion' => 5, 'articulo_tipopresentacion' => 6, 'articulo_cantidadpresentacion' => 7, 'articulo_existencia' => 8, 'articulo_costo' => 9, 'articulo_precio' => 10, 'articulo_iva' => 11, 'articulo_inventariominimo' => 12, 'articulo_inventariomaximo' => 13, 'articulo_reorden' => 14, 'articulo_ubicacion' => 15, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
-    );
-
-    /** The enumerated values for this table */
-    protected static $enumValueSets = array(
-        ArticuloPeer::ARTICULO_TIPOPRESENTACION => array(
-            ArticuloPeer::ARTICULO_TIPOPRESENTACION_CAJA,
-        ),
+        BasePeer::TYPE_PHPNAME => array ('Idarticulo' => 0, 'Idtipo' => 1, 'ArticuloNombre' => 2, 'ArticuloDescripcion' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idarticulo' => 0, 'idtipo' => 1, 'articuloNombre' => 2, 'articuloDescripcion' => 3, ),
+        BasePeer::TYPE_COLNAME => array (ArticuloPeer::IDARTICULO => 0, ArticuloPeer::IDTIPO => 1, ArticuloPeer::ARTICULO_NOMBRE => 2, ArticuloPeer::ARTICULO_DESCRIPCION => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDARTICULO' => 0, 'IDTIPO' => 1, 'ARTICULO_NOMBRE' => 2, 'ARTICULO_DESCRIPCION' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('idarticulo' => 0, 'idtipo' => 1, 'articulo_nombre' => 2, 'articulo_descripcion' => 3, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -172,51 +126,6 @@ abstract class BaseArticuloPeer
     }
 
     /**
-     * Gets the list of values for all ENUM columns
-     * @return array
-     */
-    public static function getValueSets()
-    {
-      return ArticuloPeer::$enumValueSets;
-    }
-
-    /**
-     * Gets the list of values for an ENUM column
-     *
-     * @param string $colname The ENUM column name.
-     *
-     * @return array list of possible values for the column
-     */
-    public static function getValueSet($colname)
-    {
-        $valueSets = ArticuloPeer::getValueSets();
-
-        if (!isset($valueSets[$colname])) {
-            throw new PropelException(sprintf('Column "%s" has no ValueSet.', $colname));
-        }
-
-        return $valueSets[$colname];
-    }
-
-    /**
-     * Gets the SQL value for the ENUM column value
-     *
-     * @param string $colname ENUM column name.
-     * @param string $enumVal ENUM value.
-     *
-     * @return int SQL value
-     */
-    public static function getSqlValueForEnum($colname, $enumVal)
-    {
-        $values = ArticuloPeer::getValueSet($colname);
-        if (!in_array($enumVal, $values)) {
-            throw new PropelException(sprintf('Value "%s" is not accepted in this enumerated column', $colname));
-        }
-
-        return array_search($enumVal, $values);
-    }
-
-    /**
      * Convenience method which changes table.column to alias.column.
      *
      * Using this method you can maintain SQL abstraction while using column aliases.
@@ -250,37 +159,13 @@ abstract class BaseArticuloPeer
         if (null === $alias) {
             $criteria->addSelectColumn(ArticuloPeer::IDARTICULO);
             $criteria->addSelectColumn(ArticuloPeer::IDTIPO);
-            $criteria->addSelectColumn(ArticuloPeer::IDUDM);
             $criteria->addSelectColumn(ArticuloPeer::ARTICULO_NOMBRE);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_CODIGOBARRAS);
             $criteria->addSelectColumn(ArticuloPeer::ARTICULO_DESCRIPCION);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_TIPOPRESENTACION);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_CANTIDADPRESENTACION);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_EXISTENCIA);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_COSTO);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_PRECIO);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_IVA);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_INVENTARIOMINIMO);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_INVENTARIOMAXIMO);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_REORDEN);
-            $criteria->addSelectColumn(ArticuloPeer::ARTICULO_UBICACION);
         } else {
             $criteria->addSelectColumn($alias . '.idarticulo');
             $criteria->addSelectColumn($alias . '.idtipo');
-            $criteria->addSelectColumn($alias . '.idudm');
             $criteria->addSelectColumn($alias . '.articulo_nombre');
-            $criteria->addSelectColumn($alias . '.articulo_codigobarras');
             $criteria->addSelectColumn($alias . '.articulo_descripcion');
-            $criteria->addSelectColumn($alias . '.articulo_tipopresentacion');
-            $criteria->addSelectColumn($alias . '.articulo_cantidadpresentacion');
-            $criteria->addSelectColumn($alias . '.articulo_existencia');
-            $criteria->addSelectColumn($alias . '.articulo_costo');
-            $criteria->addSelectColumn($alias . '.articulo_precio');
-            $criteria->addSelectColumn($alias . '.articulo_iva');
-            $criteria->addSelectColumn($alias . '.articulo_inventariominimo');
-            $criteria->addSelectColumn($alias . '.articulo_inventariomaximo');
-            $criteria->addSelectColumn($alias . '.articulo_reorden');
-            $criteria->addSelectColumn($alias . '.articulo_ubicacion');
         }
     }
 
@@ -485,12 +370,18 @@ abstract class BaseArticuloPeer
      */
     public static function clearRelatedInstancePool()
     {
-        // Invalidate objects in OrdencompradetallePeer instance pool,
+        // Invalidate objects in ArticulovariantePeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        OrdencompradetallePeer::clearInstancePool();
-        // Invalidate objects in PaquetedetallePeer instance pool,
+        ArticulovariantePeer::clearInstancePool();
+        // Invalidate objects in ArticulovariantevalorPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        PaquetedetallePeer::clearInstancePool();
+        ArticulovariantevalorPeer::clearInstancePool();
+        // Invalidate objects in PropiedadPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        PropiedadPeer::clearInstancePool();
+        // Invalidate objects in PropiedadvalorPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        PropiedadvalorPeer::clearInstancePool();
     }
 
     /**
@@ -640,57 +531,6 @@ abstract class BaseArticuloPeer
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Udm table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinUdm(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(ArticuloPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            ArticuloPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(ArticuloPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(ArticuloPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(ArticuloPeer::IDUDM, UdmPeer::IDUDM, $join_behavior);
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
      * Selects a collection of Articulo objects pre-filled with their Tipo objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -758,73 +598,6 @@ abstract class BaseArticuloPeer
 
 
     /**
-     * Selects a collection of Articulo objects pre-filled with their Udm objects.
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Articulo objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinUdm(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(ArticuloPeer::DATABASE_NAME);
-        }
-
-        ArticuloPeer::addSelectColumns($criteria);
-        $startcol = ArticuloPeer::NUM_HYDRATE_COLUMNS;
-        UdmPeer::addSelectColumns($criteria);
-
-        $criteria->addJoin(ArticuloPeer::IDUDM, UdmPeer::IDUDM, $join_behavior);
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = ArticuloPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = ArticuloPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-
-                $cls = ArticuloPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                ArticuloPeer::addInstanceToPool($obj1, $key1);
-            } // if $obj1 already loaded
-
-            $key2 = UdmPeer::getPrimaryKeyHashFromRow($row, $startcol);
-            if ($key2 !== null) {
-                $obj2 = UdmPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = UdmPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol);
-                    UdmPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 already loaded
-
-                // Add the $obj1 (Articulo) to $obj2 (Udm)
-                $obj2->addArticulo($obj1);
-
-            } // if joined row was not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
      * Returns the number of rows matching criteria, joining all related tables
      *
      * @param      Criteria $criteria
@@ -861,8 +634,6 @@ abstract class BaseArticuloPeer
         }
 
         $criteria->addJoin(ArticuloPeer::IDTIPO, TipoPeer::IDTIPO, $join_behavior);
-
-        $criteria->addJoin(ArticuloPeer::IDUDM, UdmPeer::IDUDM, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -901,12 +672,7 @@ abstract class BaseArticuloPeer
         TipoPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + TipoPeer::NUM_HYDRATE_COLUMNS;
 
-        UdmPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + UdmPeer::NUM_HYDRATE_COLUMNS;
-
         $criteria->addJoin(ArticuloPeer::IDTIPO, TipoPeer::IDTIPO, $join_behavior);
-
-        $criteria->addJoin(ArticuloPeer::IDUDM, UdmPeer::IDUDM, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
@@ -942,274 +708,6 @@ abstract class BaseArticuloPeer
                 // Add the $obj1 (Articulo) to the collection in $obj2 (Tipo)
                 $obj2->addArticulo($obj1);
             } // if joined row not null
-
-            // Add objects for joined Udm rows
-
-            $key3 = UdmPeer::getPrimaryKeyHashFromRow($row, $startcol3);
-            if ($key3 !== null) {
-                $obj3 = UdmPeer::getInstanceFromPool($key3);
-                if (!$obj3) {
-
-                    $cls = UdmPeer::getOMClass();
-
-                    $obj3 = new $cls();
-                    $obj3->hydrate($row, $startcol3);
-                    UdmPeer::addInstanceToPool($obj3, $key3);
-                } // if obj3 loaded
-
-                // Add the $obj1 (Articulo) to the collection in $obj3 (Udm)
-                $obj3->addArticulo($obj1);
-            } // if joined row not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining the related Tipo table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAllExceptTipo(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(ArticuloPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            ArticuloPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
-
-        // Set the correct dbName
-        $criteria->setDbName(ArticuloPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(ArticuloPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(ArticuloPeer::IDUDM, UdmPeer::IDUDM, $join_behavior);
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining the related Udm table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAllExceptUdm(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(ArticuloPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            ArticuloPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
-
-        // Set the correct dbName
-        $criteria->setDbName(ArticuloPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(ArticuloPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(ArticuloPeer::IDTIPO, TipoPeer::IDTIPO, $join_behavior);
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
-     * Selects a collection of Articulo objects pre-filled with all related objects except Tipo.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Articulo objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAllExceptTipo(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        // $criteria->getDbName() will return the same object if not set to another value
-        // so == check is okay and faster
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(ArticuloPeer::DATABASE_NAME);
-        }
-
-        ArticuloPeer::addSelectColumns($criteria);
-        $startcol2 = ArticuloPeer::NUM_HYDRATE_COLUMNS;
-
-        UdmPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + UdmPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(ArticuloPeer::IDUDM, UdmPeer::IDUDM, $join_behavior);
-
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = ArticuloPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = ArticuloPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = ArticuloPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                ArticuloPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-                // Add objects for joined Udm rows
-
-                $key2 = UdmPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-                if ($key2 !== null) {
-                    $obj2 = UdmPeer::getInstanceFromPool($key2);
-                    if (!$obj2) {
-
-                        $cls = UdmPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    UdmPeer::addInstanceToPool($obj2, $key2);
-                } // if $obj2 already loaded
-
-                // Add the $obj1 (Articulo) to the collection in $obj2 (Udm)
-                $obj2->addArticulo($obj1);
-
-            } // if joined row is not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Selects a collection of Articulo objects pre-filled with all related objects except Udm.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Articulo objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAllExceptUdm(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        // $criteria->getDbName() will return the same object if not set to another value
-        // so == check is okay and faster
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(ArticuloPeer::DATABASE_NAME);
-        }
-
-        ArticuloPeer::addSelectColumns($criteria);
-        $startcol2 = ArticuloPeer::NUM_HYDRATE_COLUMNS;
-
-        TipoPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + TipoPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(ArticuloPeer::IDTIPO, TipoPeer::IDTIPO, $join_behavior);
-
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = ArticuloPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = ArticuloPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = ArticuloPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                ArticuloPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-                // Add objects for joined Tipo rows
-
-                $key2 = TipoPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-                if ($key2 !== null) {
-                    $obj2 = TipoPeer::getInstanceFromPool($key2);
-                    if (!$obj2) {
-
-                        $cls = TipoPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    TipoPeer::addInstanceToPool($obj2, $key2);
-                } // if $obj2 already loaded
-
-                // Add the $obj1 (Articulo) to the collection in $obj2 (Tipo)
-                $obj2->addArticulo($obj1);
-
-            } // if joined row is not null
 
             $results[] = $obj1;
         }
@@ -1456,17 +954,29 @@ abstract class BaseArticuloPeer
         foreach ($objects as $obj) {
 
 
-            // delete related Ordencompradetalle objects
-            $criteria = new Criteria(OrdencompradetallePeer::DATABASE_NAME);
+            // delete related Articulovariante objects
+            $criteria = new Criteria(ArticulovariantePeer::DATABASE_NAME);
 
-            $criteria->add(OrdencompradetallePeer::IDARTICULO, $obj->getIdarticulo());
-            $affectedRows += OrdencompradetallePeer::doDelete($criteria, $con);
+            $criteria->add(ArticulovariantePeer::IDARTICULO, $obj->getIdarticulo());
+            $affectedRows += ArticulovariantePeer::doDelete($criteria, $con);
 
-            // delete related Paquetedetalle objects
-            $criteria = new Criteria(PaquetedetallePeer::DATABASE_NAME);
+            // delete related Articulovariantevalor objects
+            $criteria = new Criteria(ArticulovariantevalorPeer::DATABASE_NAME);
 
-            $criteria->add(PaquetedetallePeer::IDARTICULO, $obj->getIdarticulo());
-            $affectedRows += PaquetedetallePeer::doDelete($criteria, $con);
+            $criteria->add(ArticulovariantevalorPeer::IDARTICULO, $obj->getIdarticulo());
+            $affectedRows += ArticulovariantevalorPeer::doDelete($criteria, $con);
+
+            // delete related Propiedad objects
+            $criteria = new Criteria(PropiedadPeer::DATABASE_NAME);
+
+            $criteria->add(PropiedadPeer::IDARTICULO, $obj->getIdarticulo());
+            $affectedRows += PropiedadPeer::doDelete($criteria, $con);
+
+            // delete related Propiedadvalor objects
+            $criteria = new Criteria(PropiedadvalorPeer::DATABASE_NAME);
+
+            $criteria->add(PropiedadvalorPeer::IDARTICULO, $obj->getIdarticulo());
+            $affectedRows += PropiedadvalorPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

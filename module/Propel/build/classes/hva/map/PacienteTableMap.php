@@ -51,7 +51,7 @@ class PacienteTableMap extends TableMap
         $this->addColumn('paciente_pais', 'PacientePais', 'VARCHAR', false, 45, null);
         $this->addColumn('paciente_telefono', 'PacienteTelefono', 'VARCHAR', false, 45, null);
         $this->addColumn('paciente_telefonocelular', 'PacienteTelefonocelular', 'VARCHAR', false, 45, null);
-        $this->addColumn('paciente_edad', 'PacienteEdad', 'VARCHAR', false, 45, null);
+        $this->addColumn('paciente_fechanacimiento', 'PacienteFechanacimiento', 'DATE', false, null, null);
         $this->addColumn('paciente_sexo', 'PacienteSexo', 'CHAR', true, null, null);
         $this->getColumn('paciente_sexo', false)->setValueSet(array (
   0 => 'Masculino',
@@ -78,7 +78,8 @@ class PacienteTableMap extends TableMap
         $this->addRelation('Admision', 'Admision', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Admisions');
         $this->addRelation('Cita', 'Cita', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Citas');
         $this->addRelation('Consulta', 'Consulta', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Consultas');
-        $this->addRelation('Datosfacturacion', 'Datosfacturacion', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Datosfacturacions');
+        $this->addRelation('Pacientefacturacion', 'Pacientefacturacion', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Pacientefacturacions');
+        $this->addRelation('Venta', 'Venta', RelationMap::ONE_TO_MANY, array('idpaciente' => 'idpaciente', ), 'CASCADE', 'CASCADE', 'Ventas');
     } // buildRelations()
 
 } // PacienteTableMap

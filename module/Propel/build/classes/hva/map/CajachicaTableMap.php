@@ -53,6 +53,7 @@ class CajachicaTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('Cajachicadetalle', 'Cajachicadetalle', RelationMap::ONE_TO_MANY, array('idcajachica' => 'idcajachica', ), 'CASCADE', 'CASCADE', 'Cajachicadetalles');
+        $this->addRelation('Venta', 'Venta', RelationMap::ONE_TO_MANY, array('idcajachica' => 'idcajachica', ), 'CASCADE', 'CASCADE', 'Ventas');
     } // buildRelations()
 
 } // CajachicaTableMap

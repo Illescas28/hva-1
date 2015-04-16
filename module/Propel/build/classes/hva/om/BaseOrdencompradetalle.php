@@ -42,10 +42,10 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     protected $idordencompra;
 
     /**
-     * The value for the idarticulo field.
+     * The value for the idarticulovariante field.
      * @var        int
      */
-    protected $idarticulo;
+    protected $idarticulovariante;
 
     /**
      * The value for the ordencompradetalle_cantidad field.
@@ -84,9 +84,9 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     protected $ordencompradetalle_existencia;
 
     /**
-     * @var        Articulo
+     * @var        Articulovariante
      */
-    protected $aArticulo;
+    protected $aArticulovariante;
 
     /**
      * @var        Ordencompra
@@ -148,14 +148,14 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [idarticulo] column value.
+     * Get the [idarticulovariante] column value.
      *
      * @return int
      */
-    public function getIdarticulo()
+    public function getIdarticulovariante()
     {
 
-        return $this->idarticulo;
+        return $this->idarticulovariante;
     }
 
     /**
@@ -300,29 +300,29 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     } // setIdordencompra()
 
     /**
-     * Set the value of [idarticulo] column.
+     * Set the value of [idarticulovariante] column.
      *
      * @param  int $v new value
      * @return Ordencompradetalle The current object (for fluent API support)
      */
-    public function setIdarticulo($v)
+    public function setIdarticulovariante($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (int) $v;
         }
 
-        if ($this->idarticulo !== $v) {
-            $this->idarticulo = $v;
-            $this->modifiedColumns[] = OrdencompradetallePeer::IDARTICULO;
+        if ($this->idarticulovariante !== $v) {
+            $this->idarticulovariante = $v;
+            $this->modifiedColumns[] = OrdencompradetallePeer::IDARTICULOVARIANTE;
         }
 
-        if ($this->aArticulo !== null && $this->aArticulo->getIdarticulo() !== $v) {
-            $this->aArticulo = null;
+        if ($this->aArticulovariante !== null && $this->aArticulovariante->getIdarticulovariante() !== $v) {
+            $this->aArticulovariante = null;
         }
 
 
         return $this;
-    } // setIdarticulo()
+    } // setIdarticulovariante()
 
     /**
      * Set the value of [ordencompradetalle_cantidad] column.
@@ -486,7 +486,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
 
             $this->idordencompradetalle = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->idordencompra = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->idarticulo = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->idarticulovariante = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
             $this->ordencompradetalle_cantidad = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->ordencompradetalle_costo = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->ordencompradetalle_precio = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
@@ -528,8 +528,8 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
         if ($this->aOrdencompra !== null && $this->idordencompra !== $this->aOrdencompra->getIdordencompra()) {
             $this->aOrdencompra = null;
         }
-        if ($this->aArticulo !== null && $this->idarticulo !== $this->aArticulo->getIdarticulo()) {
-            $this->aArticulo = null;
+        if ($this->aArticulovariante !== null && $this->idarticulovariante !== $this->aArticulovariante->getIdarticulovariante()) {
+            $this->aArticulovariante = null;
         }
     } // ensureConsistency
 
@@ -570,7 +570,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aArticulo = null;
+            $this->aArticulovariante = null;
             $this->aOrdencompra = null;
             $this->collLugarinventarios = null;
 
@@ -692,11 +692,11 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aArticulo !== null) {
-                if ($this->aArticulo->isModified() || $this->aArticulo->isNew()) {
-                    $affectedRows += $this->aArticulo->save($con);
+            if ($this->aArticulovariante !== null) {
+                if ($this->aArticulovariante->isModified() || $this->aArticulovariante->isNew()) {
+                    $affectedRows += $this->aArticulovariante->save($con);
                 }
-                $this->setArticulo($this->aArticulo);
+                $this->setArticulovariante($this->aArticulovariante);
             }
 
             if ($this->aOrdencompra !== null) {
@@ -766,8 +766,8 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
         if ($this->isColumnModified(OrdencompradetallePeer::IDORDENCOMPRA)) {
             $modifiedColumns[':p' . $index++]  = '`idordencompra`';
         }
-        if ($this->isColumnModified(OrdencompradetallePeer::IDARTICULO)) {
-            $modifiedColumns[':p' . $index++]  = '`idarticulo`';
+        if ($this->isColumnModified(OrdencompradetallePeer::IDARTICULOVARIANTE)) {
+            $modifiedColumns[':p' . $index++]  = '`idarticulovariante`';
         }
         if ($this->isColumnModified(OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD)) {
             $modifiedColumns[':p' . $index++]  = '`ordencompradetalle_cantidad`';
@@ -804,8 +804,8 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
                     case '`idordencompra`':
                         $stmt->bindValue($identifier, $this->idordencompra, PDO::PARAM_INT);
                         break;
-                    case '`idarticulo`':
-                        $stmt->bindValue($identifier, $this->idarticulo, PDO::PARAM_INT);
+                    case '`idarticulovariante`':
+                        $stmt->bindValue($identifier, $this->idarticulovariante, PDO::PARAM_INT);
                         break;
                     case '`ordencompradetalle_cantidad`':
                         $stmt->bindValue($identifier, $this->ordencompradetalle_cantidad, PDO::PARAM_STR);
@@ -924,9 +924,9 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aArticulo !== null) {
-                if (!$this->aArticulo->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aArticulo->getValidationFailures());
+            if ($this->aArticulovariante !== null) {
+                if (!$this->aArticulovariante->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aArticulovariante->getValidationFailures());
                 }
             }
 
@@ -992,7 +992,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
                 return $this->getIdordencompra();
                 break;
             case 2:
-                return $this->getIdarticulo();
+                return $this->getIdarticulovariante();
                 break;
             case 3:
                 return $this->getOrdencompradetalleCantidad();
@@ -1043,7 +1043,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
         $result = array(
             $keys[0] => $this->getIdordencompradetalle(),
             $keys[1] => $this->getIdordencompra(),
-            $keys[2] => $this->getIdarticulo(),
+            $keys[2] => $this->getIdarticulovariante(),
             $keys[3] => $this->getOrdencompradetalleCantidad(),
             $keys[4] => $this->getOrdencompradetalleCosto(),
             $keys[5] => $this->getOrdencompradetallePrecio(),
@@ -1057,8 +1057,8 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->aArticulo) {
-                $result['Articulo'] = $this->aArticulo->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            if (null !== $this->aArticulovariante) {
+                $result['Articulovariante'] = $this->aArticulovariante->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->aOrdencompra) {
                 $result['Ordencompra'] = $this->aOrdencompra->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
@@ -1107,7 +1107,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
                 $this->setIdordencompra($value);
                 break;
             case 2:
-                $this->setIdarticulo($value);
+                $this->setIdarticulovariante($value);
                 break;
             case 3:
                 $this->setOrdencompradetalleCantidad($value);
@@ -1153,7 +1153,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
 
         if (array_key_exists($keys[0], $arr)) $this->setIdordencompradetalle($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setIdordencompra($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setIdarticulo($arr[$keys[2]]);
+        if (array_key_exists($keys[2], $arr)) $this->setIdarticulovariante($arr[$keys[2]]);
         if (array_key_exists($keys[3], $arr)) $this->setOrdencompradetalleCantidad($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setOrdencompradetalleCosto($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setOrdencompradetallePrecio($arr[$keys[5]]);
@@ -1173,7 +1173,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
 
         if ($this->isColumnModified(OrdencompradetallePeer::IDORDENCOMPRADETALLE)) $criteria->add(OrdencompradetallePeer::IDORDENCOMPRADETALLE, $this->idordencompradetalle);
         if ($this->isColumnModified(OrdencompradetallePeer::IDORDENCOMPRA)) $criteria->add(OrdencompradetallePeer::IDORDENCOMPRA, $this->idordencompra);
-        if ($this->isColumnModified(OrdencompradetallePeer::IDARTICULO)) $criteria->add(OrdencompradetallePeer::IDARTICULO, $this->idarticulo);
+        if ($this->isColumnModified(OrdencompradetallePeer::IDARTICULOVARIANTE)) $criteria->add(OrdencompradetallePeer::IDARTICULOVARIANTE, $this->idarticulovariante);
         if ($this->isColumnModified(OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD)) $criteria->add(OrdencompradetallePeer::ORDENCOMPRADETALLE_CANTIDAD, $this->ordencompradetalle_cantidad);
         if ($this->isColumnModified(OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO)) $criteria->add(OrdencompradetallePeer::ORDENCOMPRADETALLE_COSTO, $this->ordencompradetalle_costo);
         if ($this->isColumnModified(OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO)) $criteria->add(OrdencompradetallePeer::ORDENCOMPRADETALLE_PRECIO, $this->ordencompradetalle_precio);
@@ -1244,7 +1244,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setIdordencompra($this->getIdordencompra());
-        $copyObj->setIdarticulo($this->getIdarticulo());
+        $copyObj->setIdarticulovariante($this->getIdarticulovariante());
         $copyObj->setOrdencompradetalleCantidad($this->getOrdencompradetalleCantidad());
         $copyObj->setOrdencompradetalleCosto($this->getOrdencompradetalleCosto());
         $copyObj->setOrdencompradetallePrecio($this->getOrdencompradetallePrecio());
@@ -1316,24 +1316,24 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     }
 
     /**
-     * Declares an association between this object and a Articulo object.
+     * Declares an association between this object and a Articulovariante object.
      *
-     * @param                  Articulo $v
+     * @param                  Articulovariante $v
      * @return Ordencompradetalle The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setArticulo(Articulo $v = null)
+    public function setArticulovariante(Articulovariante $v = null)
     {
         if ($v === null) {
-            $this->setIdarticulo(NULL);
+            $this->setIdarticulovariante(NULL);
         } else {
-            $this->setIdarticulo($v->getIdarticulo());
+            $this->setIdarticulovariante($v->getIdarticulovariante());
         }
 
-        $this->aArticulo = $v;
+        $this->aArticulovariante = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Articulo object, it will not be re-added.
+        // If this object has already been added to the Articulovariante object, it will not be re-added.
         if ($v !== null) {
             $v->addOrdencompradetalle($this);
         }
@@ -1344,27 +1344,27 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
 
 
     /**
-     * Get the associated Articulo object
+     * Get the associated Articulovariante object
      *
      * @param PropelPDO $con Optional Connection object.
      * @param $doQuery Executes a query to get the object if required
-     * @return Articulo The associated Articulo object.
+     * @return Articulovariante The associated Articulovariante object.
      * @throws PropelException
      */
-    public function getArticulo(PropelPDO $con = null, $doQuery = true)
+    public function getArticulovariante(PropelPDO $con = null, $doQuery = true)
     {
-        if ($this->aArticulo === null && ($this->idarticulo !== null) && $doQuery) {
-            $this->aArticulo = ArticuloQuery::create()->findPk($this->idarticulo, $con);
+        if ($this->aArticulovariante === null && ($this->idarticulovariante !== null) && $doQuery) {
+            $this->aArticulovariante = ArticulovarianteQuery::create()->findPk($this->idarticulovariante, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aArticulo->addOrdencompradetalles($this);
+                $this->aArticulovariante->addOrdencompradetalles($this);
              */
         }
 
-        return $this->aArticulo;
+        return $this->aArticulovariante;
     }
 
     /**
@@ -1692,7 +1692,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
     {
         $this->idordencompradetalle = null;
         $this->idordencompra = null;
-        $this->idarticulo = null;
+        $this->idarticulovariante = null;
         $this->ordencompradetalle_cantidad = null;
         $this->ordencompradetalle_costo = null;
         $this->ordencompradetalle_precio = null;
@@ -1726,8 +1726,8 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->aArticulo instanceof Persistent) {
-              $this->aArticulo->clearAllReferences($deep);
+            if ($this->aArticulovariante instanceof Persistent) {
+              $this->aArticulovariante->clearAllReferences($deep);
             }
             if ($this->aOrdencompra instanceof Persistent) {
               $this->aOrdencompra->clearAllReferences($deep);
@@ -1740,7 +1740,7 @@ abstract class BaseOrdencompradetalle extends BaseObject implements Persistent
             $this->collLugarinventarios->clearIterator();
         }
         $this->collLugarinventarios = null;
-        $this->aArticulo = null;
+        $this->aArticulovariante = null;
         $this->aOrdencompra = null;
     }
 

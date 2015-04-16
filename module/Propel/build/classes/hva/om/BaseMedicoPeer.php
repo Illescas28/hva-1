@@ -454,12 +454,12 @@ abstract class BaseMedicoPeer
         // Invalidate objects in ConsultaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         ConsultaPeer::clearInstancePool();
-        // Invalidate objects in DatosfacturacionmedicoPeer instance pool,
-        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        DatosfacturacionmedicoPeer::clearInstancePool();
         // Invalidate objects in MedicoespecialidadPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         MedicoespecialidadPeer::clearInstancePool();
+        // Invalidate objects in MedicofacturacionPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        MedicofacturacionPeer::clearInstancePool();
     }
 
     /**
@@ -1050,17 +1050,17 @@ abstract class BaseMedicoPeer
             $criteria->add(ConsultaPeer::IDMEDICO, $obj->getIdmedico());
             $affectedRows += ConsultaPeer::doDelete($criteria, $con);
 
-            // delete related Datosfacturacionmedico objects
-            $criteria = new Criteria(DatosfacturacionmedicoPeer::DATABASE_NAME);
-
-            $criteria->add(DatosfacturacionmedicoPeer::IDMEDICO, $obj->getIdmedico());
-            $affectedRows += DatosfacturacionmedicoPeer::doDelete($criteria, $con);
-
             // delete related Medicoespecialidad objects
             $criteria = new Criteria(MedicoespecialidadPeer::DATABASE_NAME);
 
             $criteria->add(MedicoespecialidadPeer::IDMEDICO, $obj->getIdmedico());
             $affectedRows += MedicoespecialidadPeer::doDelete($criteria, $con);
+
+            // delete related Medicofacturacion objects
+            $criteria = new Criteria(MedicofacturacionPeer::DATABASE_NAME);
+
+            $criteria->add(MedicofacturacionPeer::IDMEDICO, $obj->getIdmedico());
+            $affectedRows += MedicofacturacionPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

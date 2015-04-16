@@ -78,6 +78,12 @@ abstract class BaseServicio extends BaseObject implements Persistent
     protected $collCargoconsultasPartial;
 
     /**
+     * @var        PropelObjectCollection|Cargoventa[] Collection to store aggregation of Cargoventa objects.
+     */
+    protected $collCargoventas;
+    protected $collCargoventasPartial;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -108,6 +114,12 @@ abstract class BaseServicio extends BaseObject implements Persistent
      * @var		PropelObjectCollection
      */
     protected $cargoconsultasScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $cargoventasScheduledForDeletion = null;
 
     /**
      * Get the [idservicio] column value.
@@ -414,6 +426,8 @@ abstract class BaseServicio extends BaseObject implements Persistent
 
             $this->collCargoconsultas = null;
 
+            $this->collCargoventas = null;
+
         } // if (deep)
     }
 
@@ -566,6 +580,23 @@ abstract class BaseServicio extends BaseObject implements Persistent
 
             if ($this->collCargoconsultas !== null) {
                 foreach ($this->collCargoconsultas as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->cargoventasScheduledForDeletion !== null) {
+                if (!$this->cargoventasScheduledForDeletion->isEmpty()) {
+                    CargoventaQuery::create()
+                        ->filterByPrimaryKeys($this->cargoventasScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->cargoventasScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collCargoventas !== null) {
+                foreach ($this->collCargoventas as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -760,6 +791,14 @@ abstract class BaseServicio extends BaseObject implements Persistent
                     }
                 }
 
+                if ($this->collCargoventas !== null) {
+                    foreach ($this->collCargoventas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
 
             $this->alreadyInValidation = false;
         }
@@ -860,6 +899,9 @@ abstract class BaseServicio extends BaseObject implements Persistent
             }
             if (null !== $this->collCargoconsultas) {
                 $result['Cargoconsultas'] = $this->collCargoconsultas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collCargoventas) {
+                $result['Cargoventas'] = $this->collCargoventas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1048,6 +1090,12 @@ abstract class BaseServicio extends BaseObject implements Persistent
                 }
             }
 
+            foreach ($this->getCargoventas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addCargoventa($relObj->copy($deepCopy));
+                }
+            }
+
             //unflag object copy
             $this->startCopy = false;
         } // if ($deepCopy)
@@ -1114,6 +1162,9 @@ abstract class BaseServicio extends BaseObject implements Persistent
         }
         if ('Cargoconsulta' == $relationName) {
             $this->initCargoconsultas();
+        }
+        if ('Cargoventa' == $relationName) {
+            $this->initCargoventas();
         }
     }
 
@@ -1668,6 +1719,281 @@ abstract class BaseServicio extends BaseObject implements Persistent
     }
 
     /**
+     * Clears out the collCargoventas collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return Servicio The current object (for fluent API support)
+     * @see        addCargoventas()
+     */
+    public function clearCargoventas()
+    {
+        $this->collCargoventas = null; // important to set this to null since that means it is uninitialized
+        $this->collCargoventasPartial = null;
+
+        return $this;
+    }
+
+    /**
+     * reset is the collCargoventas collection loaded partially
+     *
+     * @return void
+     */
+    public function resetPartialCargoventas($v = true)
+    {
+        $this->collCargoventasPartial = $v;
+    }
+
+    /**
+     * Initializes the collCargoventas collection.
+     *
+     * By default this just sets the collCargoventas collection to an empty array (like clearcollCargoventas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initCargoventas($overrideExisting = true)
+    {
+        if (null !== $this->collCargoventas && !$overrideExisting) {
+            return;
+        }
+        $this->collCargoventas = new PropelObjectCollection();
+        $this->collCargoventas->setModel('Cargoventa');
+    }
+
+    /**
+     * Gets an array of Cargoventa objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this Servicio is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Cargoventa[] List of Cargoventa objects
+     * @throws PropelException
+     */
+    public function getCargoventas($criteria = null, PropelPDO $con = null)
+    {
+        $partial = $this->collCargoventasPartial && !$this->isNew();
+        if (null === $this->collCargoventas || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collCargoventas) {
+                // return empty collection
+                $this->initCargoventas();
+            } else {
+                $collCargoventas = CargoventaQuery::create(null, $criteria)
+                    ->filterByServicio($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    if (false !== $this->collCargoventasPartial && count($collCargoventas)) {
+                      $this->initCargoventas(false);
+
+                      foreach ($collCargoventas as $obj) {
+                        if (false == $this->collCargoventas->contains($obj)) {
+                          $this->collCargoventas->append($obj);
+                        }
+                      }
+
+                      $this->collCargoventasPartial = true;
+                    }
+
+                    $collCargoventas->getInternalIterator()->rewind();
+
+                    return $collCargoventas;
+                }
+
+                if ($partial && $this->collCargoventas) {
+                    foreach ($this->collCargoventas as $obj) {
+                        if ($obj->isNew()) {
+                            $collCargoventas[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collCargoventas = $collCargoventas;
+                $this->collCargoventasPartial = false;
+            }
+        }
+
+        return $this->collCargoventas;
+    }
+
+    /**
+     * Sets a collection of Cargoventa objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param PropelCollection $cargoventas A Propel collection.
+     * @param PropelPDO $con Optional connection object
+     * @return Servicio The current object (for fluent API support)
+     */
+    public function setCargoventas(PropelCollection $cargoventas, PropelPDO $con = null)
+    {
+        $cargoventasToDelete = $this->getCargoventas(new Criteria(), $con)->diff($cargoventas);
+
+
+        $this->cargoventasScheduledForDeletion = $cargoventasToDelete;
+
+        foreach ($cargoventasToDelete as $cargoventaRemoved) {
+            $cargoventaRemoved->setServicio(null);
+        }
+
+        $this->collCargoventas = null;
+        foreach ($cargoventas as $cargoventa) {
+            $this->addCargoventa($cargoventa);
+        }
+
+        $this->collCargoventas = $cargoventas;
+        $this->collCargoventasPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Cargoventa objects.
+     *
+     * @param Criteria $criteria
+     * @param boolean $distinct
+     * @param PropelPDO $con
+     * @return int             Count of related Cargoventa objects.
+     * @throws PropelException
+     */
+    public function countCargoventas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        $partial = $this->collCargoventasPartial && !$this->isNew();
+        if (null === $this->collCargoventas || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collCargoventas) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getCargoventas());
+            }
+            $query = CargoventaQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByServicio($this)
+                ->count($con);
+        }
+
+        return count($this->collCargoventas);
+    }
+
+    /**
+     * Method called to associate a Cargoventa object to this object
+     * through the Cargoventa foreign key attribute.
+     *
+     * @param    Cargoventa $l Cargoventa
+     * @return Servicio The current object (for fluent API support)
+     */
+    public function addCargoventa(Cargoventa $l)
+    {
+        if ($this->collCargoventas === null) {
+            $this->initCargoventas();
+            $this->collCargoventasPartial = true;
+        }
+
+        if (!in_array($l, $this->collCargoventas->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddCargoventa($l);
+
+            if ($this->cargoventasScheduledForDeletion and $this->cargoventasScheduledForDeletion->contains($l)) {
+                $this->cargoventasScheduledForDeletion->remove($this->cargoventasScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Cargoventa $cargoventa The cargoventa object to add.
+     */
+    protected function doAddCargoventa($cargoventa)
+    {
+        $this->collCargoventas[]= $cargoventa;
+        $cargoventa->setServicio($this);
+    }
+
+    /**
+     * @param	Cargoventa $cargoventa The cargoventa object to remove.
+     * @return Servicio The current object (for fluent API support)
+     */
+    public function removeCargoventa($cargoventa)
+    {
+        if ($this->getCargoventas()->contains($cargoventa)) {
+            $this->collCargoventas->remove($this->collCargoventas->search($cargoventa));
+            if (null === $this->cargoventasScheduledForDeletion) {
+                $this->cargoventasScheduledForDeletion = clone $this->collCargoventas;
+                $this->cargoventasScheduledForDeletion->clear();
+            }
+            $this->cargoventasScheduledForDeletion[]= $cargoventa;
+            $cargoventa->setServicio(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Servicio is new, it will return
+     * an empty collection; or if this Servicio has previously
+     * been saved, it will retrieve related Cargoventas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Servicio.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Cargoventa[] List of Cargoventa objects
+     */
+    public function getCargoventasJoinLugarinventario($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = CargoventaQuery::create(null, $criteria);
+        $query->joinWith('Lugarinventario', $join_behavior);
+
+        return $this->getCargoventas($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Servicio is new, it will return
+     * an empty collection; or if this Servicio has previously
+     * been saved, it will retrieve related Cargoventas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Servicio.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Cargoventa[] List of Cargoventa objects
+     */
+    public function getCargoventasJoinVenta($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = CargoventaQuery::create(null, $criteria);
+        $query->joinWith('Venta', $join_behavior);
+
+        return $this->getCargoventas($query, $con);
+    }
+
+    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
@@ -1710,6 +2036,11 @@ abstract class BaseServicio extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collCargoventas) {
+                foreach ($this->collCargoventas as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
@@ -1722,6 +2053,10 @@ abstract class BaseServicio extends BaseObject implements Persistent
             $this->collCargoconsultas->clearIterator();
         }
         $this->collCargoconsultas = null;
+        if ($this->collCargoventas instanceof PropelCollection) {
+            $this->collCargoventas->clearIterator();
+        }
+        $this->collCargoventas = null;
     }
 
     /**
