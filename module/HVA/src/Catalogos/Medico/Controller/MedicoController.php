@@ -64,8 +64,6 @@ class MedicoController extends AbstractActionController
                 //Redireccionamos a nuestro list
                 return $this->redirect()->toRoute('medico');
                 
-            }else{
-                
             }
         }
         

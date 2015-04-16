@@ -108,7 +108,7 @@ body{
 
 h3{
     color: #05086E;
-    font-weight: bold;
+    font-weight: 300;
 }
 
 /*Table styles*/
@@ -254,6 +254,16 @@ form.hva-form .input-field label {
     top: 1.5rem;
 }
 
+form.hva-form input{
+    margin-bottom: 0 !important;
+}
+
+form.hva-form p.input-error {
+    margin: 0;
+    margin-left: 11px;
+    color: #d32f2f;
+}
+
 form.hva-form input[type="text"]{
    margin: 15px 0 15px 0;
 }
@@ -267,6 +277,12 @@ form.hva-form .input-field input[type="text"]:focus, form.hva-form .input-field 
 form.hva-form .input-field input[type="text"]:focus + label, form.hva-form .input-field input[type="password"]:focus + label, form.hva-form .input-field input[type="email"]:focus + label, form.hva-form .input-field input[type="url"]:focus + label, form.hva-form .input-field input[type="date"]:focus + label, form.hva-form .input-field input[type="tel"]:focus + label, form.hva-form .input-field input[type="number"]:focus + label, form.hva-form .input-field input[type="search"]:focus + label, form.hva-form .input-field textarea.materialize-textarea:focus + label{
     color: #039be5;
 }
+
+form.hva-form fieldset{
+    color: #039be5;
+    border: solid 1px #90a4ae;
+}
+
 
 /* Delete Modal Styles*/
 #delete-modal-container{

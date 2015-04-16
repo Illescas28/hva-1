@@ -57,8 +57,6 @@ class ServicioController extends AbstractActionController
                 //Redireccionamos a nuestro list
                 return $this->redirect()->toRoute('servicio');
                 
-            }else{
-                var_dump($servicioForm->getMessages());   
             }
         }
         
