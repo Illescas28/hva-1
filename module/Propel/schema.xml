@@ -514,11 +514,13 @@
     <column name="medico_estado" phpName="MedicoEstado" type="VARCHAR" size="45" required="false"/>
     <column name="medico_pais" phpName="MedicoPais" type="VARCHAR" size="45" required="false"/>
     <column name="medico_telefono" phpName="MedicoTelefono" type="VARCHAR" size="45" required="false"/>
-    <column name="medico_telefonocelular" phpName="MedicoTelefonocelular" type="VARCHAR" size="45" required="false"/>
+    <column name="medico_telefonocelular" phpName="MedicoTelefonocelular" type="VARCHAR" size="45" required="true"/>
     <column name="medico_clave" phpName="MedicoClave" type="VARCHAR" size="45" required="false"/>
-    <column name="medico_dgp" phpName="MedicoDgp" type="VARCHAR" size="45" required="false"/>
+    <column name="medico_dgp" phpName="MedicoDgp" type="VARCHAR" size="45" required="true"/>
     <column name="medico_ssa" phpName="MedicoSsa" type="VARCHAR" size="45" required="false"/>
     <column name="medico_ae" phpName="MedicoAe" type="VARCHAR" size="45" required="false"/>
+    <column name="medico_fotografia" phpName="MedicoFotografia" type="LONGVARCHAR" required="false"/>
+    <column name="medico_perfilcompleto" phpName="MedicoPerfilcompleto" type="BOOLEAN" size="1" required="true"/>
     <foreign-key foreignTable="especialidad" name="idespecialidad_medico" onDelete="CASCADE" onUpdate="CASCADE">
       <reference local="idespecialidad" foreign="idespecialidad"/>
     </foreign-key>
@@ -630,25 +632,25 @@
     <column name="idpaciente" phpName="Idpaciente" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="paciente_nombre" phpName="PacienteNombre" type="VARCHAR" size="250" required="true"/>
     <column name="paciente_ap" phpName="PacienteAp" type="VARCHAR" size="100" required="true"/>
-    <column name="paciente_am" phpName="PacienteAm" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_calle" phpName="PacienteCalle" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_noexterior" phpName="PacienteNoexterior" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_nointerior" phpName="PacienteNointerior" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_colonia" phpName="PacienteColonia" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_ciudad" phpName="PacienteCiudad" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_estado" phpName="PacienteEstado" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_pais" phpName="PacientePais" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_telefono" phpName="PacienteTelefono" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_telefonocelular" phpName="PacienteTelefonocelular" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_fechanacimiento" phpName="PacienteFechanacimiento" type="DATE" required="false"/>
+    <column name="paciente_am" phpName="PacienteAm" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_calle" phpName="PacienteCalle" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_noexterior" phpName="PacienteNoexterior" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_nointerior" phpName="PacienteNointerior" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_colonia" phpName="PacienteColonia" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_ciudad" phpName="PacienteCiudad" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_estado" phpName="PacienteEstado" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_pais" phpName="PacientePais" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_telefono" phpName="PacienteTelefono" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_telefonocelular" phpName="PacienteTelefonocelular" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_fechanacimiento" phpName="PacienteFechanacimiento" type="DATE" required="true"/>
     <column name="paciente_sexo" phpName="PacienteSexo" type="CHAR" sqlType="enum('Masculino','Femenino')" required="true"/>
-    <column name="paciente_estadocivil" phpName="PacienteEstadocivil" type="CHAR" sqlType="enum('Soltero(a)','Casado(a)','Divorciado(a)','Viudo(a)')" required="false"/>
-    <column name="paciente_ocupacion" phpName="PacienteOcupacion" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_conyuge" phpName="PacienteConyuge" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_padre" phpName="PacientePadre" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_madre" phpName="PacienteMadre" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_responsable" phpName="PacienteResponsable" type="VARCHAR" size="45" required="false"/>
-    <column name="paciente_telefonoresponsable" phpName="PacienteTelefonoresponsable" type="VARCHAR" size="45" required="false"/>
+    <column name="paciente_estadocivil" phpName="PacienteEstadocivil" type="CHAR" sqlType="enum('Soltero(a)','Casado(a)','Divorciado(a)','Viudo(a)')" required="true"/>
+    <column name="paciente_ocupacion" phpName="PacienteOcupacion" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_conyuge" phpName="PacienteConyuge" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_padre" phpName="PacientePadre" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_madre" phpName="PacienteMadre" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_responsable" phpName="PacienteResponsable" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_telefonoresponsable" phpName="PacienteTelefonoresponsable" type="VARCHAR" size="45" required="true"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
