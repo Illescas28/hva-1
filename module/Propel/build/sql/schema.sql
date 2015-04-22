@@ -191,7 +191,7 @@ CREATE TABLE `banco`
     `banco_nombre` VARCHAR(100) NOT NULL,
     `banco_cuenta` VARCHAR(45) NOT NULL,
     `banco_descripcion` TEXT,
-    `banco_balance` DECIMAL(10,2) NOT NULL,
+    `banco_balance` DECIMAL(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (`idbanco`)
 ) ENGINE=InnoDB;
 

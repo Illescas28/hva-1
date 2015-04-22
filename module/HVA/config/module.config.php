@@ -204,6 +204,20 @@ return array(
                     ),
                 ),
             ),
+            'banco' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/catalogos/banco[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action' => 'nuevo|editar|eliminar',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Catalogos\Banco\Controller\Banco',
+                        'action'     => 'listar',
+                    ),
+                ),
+            ),
             'auth' => array(
                 'type'    => 'segment',
                 'options' => array(
@@ -254,7 +268,8 @@ return array(
             'Catalogos\Medico\Controller\Medico'                        => 'Catalogos\Medico\Controller\MedicoController',
             'Catalogos\Especialidad\Controller\Especialidad'            => 'Catalogos\Especialidad\Controller\EspecialidadController',
             'Catalogos\Cuarto\Controller\Cuarto'                        => 'Catalogos\Cuarto\Controller\CuartoController',
-            'Catalogos\Servicio\Controller\Servicio'                    => 'Catalogos\Servicio\Controller\ServicioController'
+            'Catalogos\Servicio\Controller\Servicio'                    => 'Catalogos\Servicio\Controller\ServicioController',
+            'Catalogos\Banco\Controller\Banco'                        => 'Catalogos\Banco\Controller\BancoController'
 
         ),
     ),

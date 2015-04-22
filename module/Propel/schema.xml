@@ -146,7 +146,7 @@
     <column name="banco_nombre" phpName="BancoNombre" type="VARCHAR" size="100" required="true"/>
     <column name="banco_cuenta" phpName="BancoCuenta" type="VARCHAR" size="45" required="true"/>
     <column name="banco_descripcion" phpName="BancoDescripcion" type="LONGVARCHAR" required="false"/>
-    <column name="banco_balance" phpName="BancoBalance" type="DECIMAL" size="10" scale="2" required="true"/>
+    <column name="banco_balance" phpName="BancoBalance" type="DECIMAL" size="10" scale="2" required="true" defaultValue="0.00"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
