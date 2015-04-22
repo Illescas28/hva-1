@@ -149,6 +149,8 @@ table.striped td a i.mdi-action-delete{
     color: #b71c1c;
 }
 
+
+
 table.striped td a i.mdi-image-remove-red-eye{
     color: #1b5e20;
 }
@@ -249,6 +251,11 @@ table.striped tbody tr:nth-child(2n+1){
 
 /* Forms */
 
+form.hva-form i.cerrar{
+    color: #b71c1c;
+    font-size:24px;
+}
+
 form.hva-form .input-field label {
     font-size: 12px;
     top: 1.5rem;
@@ -256,6 +263,10 @@ form.hva-form .input-field label {
 
 form.hva-form input{
     margin-bottom: 0 !important;
+}
+
+form.hva-form input.select-dropdown{
+    margin-top: 30px !important;
 }
 
 form.hva-form p.input-error {
@@ -279,8 +290,12 @@ form.hva-form .input-field input[type="text"]:focus + label, form.hva-form .inpu
 }
 
 form.hva-form fieldset{
-    color: #039be5;
+    
     border: solid 1px #90a4ae;
+}
+
+form.hva-form legend{
+    color: #039be5;
 }
 
 
@@ -307,4 +322,26 @@ form.hva-form fieldset{
     font-weight: bold;
     display: inline-block;
         
+}
+
+/*Agegar arituclo styles*/
+div[id|=propiedad]{
+    position: relative;
+}
+
+div[id|=propiedad] i.mdi-navigation-cancel{
+    position: absolute;
+    left: 0;
+    color: #b71c1c;
+    font-size: 1.5rem;
+}
+
+div#property_values i.mdi-content-add-circle-outline{
+    color: #1a237e;
+    font-size: 1.5rem;
+}
+
+div#property_values i.mdi-action-delete{
+    color: #b71c1c;
+    font-size: 1.5rem;
 }

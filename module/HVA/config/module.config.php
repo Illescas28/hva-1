@@ -67,7 +67,7 @@ return array(
             'tipo' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/catalogos/tipo[/:action][/:id][/]',
+                    'route'    => '/catalogos/articulo/tipo[/:action][/:id][/]',
                     'constraints' => array(
                         'action' => 'nuevo|editar|eliminar',
                         'id'     => '[0-9]+',

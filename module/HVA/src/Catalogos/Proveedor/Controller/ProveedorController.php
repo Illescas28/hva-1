@@ -1,67 +1,60 @@
 <?php
 
-namespace Catalogos\Proveedor\Controller;
+namespace Catalogos\Articulo\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 //// Form ////
-use Catalogos\Proveedor\Form\ProveedorForm;
+use Catalogos\Articulo\Form\ArticuloForm;
 
 //// Filter ////
-use Catalogos\Proveedor\Filter\ProveedorFilter;
+use Catalogos\Articulo\Filter\ArticuloFilter;
 
 //// Propel ////
-use Proveedor;
-use ProveedorQuery;
+use Articulo;
+use ArticuloQuery;
 use BasePeer;
 
-class ProveedorController extends AbstractActionController
+class ArticuloController extends AbstractActionController
 {
     public function nuevoAction()
     {
         $request = $this->getRequest();
         
-        //Almacenamos en un arreglo todas las especialidades
-        $especialidadCollection = \EspecialidadQuery::create()->find();
-        $especialidadArray = array();
-        foreach ($especialidadCollection as $especialidad){
-            $especialidadArray[$especialidad->getIdespecialidad()] = $especialidad->getEspecialidadNombre();
-        }
-        
         //Intanciamos nuestro formulario
-        $proveedorForm = new ProveedorForm($especialidadArray);
+        $articuloForm = new ArticuloForm();
         
         if ($request->isPost()) { //Si hicieron POST
             
             //Instanciamos nuestro filtro
-            $proveedorFilter = new ProveedorFilter();
+            $articuloFilter = new ArticuloFilter();
 
             //Le ponemos nuestro filtro a nuesto fromulario
-            $proveedorForm->setInputFilter($proveedorFilter->getInputFilter());
+            $articuloForm->setInputFilter($articuloFilter->getInputFilter());
             
             //Le ponemos los datos a nuestro formulario
-            $proveedorForm->setData($request->getPost());
+            $articuloForm->setData($request->getPost());
             
             //Validamos nuestro formulario
-            if($proveedorForm->isValid()){
+            if($articuloForm->isValid()){
                 
-                //Instanciamos un nuevo objeto de nuestro objeto proveedor
-                $proveedor = new Proveedor();
+                //Instanciamos un nuevo objeto de nuestro objeto articulo
+                $articulo = new Articulo();
                 
-                //Recorremos nuestro formulario y seteamos los valores a nuestro objeto Proveedor
-                foreach ($proveedorForm->getData() as $proveedorKey => $proveedorValue){
-                    $proveedor->setByName($proveedorKey, $proveedorValue, \BasePeer::TYPE_FIELDNAME);
+                //Recorremos nuestro formulario y seteamos los valores a nuestro objeto Articulo
+                foreach ($articuloForm->getData() as $articuloKey => $articuloValue){
+                    $articulo->setByName($articuloKey, $articuloValue, \BasePeer::TYPE_FIELDNAME);
                 }
               
                 //Guardamos en nuestra base de datos
-                $proveedor->save();
+                $articulo->save();
                 
                 //Agregamos un mensaje
-                $this->flashMessenger()->addMessage('Proveedor guardado exitosamente!');
+                $this->flashMessenger()->addMessage('Articulo guardado exitosamente!');
                 
                 //Redireccionamos a nuestro list
-                return $this->redirect()->toRoute('proveedor');
+                return $this->redirect()->toRoute('articulo');
                 
             }else{
                 
@@ -69,24 +62,24 @@ class ProveedorController extends AbstractActionController
         }
         
         return new ViewModel(array(
-            'proveedorForm' => $proveedorForm,
+            'articuloForm' => $articuloForm,
         ));
 
     }
 
     public function listarAction()
     {
-        // Instanciamos nuestro formulario proveedorForm
-        $proveedorForm = new proveedorForm();
+        // Instanciamos nuestro formulario articuloForm
+        $articuloForm = new articuloForm();
 
-        $proveedorQuery = new ProveedorQuery();
+        $articuloQuery = new ArticuloQuery();
 
-        $result = $proveedorQuery->paginate($page,$limit);
+        $result = $articuloQuery->paginate($page,$limit);
 
         $dataCollection = $result->getResults();
 
         return new ViewModel(array(
-            'proveedores' => $dataCollection,
+            'articuloes' => $dataCollection,
             'flashMessages' => $this->flashMessenger()->getMessages(),
         ));    
     }
@@ -98,60 +91,53 @@ class ProveedorController extends AbstractActionController
         //Cachamos el valor desde nuestro params
         $id = (int) $this->params()->fromRoute('id');
         
-        //Verificamos que el Id proveedor que se quiere modificar exista
-        if(!ProveedorQuery::create()->filterByIdproveedor($id)->exists()){
+        //Verificamos que el Id articulo que se quiere modificar exista
+        if(!ArticuloQuery::create()->filterByIdarticulo($id)->exists()){
             $id=0;
         }
         //Si es incorrecto redireccionavos al action nuevo
         if (!$id) {
-            return $this->redirect()->toRoute('proveedor', array(
+            return $this->redirect()->toRoute('articulo', array(
                 'action' => 'nuevo'
             ));
         }
 
-            //Instanciamos nuestro proveedor
-            $proveedor = ProveedorQuery::create()->findPk($id);
-            
-            //Almacenamos en un arreglo todas las especialidades
-            $especialidadCollection = \EspecialidadQuery::create()->find();
-            $especialidadArray = array();
-            foreach ($especialidadCollection as $especialidad){
-                $especialidadArray[$especialidad->getIdespecialidad()] = $especialidad->getEspecialidadNombre();
-            }
-            
+            //Instanciamos nuestro articulo
+            $articulo = ArticuloQuery::create()->findPk($id);
+
             //Instanciamos nuestro formulario
-            $proveedorForm = new ProveedorForm($especialidadArray);
+            $articuloForm = new ArticuloForm();
             
-            //Le ponemos los datos de nuestro proveedor a nuestro formulario
-            $proveedorForm->setData($proveedor->toArray(BasePeer::TYPE_FIELDNAME));
+            //Le ponemos los datos de nuestro articulo a nuestro formulario
+            $articuloForm->setData($articulo->toArray(BasePeer::TYPE_FIELDNAME));
             
             if ($request->isPost()) { //Si hicieron POST
                
                 //Instanciamos nuestro filtro
-                $proveedorFilter = new ProveedorFilter();
+                $articuloFilter = new ArticuloFilter();
 
                 //Le ponemos nuestro filtro a nuesto fromulario
-                $proveedorForm->setInputFilter($proveedorFilter->getInputFilter());
+                $articuloForm->setInputFilter($articuloFilter->getInputFilter());
 
                 //Le ponemos los datos a nuestro formulario
-                $proveedorForm->setData($request->getPost());
+                $articuloForm->setData($request->getPost());
                 
                 //Validamos nuestro formulario
-                if($proveedorForm->isValid()){
+                if($articuloForm->isValid()){
                     
-                    //Recorremos nuestro formulario y seteamos los valores a nuestro objeto proveedor
-                    foreach ($proveedorForm->getData() as $proveedorKey => $proveedorValue){
-                        $proveedor->setByName($proveedorKey, $proveedorValue, \BasePeer::TYPE_FIELDNAME);
+                    //Recorremos nuestro formulario y seteamos los valores a nuestro objeto articulo
+                    foreach ($articuloForm->getData() as $articuloKey => $articuloValue){
+                        $articulo->setByName($articuloKey, $articuloValue, \BasePeer::TYPE_FIELDNAME);
                     }
                     
                     //Guardamos en nuestra base de datos
-                    $proveedor->save();
+                    $articulo->save();
 
                     //Agregamos un mensaje
-                    $this->flashMessenger()->addMessage('Proveedor guardado exitosamente!');
+                    $this->flashMessenger()->addMessage('Articulo guardado exitosamente!');
 
                     //Redireccionamos a nuestro list
-                    return $this->redirect()->toRoute('proveedor');
+                    return $this->redirect()->toRoute('articulo');
 
                 }else{
                     
@@ -160,7 +146,7 @@ class ProveedorController extends AbstractActionController
             
             return new ViewModel(array(
                 'id'  => $id,
-                'proveedorForm' => $proveedorForm,
+                'articuloForm' => $articuloForm,
             ));
         
 
@@ -170,26 +156,26 @@ class ProveedorController extends AbstractActionController
     {
         //Cachamos el valor desde nuestro params
         $id = (int) $this->params()->fromRoute('id');
-        //Verificamos que el Id proveedor que se quiere eliminar exista
-        if(!ProveedorQuery::create()->filterByIdproveedor($id)->exists()){
+        //Verificamos que el Id articulo que se quiere eliminar exista
+        if(!ArticuloQuery::create()->filterByIdarticulo($id)->exists()){
             $id=0;
         }
         //Si es incorrecto redireccionavos al action nuevo
         if (!$id) {
-            return $this->redirect()->toRoute('proveedor');
+            return $this->redirect()->toRoute('articulo');
         }
         
                   
-            //Instanciamos nuestro proveedor
-            $proveedor = ProveedorQuery::create()->findPk($id);
+            //Instanciamos nuestro articulo
+            $articulo = ArticuloQuery::create()->findPk($id);
             
-            $proveedor->delete();
+            $articulo->delete();
             
             //Agregamos un mensaje
-            $this->flashMessenger()->addMessage('Proveedor eliminado exitosamente!');
+            $this->flashMessenger()->addMessage('Articulo eliminado exitosamente!');
 
             //Redireccionamos a nuestro list
-            return $this->redirect()->toRoute('proveedor');
+            return $this->redirect()->toRoute('articulo');
             
         
 
