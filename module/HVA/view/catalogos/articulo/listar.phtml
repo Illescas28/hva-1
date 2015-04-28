@@ -48,6 +48,39 @@
                 <a class="tooltipped modal-trigger" data-position="right" data-tooltip="Eliminar" href='<?php echo "#delete-modal-articulo-".$articulo->getIdArticulo()?>'><i class="tiny mdi-action-delete"></i></a>
             </td>
         </tr>
+         <!-- Preview Modal Structure -->
+        <div id="view-modal-medico-<?php echo $articulo->getIdArticulo()?>" class="modal ">
+            <div class="modal-content">
+                <h4><?php echo $articulo->getArticuloNombre()?></h4>
+                <div class="row">
+                    <fieldset>
+                        <legend>Datos Generales</legend>
+                        <div class="col s6">
+                             <div class="label-container">
+                                <label>Tipo:</label>
+                                <p><?php echo $articulo->getTipo()->getTipoNombre()?></p>
+                            </div>
+                         </div>
+                        <div class="col s6">
+                             <div class="label-container">
+                                <label>Tipo:</label>
+                                <p><?php echo $articulo->getArticuloDescripcion()?></p>
+                            </div>
+                         </div>
+                    </fieldset>
+                    <!-- Verificamos si el producto tiene propiedades adicionales--> 
+                         <?php if(PropiedadQuery::create()->filterByIdarticulo($articulo->getIdArticulo())->count()) : ?>
+                            <h6>Propiedades</h6>
+                            <?php $propiedades = PropiedadQuery::create()->filterByIdarticulo($articulo->getIdArticulo())->find(); ?>
+                            <?php foreach($propiedades as $propiedad) :?>
+                                
+                            <?php endforeach;?>
+                        <?php endif;?>     
+                  
+                </div>
+            </div>
+        </div>
+         <!-- End preview Modal Structure -->
         <!-- Delete Modal Structure -->
         <div id="delete-modal-articulo-<?php echo $articulo->getIdarticulo()?>" class="modal ">
             <div class="modal-content" id="delete-modal-container">

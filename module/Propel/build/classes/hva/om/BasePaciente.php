@@ -78,6 +78,12 @@ abstract class BasePaciente extends BaseObject implements Persistent
     protected $paciente_colonia;
 
     /**
+     * The value for the paciente_codigopostal field.
+     * @var        string
+     */
+    protected $paciente_codigopostal;
+
+    /**
      * The value for the paciente_ciudad field.
      * @var        string
      */
@@ -327,6 +333,17 @@ abstract class BasePaciente extends BaseObject implements Persistent
     {
 
         return $this->paciente_colonia;
+    }
+
+    /**
+     * Get the [paciente_codigopostal] column value.
+     *
+     * @return string
+     */
+    public function getPacienteCodigopostal()
+    {
+
+        return $this->paciente_codigopostal;
     }
 
     /**
@@ -681,6 +698,27 @@ abstract class BasePaciente extends BaseObject implements Persistent
     } // setPacienteColonia()
 
     /**
+     * Set the value of [paciente_codigopostal] column.
+     *
+     * @param  string $v new value
+     * @return Paciente The current object (for fluent API support)
+     */
+    public function setPacienteCodigopostal($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->paciente_codigopostal !== $v) {
+            $this->paciente_codigopostal = $v;
+            $this->modifiedColumns[] = PacientePeer::PACIENTE_CODIGOPOSTAL;
+        }
+
+
+        return $this;
+    } // setPacienteCodigopostal()
+
+    /**
      * Set the value of [paciente_ciudad] column.
      *
      * @param  string $v new value
@@ -1016,20 +1054,21 @@ abstract class BasePaciente extends BaseObject implements Persistent
             $this->paciente_noexterior = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->paciente_nointerior = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->paciente_colonia = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
-            $this->paciente_ciudad = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
-            $this->paciente_estado = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
-            $this->paciente_pais = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
-            $this->paciente_telefono = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
-            $this->paciente_telefonocelular = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
-            $this->paciente_fechanacimiento = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
-            $this->paciente_sexo = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-            $this->paciente_estadocivil = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
-            $this->paciente_ocupacion = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
-            $this->paciente_conyuge = ($row[$startcol + 17] !== null) ? (string) $row[$startcol + 17] : null;
-            $this->paciente_padre = ($row[$startcol + 18] !== null) ? (string) $row[$startcol + 18] : null;
-            $this->paciente_madre = ($row[$startcol + 19] !== null) ? (string) $row[$startcol + 19] : null;
-            $this->paciente_responsable = ($row[$startcol + 20] !== null) ? (string) $row[$startcol + 20] : null;
-            $this->paciente_telefonoresponsable = ($row[$startcol + 21] !== null) ? (string) $row[$startcol + 21] : null;
+            $this->paciente_codigopostal = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
+            $this->paciente_ciudad = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
+            $this->paciente_estado = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
+            $this->paciente_pais = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
+            $this->paciente_telefono = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
+            $this->paciente_telefonocelular = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
+            $this->paciente_fechanacimiento = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
+            $this->paciente_sexo = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
+            $this->paciente_estadocivil = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
+            $this->paciente_ocupacion = ($row[$startcol + 17] !== null) ? (string) $row[$startcol + 17] : null;
+            $this->paciente_conyuge = ($row[$startcol + 18] !== null) ? (string) $row[$startcol + 18] : null;
+            $this->paciente_padre = ($row[$startcol + 19] !== null) ? (string) $row[$startcol + 19] : null;
+            $this->paciente_madre = ($row[$startcol + 20] !== null) ? (string) $row[$startcol + 20] : null;
+            $this->paciente_responsable = ($row[$startcol + 21] !== null) ? (string) $row[$startcol + 21] : null;
+            $this->paciente_telefonoresponsable = ($row[$startcol + 22] !== null) ? (string) $row[$startcol + 22] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1039,7 +1078,7 @@ abstract class BasePaciente extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 22; // 22 = PacientePeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 23; // 23 = PacientePeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Paciente object", $e);
@@ -1370,6 +1409,9 @@ abstract class BasePaciente extends BaseObject implements Persistent
         if ($this->isColumnModified(PacientePeer::PACIENTE_COLONIA)) {
             $modifiedColumns[':p' . $index++]  = '`paciente_colonia`';
         }
+        if ($this->isColumnModified(PacientePeer::PACIENTE_CODIGOPOSTAL)) {
+            $modifiedColumns[':p' . $index++]  = '`paciente_codigopostal`';
+        }
         if ($this->isColumnModified(PacientePeer::PACIENTE_CIUDAD)) {
             $modifiedColumns[':p' . $index++]  = '`paciente_ciudad`';
         }
@@ -1446,6 +1488,9 @@ abstract class BasePaciente extends BaseObject implements Persistent
                         break;
                     case '`paciente_colonia`':
                         $stmt->bindValue($identifier, $this->paciente_colonia, PDO::PARAM_STR);
+                        break;
+                    case '`paciente_codigopostal`':
+                        $stmt->bindValue($identifier, $this->paciente_codigopostal, PDO::PARAM_STR);
                         break;
                     case '`paciente_ciudad`':
                         $stmt->bindValue($identifier, $this->paciente_ciudad, PDO::PARAM_STR);
@@ -1688,45 +1733,48 @@ abstract class BasePaciente extends BaseObject implements Persistent
                 return $this->getPacienteColonia();
                 break;
             case 8:
-                return $this->getPacienteCiudad();
+                return $this->getPacienteCodigopostal();
                 break;
             case 9:
-                return $this->getPacienteEstado();
+                return $this->getPacienteCiudad();
                 break;
             case 10:
-                return $this->getPacientePais();
+                return $this->getPacienteEstado();
                 break;
             case 11:
-                return $this->getPacienteTelefono();
+                return $this->getPacientePais();
                 break;
             case 12:
-                return $this->getPacienteTelefonocelular();
+                return $this->getPacienteTelefono();
                 break;
             case 13:
-                return $this->getPacienteFechanacimiento();
+                return $this->getPacienteTelefonocelular();
                 break;
             case 14:
-                return $this->getPacienteSexo();
+                return $this->getPacienteFechanacimiento();
                 break;
             case 15:
-                return $this->getPacienteEstadocivil();
+                return $this->getPacienteSexo();
                 break;
             case 16:
-                return $this->getPacienteOcupacion();
+                return $this->getPacienteEstadocivil();
                 break;
             case 17:
-                return $this->getPacienteConyuge();
+                return $this->getPacienteOcupacion();
                 break;
             case 18:
-                return $this->getPacientePadre();
+                return $this->getPacienteConyuge();
                 break;
             case 19:
-                return $this->getPacienteMadre();
+                return $this->getPacientePadre();
                 break;
             case 20:
-                return $this->getPacienteResponsable();
+                return $this->getPacienteMadre();
                 break;
             case 21:
+                return $this->getPacienteResponsable();
+                break;
+            case 22:
                 return $this->getPacienteTelefonoresponsable();
                 break;
             default:
@@ -1766,20 +1814,21 @@ abstract class BasePaciente extends BaseObject implements Persistent
             $keys[5] => $this->getPacienteNoexterior(),
             $keys[6] => $this->getPacienteNointerior(),
             $keys[7] => $this->getPacienteColonia(),
-            $keys[8] => $this->getPacienteCiudad(),
-            $keys[9] => $this->getPacienteEstado(),
-            $keys[10] => $this->getPacientePais(),
-            $keys[11] => $this->getPacienteTelefono(),
-            $keys[12] => $this->getPacienteTelefonocelular(),
-            $keys[13] => $this->getPacienteFechanacimiento(),
-            $keys[14] => $this->getPacienteSexo(),
-            $keys[15] => $this->getPacienteEstadocivil(),
-            $keys[16] => $this->getPacienteOcupacion(),
-            $keys[17] => $this->getPacienteConyuge(),
-            $keys[18] => $this->getPacientePadre(),
-            $keys[19] => $this->getPacienteMadre(),
-            $keys[20] => $this->getPacienteResponsable(),
-            $keys[21] => $this->getPacienteTelefonoresponsable(),
+            $keys[8] => $this->getPacienteCodigopostal(),
+            $keys[9] => $this->getPacienteCiudad(),
+            $keys[10] => $this->getPacienteEstado(),
+            $keys[11] => $this->getPacientePais(),
+            $keys[12] => $this->getPacienteTelefono(),
+            $keys[13] => $this->getPacienteTelefonocelular(),
+            $keys[14] => $this->getPacienteFechanacimiento(),
+            $keys[15] => $this->getPacienteSexo(),
+            $keys[16] => $this->getPacienteEstadocivil(),
+            $keys[17] => $this->getPacienteOcupacion(),
+            $keys[18] => $this->getPacienteConyuge(),
+            $keys[19] => $this->getPacientePadre(),
+            $keys[20] => $this->getPacienteMadre(),
+            $keys[21] => $this->getPacienteResponsable(),
+            $keys[22] => $this->getPacienteTelefonoresponsable(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1861,45 +1910,48 @@ abstract class BasePaciente extends BaseObject implements Persistent
                 $this->setPacienteColonia($value);
                 break;
             case 8:
-                $this->setPacienteCiudad($value);
+                $this->setPacienteCodigopostal($value);
                 break;
             case 9:
-                $this->setPacienteEstado($value);
+                $this->setPacienteCiudad($value);
                 break;
             case 10:
-                $this->setPacientePais($value);
+                $this->setPacienteEstado($value);
                 break;
             case 11:
-                $this->setPacienteTelefono($value);
+                $this->setPacientePais($value);
                 break;
             case 12:
-                $this->setPacienteTelefonocelular($value);
+                $this->setPacienteTelefono($value);
                 break;
             case 13:
-                $this->setPacienteFechanacimiento($value);
+                $this->setPacienteTelefonocelular($value);
                 break;
             case 14:
-                $this->setPacienteSexo($value);
+                $this->setPacienteFechanacimiento($value);
                 break;
             case 15:
-                $this->setPacienteEstadocivil($value);
+                $this->setPacienteSexo($value);
                 break;
             case 16:
-                $this->setPacienteOcupacion($value);
+                $this->setPacienteEstadocivil($value);
                 break;
             case 17:
-                $this->setPacienteConyuge($value);
+                $this->setPacienteOcupacion($value);
                 break;
             case 18:
-                $this->setPacientePadre($value);
+                $this->setPacienteConyuge($value);
                 break;
             case 19:
-                $this->setPacienteMadre($value);
+                $this->setPacientePadre($value);
                 break;
             case 20:
-                $this->setPacienteResponsable($value);
+                $this->setPacienteMadre($value);
                 break;
             case 21:
+                $this->setPacienteResponsable($value);
+                break;
+            case 22:
                 $this->setPacienteTelefonoresponsable($value);
                 break;
         } // switch()
@@ -1934,20 +1986,21 @@ abstract class BasePaciente extends BaseObject implements Persistent
         if (array_key_exists($keys[5], $arr)) $this->setPacienteNoexterior($arr[$keys[5]]);
         if (array_key_exists($keys[6], $arr)) $this->setPacienteNointerior($arr[$keys[6]]);
         if (array_key_exists($keys[7], $arr)) $this->setPacienteColonia($arr[$keys[7]]);
-        if (array_key_exists($keys[8], $arr)) $this->setPacienteCiudad($arr[$keys[8]]);
-        if (array_key_exists($keys[9], $arr)) $this->setPacienteEstado($arr[$keys[9]]);
-        if (array_key_exists($keys[10], $arr)) $this->setPacientePais($arr[$keys[10]]);
-        if (array_key_exists($keys[11], $arr)) $this->setPacienteTelefono($arr[$keys[11]]);
-        if (array_key_exists($keys[12], $arr)) $this->setPacienteTelefonocelular($arr[$keys[12]]);
-        if (array_key_exists($keys[13], $arr)) $this->setPacienteFechanacimiento($arr[$keys[13]]);
-        if (array_key_exists($keys[14], $arr)) $this->setPacienteSexo($arr[$keys[14]]);
-        if (array_key_exists($keys[15], $arr)) $this->setPacienteEstadocivil($arr[$keys[15]]);
-        if (array_key_exists($keys[16], $arr)) $this->setPacienteOcupacion($arr[$keys[16]]);
-        if (array_key_exists($keys[17], $arr)) $this->setPacienteConyuge($arr[$keys[17]]);
-        if (array_key_exists($keys[18], $arr)) $this->setPacientePadre($arr[$keys[18]]);
-        if (array_key_exists($keys[19], $arr)) $this->setPacienteMadre($arr[$keys[19]]);
-        if (array_key_exists($keys[20], $arr)) $this->setPacienteResponsable($arr[$keys[20]]);
-        if (array_key_exists($keys[21], $arr)) $this->setPacienteTelefonoresponsable($arr[$keys[21]]);
+        if (array_key_exists($keys[8], $arr)) $this->setPacienteCodigopostal($arr[$keys[8]]);
+        if (array_key_exists($keys[9], $arr)) $this->setPacienteCiudad($arr[$keys[9]]);
+        if (array_key_exists($keys[10], $arr)) $this->setPacienteEstado($arr[$keys[10]]);
+        if (array_key_exists($keys[11], $arr)) $this->setPacientePais($arr[$keys[11]]);
+        if (array_key_exists($keys[12], $arr)) $this->setPacienteTelefono($arr[$keys[12]]);
+        if (array_key_exists($keys[13], $arr)) $this->setPacienteTelefonocelular($arr[$keys[13]]);
+        if (array_key_exists($keys[14], $arr)) $this->setPacienteFechanacimiento($arr[$keys[14]]);
+        if (array_key_exists($keys[15], $arr)) $this->setPacienteSexo($arr[$keys[15]]);
+        if (array_key_exists($keys[16], $arr)) $this->setPacienteEstadocivil($arr[$keys[16]]);
+        if (array_key_exists($keys[17], $arr)) $this->setPacienteOcupacion($arr[$keys[17]]);
+        if (array_key_exists($keys[18], $arr)) $this->setPacienteConyuge($arr[$keys[18]]);
+        if (array_key_exists($keys[19], $arr)) $this->setPacientePadre($arr[$keys[19]]);
+        if (array_key_exists($keys[20], $arr)) $this->setPacienteMadre($arr[$keys[20]]);
+        if (array_key_exists($keys[21], $arr)) $this->setPacienteResponsable($arr[$keys[21]]);
+        if (array_key_exists($keys[22], $arr)) $this->setPacienteTelefonoresponsable($arr[$keys[22]]);
     }
 
     /**
@@ -1967,6 +2020,7 @@ abstract class BasePaciente extends BaseObject implements Persistent
         if ($this->isColumnModified(PacientePeer::PACIENTE_NOEXTERIOR)) $criteria->add(PacientePeer::PACIENTE_NOEXTERIOR, $this->paciente_noexterior);
         if ($this->isColumnModified(PacientePeer::PACIENTE_NOINTERIOR)) $criteria->add(PacientePeer::PACIENTE_NOINTERIOR, $this->paciente_nointerior);
         if ($this->isColumnModified(PacientePeer::PACIENTE_COLONIA)) $criteria->add(PacientePeer::PACIENTE_COLONIA, $this->paciente_colonia);
+        if ($this->isColumnModified(PacientePeer::PACIENTE_CODIGOPOSTAL)) $criteria->add(PacientePeer::PACIENTE_CODIGOPOSTAL, $this->paciente_codigopostal);
         if ($this->isColumnModified(PacientePeer::PACIENTE_CIUDAD)) $criteria->add(PacientePeer::PACIENTE_CIUDAD, $this->paciente_ciudad);
         if ($this->isColumnModified(PacientePeer::PACIENTE_ESTADO)) $criteria->add(PacientePeer::PACIENTE_ESTADO, $this->paciente_estado);
         if ($this->isColumnModified(PacientePeer::PACIENTE_PAIS)) $criteria->add(PacientePeer::PACIENTE_PAIS, $this->paciente_pais);
@@ -2051,6 +2105,7 @@ abstract class BasePaciente extends BaseObject implements Persistent
         $copyObj->setPacienteNoexterior($this->getPacienteNoexterior());
         $copyObj->setPacienteNointerior($this->getPacienteNointerior());
         $copyObj->setPacienteColonia($this->getPacienteColonia());
+        $copyObj->setPacienteCodigopostal($this->getPacienteCodigopostal());
         $copyObj->setPacienteCiudad($this->getPacienteCiudad());
         $copyObj->setPacienteEstado($this->getPacienteEstado());
         $copyObj->setPacientePais($this->getPacientePais());
@@ -2948,10 +3003,10 @@ abstract class BasePaciente extends BaseObject implements Persistent
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Consulta[] List of Consulta objects
      */
-    public function getConsultasJoinCuarto($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getConsultasJoinConsultorio($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = ConsultaQuery::create(null, $criteria);
-        $query->joinWith('Cuarto', $join_behavior);
+        $query->joinWith('Consultorio', $join_behavior);
 
         return $this->getConsultas($query, $con);
     }
@@ -3469,6 +3524,7 @@ abstract class BasePaciente extends BaseObject implements Persistent
         $this->paciente_noexterior = null;
         $this->paciente_nointerior = null;
         $this->paciente_colonia = null;
+        $this->paciente_codigopostal = null;
         $this->paciente_ciudad = null;
         $this->paciente_estado = null;
         $this->paciente_pais = null;

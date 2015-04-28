@@ -16,6 +16,8 @@ use Articulo;
 use ArticuloQuery;
 use BasePeer;
 use TipoQuery;
+use Propiedad;
+use Propiedadvalor;
 
 class ArticuloController extends AbstractActionController
 {
@@ -34,13 +36,9 @@ class ArticuloController extends AbstractActionController
         //Intanciamos nuestro formulario de Articulo
         $articuloForm = new ArticuloForm($tipoArray);
         
-        //Instanciamos nuestro Formulario de Propiedades y Propiedad Valor
-        
         if ($request->isPost()) { //Si hicieron POST
-            echo "entro";
-            echo '<pre>';
-                        var_dump($_POST);echo'</pre>';
-            //Instanciamos nuestro filtro
+            
+            //Instanciamos nuestro filtro de articulo
             $articuloFilter = new ArticuloFilter();
 
             //Le ponemos nuestro filtro a nuesto fromulario
@@ -48,10 +46,10 @@ class ArticuloController extends AbstractActionController
             
             //Le ponemos los datos a nuestro formulario
             $articuloForm->setData($request->getPost());
-            
-            //Validamos nuestro formulario
-            if($articuloForm->isValid()){
-                
+
+            //Validamos nuestro formulario de articulo
+            if($articuloForm->isValid()){ 
+                var_dump($_POST);
                 //Instanciamos un nuevo objeto de nuestro objeto Articulo
                 $articulo = new Articulo();
                 
@@ -60,16 +58,39 @@ class ArticuloController extends AbstractActionController
                     $articulo->setByName($articuloKey, $articuloValue, \BasePeer::TYPE_FIELDNAME);
                 }
                 
-                //Guardamos en nuestra base de datos
-                //$articulo->save();
+                //Guardamos en nuestra base de datos Articulo
+                $articulo->save();
                 
+                //Verificamos si nos enviaron propiedades
+                foreach($_POST as $key => $value){
+                    if(strstr($key, 'propiedad') && $value['nombre'] != null){                      
+                        //Guardamos las propiedades
+                        $propiedad = new \Propiedad();
+                        $propiedad->setIdarticulo($articulo->getIdarticulo());
+                        $propiedad->setPropiedadNombre($value["nombre"]);
+                        $propiedad->save();
+                        
+                        //Guardamos las variantes de la propiedad
+                        foreach ($value as $varianteKey => $varianteValue){                            
+                            if($varianteKey !== "nombre" && $varianteValue !=null){                           
+                                $variante = new \Propiedadvalor();
+                                $variante->setIdarticulo($articulo->getIdarticulo());
+                                $variante->setIdpropiedad($propiedad->getIdpropiedad());
+                                $variante->setPropiedadvalorNombre($varianteValue);
+                                $variante->save();
+                            }
+                        }          
+                    }
+                }
+
                 //Agregamos un mensaje
                 $this->flashMessenger()->addMessage('Articulo guardado exitosamente!');
                 
                 //Redireccionamos a nuestro list
-                //return $this->redirect()->toRoute('articulo');
+                return $this->redirect()->toRoute('articulo');
                 
             }
+            
         }
         
         return new ViewModel(array(
@@ -86,7 +107,8 @@ class ArticuloController extends AbstractActionController
 
         $dataCollection = $result->getResults();
         
-
+        //Verificamos si el producto tiene porpiedades
+        
         return new ViewModel(array(
             'articulos' => $dataCollection,
             'flashMessages' => $this->flashMessenger()->getMessages(),
@@ -148,12 +170,15 @@ class ArticuloController extends AbstractActionController
                     
                     //Guardamos en nuestra base de datos
                     $articulo->save();
+                    
+                    //Guardamos las propiedades
+                    echo '<pre>';var_dump($_POST); echo '</pre>';
 
                     //Agregamos un mensaje
                     $this->flashMessenger()->addMessage('Articulo guardado exitosamente!');
 
                     //Redireccionamos a nuestro list
-                    return $this->redirect()->toRoute('articulo');
+                    //return $this->redirect()->toRoute('articulo');
 
                 }else{
                     
@@ -182,8 +207,7 @@ class ArticuloController extends AbstractActionController
             return $this->redirect()->toRoute('articulo');
         }
         
-        
-            
+
             //Instanciamos nuestro articulo
             $articulo = ArticuloQuery::create()->findPk($id);
             
@@ -194,8 +218,6 @@ class ArticuloController extends AbstractActionController
 
             //Redireccionamos a nuestro list
             return $this->redirect()->toRoute('articulo');
-            
-        
 
     }
 }

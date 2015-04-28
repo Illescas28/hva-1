@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'cuarto' table.
+ * This class defines the structure of the 'consultorio' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.hva.map
  */
-class CuartoTableMap extends TableMap
+class ConsultorioTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'hva.map.CuartoTableMap';
+    const CLASS_NAME = 'hva.map.ConsultorioTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,17 +32,17 @@ class CuartoTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('cuarto');
-        $this->setPhpName('Cuarto');
-        $this->setClassname('Cuarto');
+        $this->setName('consultorio');
+        $this->setPhpName('Consultorio');
+        $this->setClassname('Consultorio');
         $this->setPackage('hva');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('idcuarto', 'Idcuarto', 'INTEGER', true, null, null);
-        $this->addColumn('cuarto_nombre', 'CuartoNombre', 'VARCHAR', true, 300, null);
-        $this->addColumn('cuarto_descripcion', 'CuartoDescripcion', 'LONGVARCHAR', true, null, null);
-        $this->addColumn('cuarto_enuso', 'CuartoEnuso', 'BOOLEAN', true, 1, null);
-        $this->addColumn('cuarto_extension', 'CuartoExtension', 'VARCHAR', false, 45, null);
+        $this->addPrimaryKey('idconsultorio', 'Idconsultorio', 'INTEGER', true, null, null);
+        $this->addColumn('consultorio_nombre', 'ConsultorioNombre', 'VARCHAR', true, 300, null);
+        $this->addColumn('consultorio_descripcion', 'ConsultorioDescripcion', 'LONGVARCHAR', true, null, null);
+        $this->addColumn('consultorio_enuso', 'ConsultorioEnuso', 'BOOLEAN', true, 1, null);
+        $this->addColumn('consultorio_extension', 'ConsultorioExtension', 'VARCHAR', false, 45, null);
         // validators
     } // initialize()
 
@@ -51,7 +51,7 @@ class CuartoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Admision', 'Admision', RelationMap::ONE_TO_MANY, array('idcuarto' => 'idcuarto', ), 'CASCADE', 'CASCADE', 'Admisions');
+        $this->addRelation('Consulta', 'Consulta', RelationMap::ONE_TO_MANY, array('idconsultorio' => 'idconsultorio', ), 'CASCADE', 'CASCADE', 'Consultas');
     } // buildRelations()
 
-} // CuartoTableMap
+} // ConsultorioTableMap

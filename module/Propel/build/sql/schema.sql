@@ -416,7 +416,7 @@ CREATE TABLE `consulta`
     `idconsulta` INTEGER NOT NULL,
     `idpaciente` INTEGER NOT NULL,
     `idmedico` INTEGER NOT NULL,
-    `idcuarto` INTEGER NOT NULL,
+    `idconsultorio` INTEGER NOT NULL,
     `consulta_fechaadmision` DATETIME NOT NULL,
     `consulta_fechasalida` DATETIME,
     `consulta_diagnostico` TEXT,
@@ -426,10 +426,10 @@ CREATE TABLE `consulta`
     PRIMARY KEY (`idconsulta`),
     INDEX `idmedico` (`idmedico`),
     INDEX `idpaciente` (`idpaciente`),
-    INDEX `idcuarto` (`idcuarto`),
-    CONSTRAINT `idcuarto_consulta`
-        FOREIGN KEY (`idcuarto`)
-        REFERENCES `cuarto` (`idcuarto`)
+    INDEX `idconsultorio` (`idconsultorio`),
+    CONSTRAINT `idconsultorio_consulta`
+        FOREIGN KEY (`idconsultorio`)
+        REFERENCES `consultorio` (`idconsultorio`)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT `idmedico_consulta`
@@ -464,6 +464,22 @@ CREATE TABLE `consultaanticipo`
         REFERENCES `consulta` (`idconsulta`)
         ON UPDATE CASCADE
         ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- consultorio
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `consultorio`;
+
+CREATE TABLE `consultorio`
+(
+    `idconsultorio` INTEGER NOT NULL AUTO_INCREMENT,
+    `consultorio_nombre` VARCHAR(300) NOT NULL,
+    `consultorio_descripcion` TEXT NOT NULL,
+    `consultorio_enuso` TINYINT(1) NOT NULL,
+    `consultorio_extension` VARCHAR(45),
+    PRIMARY KEY (`idconsultorio`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -826,6 +842,7 @@ CREATE TABLE `paciente`
     `paciente_noexterior` VARCHAR(45) NOT NULL,
     `paciente_nointerior` VARCHAR(45) NOT NULL,
     `paciente_colonia` VARCHAR(45) NOT NULL,
+    `paciente_codigopostal` VARCHAR(5) NOT NULL,
     `paciente_ciudad` VARCHAR(45) NOT NULL,
     `paciente_estado` VARCHAR(45) NOT NULL,
     `paciente_pais` VARCHAR(45) NOT NULL,
@@ -882,7 +899,7 @@ DROP TABLE IF EXISTS `propiedad`;
 
 CREATE TABLE `propiedad`
 (
-    `idpropiedad` INTEGER NOT NULL,
+    `idpropiedad` INTEGER NOT NULL AUTO_INCREMENT,
     `idarticulo` INTEGER NOT NULL,
     `propiedad_nombre` VARCHAR(100) NOT NULL,
     PRIMARY KEY (`idpropiedad`),

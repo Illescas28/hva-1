@@ -14,6 +14,7 @@
  * @method PacienteQuery orderByPacienteNoexterior($order = Criteria::ASC) Order by the paciente_noexterior column
  * @method PacienteQuery orderByPacienteNointerior($order = Criteria::ASC) Order by the paciente_nointerior column
  * @method PacienteQuery orderByPacienteColonia($order = Criteria::ASC) Order by the paciente_colonia column
+ * @method PacienteQuery orderByPacienteCodigopostal($order = Criteria::ASC) Order by the paciente_codigopostal column
  * @method PacienteQuery orderByPacienteCiudad($order = Criteria::ASC) Order by the paciente_ciudad column
  * @method PacienteQuery orderByPacienteEstado($order = Criteria::ASC) Order by the paciente_estado column
  * @method PacienteQuery orderByPacientePais($order = Criteria::ASC) Order by the paciente_pais column
@@ -37,6 +38,7 @@
  * @method PacienteQuery groupByPacienteNoexterior() Group by the paciente_noexterior column
  * @method PacienteQuery groupByPacienteNointerior() Group by the paciente_nointerior column
  * @method PacienteQuery groupByPacienteColonia() Group by the paciente_colonia column
+ * @method PacienteQuery groupByPacienteCodigopostal() Group by the paciente_codigopostal column
  * @method PacienteQuery groupByPacienteCiudad() Group by the paciente_ciudad column
  * @method PacienteQuery groupByPacienteEstado() Group by the paciente_estado column
  * @method PacienteQuery groupByPacientePais() Group by the paciente_pais column
@@ -86,6 +88,7 @@
  * @method Paciente findOneByPacienteNoexterior(string $paciente_noexterior) Return the first Paciente filtered by the paciente_noexterior column
  * @method Paciente findOneByPacienteNointerior(string $paciente_nointerior) Return the first Paciente filtered by the paciente_nointerior column
  * @method Paciente findOneByPacienteColonia(string $paciente_colonia) Return the first Paciente filtered by the paciente_colonia column
+ * @method Paciente findOneByPacienteCodigopostal(string $paciente_codigopostal) Return the first Paciente filtered by the paciente_codigopostal column
  * @method Paciente findOneByPacienteCiudad(string $paciente_ciudad) Return the first Paciente filtered by the paciente_ciudad column
  * @method Paciente findOneByPacienteEstado(string $paciente_estado) Return the first Paciente filtered by the paciente_estado column
  * @method Paciente findOneByPacientePais(string $paciente_pais) Return the first Paciente filtered by the paciente_pais column
@@ -109,6 +112,7 @@
  * @method array findByPacienteNoexterior(string $paciente_noexterior) Return Paciente objects filtered by the paciente_noexterior column
  * @method array findByPacienteNointerior(string $paciente_nointerior) Return Paciente objects filtered by the paciente_nointerior column
  * @method array findByPacienteColonia(string $paciente_colonia) Return Paciente objects filtered by the paciente_colonia column
+ * @method array findByPacienteCodigopostal(string $paciente_codigopostal) Return Paciente objects filtered by the paciente_codigopostal column
  * @method array findByPacienteCiudad(string $paciente_ciudad) Return Paciente objects filtered by the paciente_ciudad column
  * @method array findByPacienteEstado(string $paciente_estado) Return Paciente objects filtered by the paciente_estado column
  * @method array findByPacientePais(string $paciente_pais) Return Paciente objects filtered by the paciente_pais column
@@ -230,7 +234,7 @@ abstract class BasePacienteQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `idpaciente`, `paciente_nombre`, `paciente_ap`, `paciente_am`, `paciente_calle`, `paciente_noexterior`, `paciente_nointerior`, `paciente_colonia`, `paciente_ciudad`, `paciente_estado`, `paciente_pais`, `paciente_telefono`, `paciente_telefonocelular`, `paciente_fechanacimiento`, `paciente_sexo`, `paciente_estadocivil`, `paciente_ocupacion`, `paciente_conyuge`, `paciente_padre`, `paciente_madre`, `paciente_responsable`, `paciente_telefonoresponsable` FROM `paciente` WHERE `idpaciente` = :p0';
+        $sql = 'SELECT `idpaciente`, `paciente_nombre`, `paciente_ap`, `paciente_am`, `paciente_calle`, `paciente_noexterior`, `paciente_nointerior`, `paciente_colonia`, `paciente_codigopostal`, `paciente_ciudad`, `paciente_estado`, `paciente_pais`, `paciente_telefono`, `paciente_telefonocelular`, `paciente_fechanacimiento`, `paciente_sexo`, `paciente_estadocivil`, `paciente_ocupacion`, `paciente_conyuge`, `paciente_padre`, `paciente_madre`, `paciente_responsable`, `paciente_telefonoresponsable` FROM `paciente` WHERE `idpaciente` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -562,6 +566,35 @@ abstract class BasePacienteQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PacientePeer::PACIENTE_COLONIA, $pacienteColonia, $comparison);
+    }
+
+    /**
+     * Filter the query on the paciente_codigopostal column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPacienteCodigopostal('fooValue');   // WHERE paciente_codigopostal = 'fooValue'
+     * $query->filterByPacienteCodigopostal('%fooValue%'); // WHERE paciente_codigopostal LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $pacienteCodigopostal The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return PacienteQuery The current query, for fluid interface
+     */
+    public function filterByPacienteCodigopostal($pacienteCodigopostal = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($pacienteCodigopostal)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $pacienteCodigopostal)) {
+                $pacienteCodigopostal = str_replace('*', '%', $pacienteCodigopostal);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(PacientePeer::PACIENTE_CODIGOPOSTAL, $pacienteCodigopostal, $comparison);
     }
 
     /**

@@ -54,8 +54,19 @@ class MedicoController extends AbstractActionController
                 foreach ($medicoForm->getData() as $medicoKey => $medicoValue){
                     $medico->setByName($medicoKey, $medicoValue, \BasePeer::TYPE_FIELDNAME);
                 }
-                
+                         
                 //Guardamos en nuestra base de datos
+                $medico->save();
+                
+                //Verificamos si el perfil esta competo
+                $perfilcompleto = true;
+                $excludedColumns = array('medico_perfilcompleto','medico_nointerior','medico_fotografia');
+                foreach ($medico->toArray(BasePeer::TYPE_FIELDNAME) as $key => $value){
+                    if(empty($value) && !in_array($key, $excludedColumns)){
+                        $perfilcompleto = false;
+                    }    
+                }
+                $medico->setMedicoPerfilcompleto($perfilcompleto);
                 $medico->save();
                 
                 //Agregamos un mensaje
@@ -65,6 +76,7 @@ class MedicoController extends AbstractActionController
                 return $this->redirect()->toRoute('medico');
                 
             }
+            var_dump($medicoForm->getMessages());
         }
         
         return new ViewModel(array(

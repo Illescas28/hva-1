@@ -17,7 +17,7 @@ class ArticuloForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Tipo',
-                'empty_option' => 'Seleccione el Tipo de Articulo',
+                'empty_option' => 'Seleccione el tipo de articulo *',
                 'value_options' => $tipos,
             ),
         ));
@@ -25,7 +25,7 @@ class ArticuloForm extends Form
             'name' => 'articulo_nombre',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
             ),
         ));
         $this->add(array(
@@ -35,6 +35,6 @@ class ArticuloForm extends Form
                 'label' => 'Descripción',
             ),
         ));
-
+        
     }
 }

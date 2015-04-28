@@ -110,7 +110,7 @@ class MedicoForm extends Form
             'name' => 'medico_telefonocelular',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Celular',
+                'label' => 'Celular *',
             ),
         ));
         $this->add(array(
@@ -124,7 +124,7 @@ class MedicoForm extends Form
             'name' => 'medico_dgp',
             'type' => 'Text',
             'options' => array(
-                'label' => 'D.G.P',
+                'label' => 'D.G.P *',
             ),
         ));
         $this->add(array(

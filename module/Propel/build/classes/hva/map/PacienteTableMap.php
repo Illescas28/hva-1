@@ -46,6 +46,7 @@ class PacienteTableMap extends TableMap
         $this->addColumn('paciente_noexterior', 'PacienteNoexterior', 'VARCHAR', true, 45, null);
         $this->addColumn('paciente_nointerior', 'PacienteNointerior', 'VARCHAR', true, 45, null);
         $this->addColumn('paciente_colonia', 'PacienteColonia', 'VARCHAR', true, 45, null);
+        $this->addColumn('paciente_codigopostal', 'PacienteCodigopostal', 'VARCHAR', true, 5, null);
         $this->addColumn('paciente_ciudad', 'PacienteCiudad', 'VARCHAR', true, 45, null);
         $this->addColumn('paciente_estado', 'PacienteEstado', 'VARCHAR', true, 45, null);
         $this->addColumn('paciente_pais', 'PacientePais', 'VARCHAR', true, 45, null);

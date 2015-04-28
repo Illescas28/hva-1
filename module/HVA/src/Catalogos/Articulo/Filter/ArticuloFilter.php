@@ -68,6 +68,8 @@ class ArticuloFilter implements InputFilterAwareInterface
                     ),
                 ),
             ));
+            
+
 
             $this->inputFilter = $inputFilter;
         }

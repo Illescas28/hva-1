@@ -2,53 +2,59 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'propiedad' table.
+ * Base static class for performing query and update operations on the 'consultorio' table.
  *
  *
  *
  * @package propel.generator.hva.om
  */
-abstract class BasePropiedadPeer
+abstract class BaseConsultorioPeer
 {
 
     /** the default database name for this class */
     const DATABASE_NAME = 'hva';
 
     /** the table name for this class */
-    const TABLE_NAME = 'propiedad';
+    const TABLE_NAME = 'consultorio';
 
     /** the related Propel class for this table */
-    const OM_CLASS = 'Propiedad';
+    const OM_CLASS = 'Consultorio';
 
     /** the related TableMap class for this table */
-    const TM_CLASS = 'PropiedadTableMap';
+    const TM_CLASS = 'ConsultorioTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 3;
+    const NUM_COLUMNS = 5;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 3;
+    const NUM_HYDRATE_COLUMNS = 5;
 
-    /** the column name for the idpropiedad field */
-    const IDPROPIEDAD = 'propiedad.idpropiedad';
+    /** the column name for the idconsultorio field */
+    const IDCONSULTORIO = 'consultorio.idconsultorio';
 
-    /** the column name for the idarticulo field */
-    const IDARTICULO = 'propiedad.idarticulo';
+    /** the column name for the consultorio_nombre field */
+    const CONSULTORIO_NOMBRE = 'consultorio.consultorio_nombre';
 
-    /** the column name for the propiedad_nombre field */
-    const PROPIEDAD_NOMBRE = 'propiedad.propiedad_nombre';
+    /** the column name for the consultorio_descripcion field */
+    const CONSULTORIO_DESCRIPCION = 'consultorio.consultorio_descripcion';
+
+    /** the column name for the consultorio_enuso field */
+    const CONSULTORIO_ENUSO = 'consultorio.consultorio_enuso';
+
+    /** the column name for the consultorio_extension field */
+    const CONSULTORIO_EXTENSION = 'consultorio.consultorio_extension';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
 
     /**
-     * An identity map to hold any loaded instances of Propiedad objects.
+     * An identity map to hold any loaded instances of Consultorio objects.
      * This must be public so that other peer classes can access this when hydrating from JOIN
      * queries.
-     * @var        array Propiedad[]
+     * @var        array Consultorio[]
      */
     public static $instances = array();
 
@@ -57,30 +63,30 @@ abstract class BasePropiedadPeer
      * holds an array of fieldnames
      *
      * first dimension keys are the type constants
-     * e.g. PropiedadPeer::$fieldNames[PropiedadPeer::TYPE_PHPNAME][0] = 'Id'
+     * e.g. ConsultorioPeer::$fieldNames[ConsultorioPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Idpropiedad', 'Idarticulo', 'PropiedadNombre', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idpropiedad', 'idarticulo', 'propiedadNombre', ),
-        BasePeer::TYPE_COLNAME => array (PropiedadPeer::IDPROPIEDAD, PropiedadPeer::IDARTICULO, PropiedadPeer::PROPIEDAD_NOMBRE, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDPROPIEDAD', 'IDARTICULO', 'PROPIEDAD_NOMBRE', ),
-        BasePeer::TYPE_FIELDNAME => array ('idpropiedad', 'idarticulo', 'propiedad_nombre', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, )
+        BasePeer::TYPE_PHPNAME => array ('Idconsultorio', 'ConsultorioNombre', 'ConsultorioDescripcion', 'ConsultorioEnuso', 'ConsultorioExtension', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idconsultorio', 'consultorioNombre', 'consultorioDescripcion', 'consultorioEnuso', 'consultorioExtension', ),
+        BasePeer::TYPE_COLNAME => array (ConsultorioPeer::IDCONSULTORIO, ConsultorioPeer::CONSULTORIO_NOMBRE, ConsultorioPeer::CONSULTORIO_DESCRIPCION, ConsultorioPeer::CONSULTORIO_ENUSO, ConsultorioPeer::CONSULTORIO_EXTENSION, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDCONSULTORIO', 'CONSULTORIO_NOMBRE', 'CONSULTORIO_DESCRIPCION', 'CONSULTORIO_ENUSO', 'CONSULTORIO_EXTENSION', ),
+        BasePeer::TYPE_FIELDNAME => array ('idconsultorio', 'consultorio_nombre', 'consultorio_descripcion', 'consultorio_enuso', 'consultorio_extension', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
     );
 
     /**
      * holds an array of keys for quick access to the fieldnames array
      *
      * first dimension keys are the type constants
-     * e.g. PropiedadPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
+     * e.g. ConsultorioPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Idpropiedad' => 0, 'Idarticulo' => 1, 'PropiedadNombre' => 2, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idpropiedad' => 0, 'idarticulo' => 1, 'propiedadNombre' => 2, ),
-        BasePeer::TYPE_COLNAME => array (PropiedadPeer::IDPROPIEDAD => 0, PropiedadPeer::IDARTICULO => 1, PropiedadPeer::PROPIEDAD_NOMBRE => 2, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('IDPROPIEDAD' => 0, 'IDARTICULO' => 1, 'PROPIEDAD_NOMBRE' => 2, ),
-        BasePeer::TYPE_FIELDNAME => array ('idpropiedad' => 0, 'idarticulo' => 1, 'propiedad_nombre' => 2, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, )
+        BasePeer::TYPE_PHPNAME => array ('Idconsultorio' => 0, 'ConsultorioNombre' => 1, 'ConsultorioDescripcion' => 2, 'ConsultorioEnuso' => 3, 'ConsultorioExtension' => 4, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idconsultorio' => 0, 'consultorioNombre' => 1, 'consultorioDescripcion' => 2, 'consultorioEnuso' => 3, 'consultorioExtension' => 4, ),
+        BasePeer::TYPE_COLNAME => array (ConsultorioPeer::IDCONSULTORIO => 0, ConsultorioPeer::CONSULTORIO_NOMBRE => 1, ConsultorioPeer::CONSULTORIO_DESCRIPCION => 2, ConsultorioPeer::CONSULTORIO_ENUSO => 3, ConsultorioPeer::CONSULTORIO_EXTENSION => 4, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('IDCONSULTORIO' => 0, 'CONSULTORIO_NOMBRE' => 1, 'CONSULTORIO_DESCRIPCION' => 2, 'CONSULTORIO_ENUSO' => 3, 'CONSULTORIO_EXTENSION' => 4, ),
+        BasePeer::TYPE_FIELDNAME => array ('idconsultorio' => 0, 'consultorio_nombre' => 1, 'consultorio_descripcion' => 2, 'consultorio_enuso' => 3, 'consultorio_extension' => 4, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
     );
 
     /**
@@ -95,10 +101,10 @@ abstract class BasePropiedadPeer
      */
     public static function translateFieldName($name, $fromType, $toType)
     {
-        $toNames = PropiedadPeer::getFieldNames($toType);
-        $key = isset(PropiedadPeer::$fieldKeys[$fromType][$name]) ? PropiedadPeer::$fieldKeys[$fromType][$name] : null;
+        $toNames = ConsultorioPeer::getFieldNames($toType);
+        $key = isset(ConsultorioPeer::$fieldKeys[$fromType][$name]) ? ConsultorioPeer::$fieldKeys[$fromType][$name] : null;
         if ($key === null) {
-            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(PropiedadPeer::$fieldKeys[$fromType], true));
+            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(ConsultorioPeer::$fieldKeys[$fromType], true));
         }
 
         return $toNames[$key];
@@ -115,11 +121,11 @@ abstract class BasePropiedadPeer
      */
     public static function getFieldNames($type = BasePeer::TYPE_PHPNAME)
     {
-        if (!array_key_exists($type, PropiedadPeer::$fieldNames)) {
+        if (!array_key_exists($type, ConsultorioPeer::$fieldNames)) {
             throw new PropelException('Method getFieldNames() expects the parameter $type to be one of the class constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME, BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM. ' . $type . ' was given.');
         }
 
-        return PropiedadPeer::$fieldNames[$type];
+        return ConsultorioPeer::$fieldNames[$type];
     }
 
     /**
@@ -131,12 +137,12 @@ abstract class BasePropiedadPeer
      *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
      * </code>
      * @param      string $alias The alias for the current table.
-     * @param      string $column The column name for current table. (i.e. PropiedadPeer::COLUMN_NAME).
+     * @param      string $column The column name for current table. (i.e. ConsultorioPeer::COLUMN_NAME).
      * @return string
      */
     public static function alias($alias, $column)
     {
-        return str_replace(PropiedadPeer::TABLE_NAME.'.', $alias.'.', $column);
+        return str_replace(ConsultorioPeer::TABLE_NAME.'.', $alias.'.', $column);
     }
 
     /**
@@ -154,13 +160,17 @@ abstract class BasePropiedadPeer
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(PropiedadPeer::IDPROPIEDAD);
-            $criteria->addSelectColumn(PropiedadPeer::IDARTICULO);
-            $criteria->addSelectColumn(PropiedadPeer::PROPIEDAD_NOMBRE);
+            $criteria->addSelectColumn(ConsultorioPeer::IDCONSULTORIO);
+            $criteria->addSelectColumn(ConsultorioPeer::CONSULTORIO_NOMBRE);
+            $criteria->addSelectColumn(ConsultorioPeer::CONSULTORIO_DESCRIPCION);
+            $criteria->addSelectColumn(ConsultorioPeer::CONSULTORIO_ENUSO);
+            $criteria->addSelectColumn(ConsultorioPeer::CONSULTORIO_EXTENSION);
         } else {
-            $criteria->addSelectColumn($alias . '.idpropiedad');
-            $criteria->addSelectColumn($alias . '.idarticulo');
-            $criteria->addSelectColumn($alias . '.propiedad_nombre');
+            $criteria->addSelectColumn($alias . '.idconsultorio');
+            $criteria->addSelectColumn($alias . '.consultorio_nombre');
+            $criteria->addSelectColumn($alias . '.consultorio_descripcion');
+            $criteria->addSelectColumn($alias . '.consultorio_enuso');
+            $criteria->addSelectColumn($alias . '.consultorio_extension');
         }
     }
 
@@ -180,21 +190,21 @@ abstract class BasePropiedadPeer
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PropiedadPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(ConsultorioPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            PropiedadPeer::addSelectColumns($criteria);
+            ConsultorioPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME); // Set the correct dbName
+        $criteria->setDbName(ConsultorioPeer::DATABASE_NAME); // Set the correct dbName
 
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
         // BasePeer returns a PDOStatement
         $stmt = BasePeer::doCount($criteria, $con);
@@ -213,7 +223,7 @@ abstract class BasePropiedadPeer
      *
      * @param      Criteria $criteria object used to create the SELECT statement.
      * @param      PropelPDO $con
-     * @return Propiedad
+     * @return Consultorio
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -221,7 +231,7 @@ abstract class BasePropiedadPeer
     {
         $critcopy = clone $criteria;
         $critcopy->setLimit(1);
-        $objects = PropiedadPeer::doSelect($critcopy, $con);
+        $objects = ConsultorioPeer::doSelect($critcopy, $con);
         if ($objects) {
             return $objects[0];
         }
@@ -239,7 +249,7 @@ abstract class BasePropiedadPeer
      */
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-        return PropiedadPeer::populateObjects(PropiedadPeer::doSelectStmt($criteria, $con));
+        return ConsultorioPeer::populateObjects(ConsultorioPeer::doSelectStmt($criteria, $con));
     }
     /**
      * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -257,16 +267,16 @@ abstract class BasePropiedadPeer
     public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         if (!$criteria->hasSelectClause()) {
             $criteria = clone $criteria;
-            PropiedadPeer::addSelectColumns($criteria);
+            ConsultorioPeer::addSelectColumns($criteria);
         }
 
         // Set the correct dbName
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
+        $criteria->setDbName(ConsultorioPeer::DATABASE_NAME);
 
         // BasePeer returns a PDOStatement
         return BasePeer::doSelect($criteria, $con);
@@ -280,16 +290,16 @@ abstract class BasePropiedadPeer
      * to the cache in order to ensure that the same objects are always returned by doSelect*()
      * and retrieveByPK*() calls.
      *
-     * @param Propiedad $obj A Propiedad object.
+     * @param Consultorio $obj A Consultorio object.
      * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
      */
     public static function addInstanceToPool($obj, $key = null)
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getIdpropiedad();
+                $key = (string) $obj->getIdconsultorio();
             } // if key === null
-            PropiedadPeer::$instances[$key] = $obj;
+            ConsultorioPeer::$instances[$key] = $obj;
         }
     }
 
@@ -301,7 +311,7 @@ abstract class BasePropiedadPeer
      * methods in your stub classes -- you may need to explicitly remove objects
      * from the cache in order to prevent returning objects that no longer exist.
      *
-     * @param      mixed $value A Propiedad object or a primary key value.
+     * @param      mixed $value A Consultorio object or a primary key value.
      *
      * @return void
      * @throws PropelException - if the value is invalid.
@@ -309,17 +319,17 @@ abstract class BasePropiedadPeer
     public static function removeInstanceFromPool($value)
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
-            if (is_object($value) && $value instanceof Propiedad) {
-                $key = (string) $value->getIdpropiedad();
+            if (is_object($value) && $value instanceof Consultorio) {
+                $key = (string) $value->getIdconsultorio();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
             } else {
-                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Propiedad object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Consultorio object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
             }
 
-            unset(PropiedadPeer::$instances[$key]);
+            unset(ConsultorioPeer::$instances[$key]);
         }
     } // removeInstanceFromPool()
 
@@ -330,14 +340,14 @@ abstract class BasePropiedadPeer
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
      * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-     * @return Propiedad Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+     * @return Consultorio Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
      * @see        getPrimaryKeyHash()
      */
     public static function getInstanceFromPool($key)
     {
         if (Propel::isInstancePoolingEnabled()) {
-            if (isset(PropiedadPeer::$instances[$key])) {
-                return PropiedadPeer::$instances[$key];
+            if (isset(ConsultorioPeer::$instances[$key])) {
+                return ConsultorioPeer::$instances[$key];
             }
         }
 
@@ -352,25 +362,22 @@ abstract class BasePropiedadPeer
     public static function clearInstancePool($and_clear_all_references = false)
     {
       if ($and_clear_all_references) {
-        foreach (PropiedadPeer::$instances as $instance) {
+        foreach (ConsultorioPeer::$instances as $instance) {
           $instance->clearAllReferences(true);
         }
       }
-        PropiedadPeer::$instances = array();
+        ConsultorioPeer::$instances = array();
     }
 
     /**
-     * Method to invalidate the instance pool of all tables related to propiedad
+     * Method to invalidate the instance pool of all tables related to consultorio
      * by a foreign key with ON DELETE CASCADE
      */
     public static function clearRelatedInstancePool()
     {
-        // Invalidate objects in ArticulovariantevalorPeer instance pool,
+        // Invalidate objects in ConsultaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        ArticulovariantevalorPeer::clearInstancePool();
-        // Invalidate objects in PropiedadvalorPeer instance pool,
-        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        PropiedadvalorPeer::clearInstancePool();
+        ConsultaPeer::clearInstancePool();
     }
 
     /**
@@ -420,11 +427,11 @@ abstract class BasePropiedadPeer
         $results = array();
 
         // set the class once to avoid overhead in the loop
-        $cls = PropiedadPeer::getOMClass();
+        $cls = ConsultorioPeer::getOMClass();
         // populate the object(s)
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key = PropiedadPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj = PropiedadPeer::getInstanceFromPool($key))) {
+            $key = ConsultorioPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj = ConsultorioPeer::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
@@ -433,7 +440,7 @@ abstract class BasePropiedadPeer
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                PropiedadPeer::addInstanceToPool($obj, $key);
+                ConsultorioPeer::addInstanceToPool($obj, $key);
             } // if key exists
         }
         $stmt->closeCursor();
@@ -447,262 +454,24 @@ abstract class BasePropiedadPeer
      * @param      int $startcol The 0-based offset for reading from the resultset row.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
-     * @return array (Propiedad object, last column rank)
+     * @return array (Consultorio object, last column rank)
      */
     public static function populateObject($row, $startcol = 0)
     {
-        $key = PropiedadPeer::getPrimaryKeyHashFromRow($row, $startcol);
-        if (null !== ($obj = PropiedadPeer::getInstanceFromPool($key))) {
+        $key = ConsultorioPeer::getPrimaryKeyHashFromRow($row, $startcol);
+        if (null !== ($obj = ConsultorioPeer::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $startcol, true); // rehydrate
-            $col = $startcol + PropiedadPeer::NUM_HYDRATE_COLUMNS;
+            $col = $startcol + ConsultorioPeer::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = PropiedadPeer::OM_CLASS;
+            $cls = ConsultorioPeer::OM_CLASS;
             $obj = new $cls();
             $col = $obj->hydrate($row, $startcol);
-            PropiedadPeer::addInstanceToPool($obj, $key);
+            ConsultorioPeer::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining the related Articulo table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinArticulo(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PropiedadPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            PropiedadPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(PropiedadPeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
-     * Selects a collection of Propiedad objects pre-filled with their Articulo objects.
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Propiedad objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinArticulo(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
-        }
-
-        PropiedadPeer::addSelectColumns($criteria);
-        $startcol = PropiedadPeer::NUM_HYDRATE_COLUMNS;
-        ArticuloPeer::addSelectColumns($criteria);
-
-        $criteria->addJoin(PropiedadPeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PropiedadPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PropiedadPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-
-                $cls = PropiedadPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PropiedadPeer::addInstanceToPool($obj1, $key1);
-            } // if $obj1 already loaded
-
-            $key2 = ArticuloPeer::getPrimaryKeyHashFromRow($row, $startcol);
-            if ($key2 !== null) {
-                $obj2 = ArticuloPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = ArticuloPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol);
-                    ArticuloPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 already loaded
-
-                // Add the $obj1 (Propiedad) to $obj2 (Articulo)
-                $obj2->addPropiedad($obj1);
-
-            } // if joined row was not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining all related tables
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAll(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PropiedadPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            PropiedadPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(PropiedadPeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-    /**
-     * Selects a collection of Propiedad objects pre-filled with all related objects.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Propiedad objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAll(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
-        }
-
-        PropiedadPeer::addSelectColumns($criteria);
-        $startcol2 = PropiedadPeer::NUM_HYDRATE_COLUMNS;
-
-        ArticuloPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + ArticuloPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(PropiedadPeer::IDARTICULO, ArticuloPeer::IDARTICULO, $join_behavior);
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PropiedadPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PropiedadPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = PropiedadPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PropiedadPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-            // Add objects for joined Articulo rows
-
-            $key2 = ArticuloPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-            if ($key2 !== null) {
-                $obj2 = ArticuloPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = ArticuloPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    ArticuloPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 loaded
-
-                // Add the $obj1 (Propiedad) to the collection in $obj2 (Articulo)
-                $obj2->addPropiedad($obj1);
-            } // if joined row not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
     }
 
     /**
@@ -714,7 +483,7 @@ abstract class BasePropiedadPeer
      */
     public static function getTableMap()
     {
-        return Propel::getDatabaseMap(PropiedadPeer::DATABASE_NAME)->getTable(PropiedadPeer::TABLE_NAME);
+        return Propel::getDatabaseMap(ConsultorioPeer::DATABASE_NAME)->getTable(ConsultorioPeer::TABLE_NAME);
     }
 
     /**
@@ -722,9 +491,9 @@ abstract class BasePropiedadPeer
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getDatabaseMap(BasePropiedadPeer::DATABASE_NAME);
-      if (!$dbMap->hasTable(BasePropiedadPeer::TABLE_NAME)) {
-        $dbMap->addTableObject(new \PropiedadTableMap());
+      $dbMap = Propel::getDatabaseMap(BaseConsultorioPeer::DATABASE_NAME);
+      if (!$dbMap->hasTable(BaseConsultorioPeer::TABLE_NAME)) {
+        $dbMap->addTableObject(new \ConsultorioTableMap());
       }
     }
 
@@ -736,13 +505,13 @@ abstract class BasePropiedadPeer
      */
     public static function getOMClass($row = 0, $colnum = 0)
     {
-        return PropiedadPeer::OM_CLASS;
+        return ConsultorioPeer::OM_CLASS;
     }
 
     /**
-     * Performs an INSERT on the database, given a Propiedad or Criteria object.
+     * Performs an INSERT on the database, given a Consultorio or Criteria object.
      *
-     * @param      mixed $values Criteria or Propiedad object containing data that is used to create the INSERT statement.
+     * @param      mixed $values Criteria or Consultorio object containing data that is used to create the INSERT statement.
      * @param      PropelPDO $con the PropelPDO connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -751,22 +520,22 @@ abstract class BasePropiedadPeer
     public static function doInsert($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
         } else {
-            $criteria = $values->buildCriteria(); // build Criteria from Propiedad object
+            $criteria = $values->buildCriteria(); // build Criteria from Consultorio object
         }
 
-        if ($criteria->containsKey(PropiedadPeer::IDPROPIEDAD) && $criteria->keyContainsValue(PropiedadPeer::IDPROPIEDAD) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PropiedadPeer::IDPROPIEDAD.')');
+        if ($criteria->containsKey(ConsultorioPeer::IDCONSULTORIO) && $criteria->keyContainsValue(ConsultorioPeer::IDCONSULTORIO) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ConsultorioPeer::IDCONSULTORIO.')');
         }
 
 
         // Set the correct dbName
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
+        $criteria->setDbName(ConsultorioPeer::DATABASE_NAME);
 
         try {
             // use transaction because $criteria could contain info
@@ -783,9 +552,9 @@ abstract class BasePropiedadPeer
     }
 
     /**
-     * Performs an UPDATE on the database, given a Propiedad or Criteria object.
+     * Performs an UPDATE on the database, given a Consultorio or Criteria object.
      *
-     * @param      mixed $values Criteria or Propiedad object containing data that is used to create the UPDATE statement.
+     * @param      mixed $values Criteria or Consultorio object containing data that is used to create the UPDATE statement.
      * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
      * @return int             The number of affected rows (if supported by underlying database driver).
      * @throws PropelException Any exceptions caught during processing will be
@@ -794,35 +563,35 @@ abstract class BasePropiedadPeer
     public static function doUpdate($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
-        $selectCriteria = new Criteria(PropiedadPeer::DATABASE_NAME);
+        $selectCriteria = new Criteria(ConsultorioPeer::DATABASE_NAME);
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(PropiedadPeer::IDPROPIEDAD);
-            $value = $criteria->remove(PropiedadPeer::IDPROPIEDAD);
+            $comparison = $criteria->getComparison(ConsultorioPeer::IDCONSULTORIO);
+            $value = $criteria->remove(ConsultorioPeer::IDCONSULTORIO);
             if ($value) {
-                $selectCriteria->add(PropiedadPeer::IDPROPIEDAD, $value, $comparison);
+                $selectCriteria->add(ConsultorioPeer::IDCONSULTORIO, $value, $comparison);
             } else {
-                $selectCriteria->setPrimaryTableName(PropiedadPeer::TABLE_NAME);
+                $selectCriteria->setPrimaryTableName(ConsultorioPeer::TABLE_NAME);
             }
 
-        } else { // $values is Propiedad object
+        } else { // $values is Consultorio object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
         }
 
         // set the correct dbName
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
+        $criteria->setDbName(ConsultorioPeer::DATABASE_NAME);
 
         return BasePeer::doUpdate($selectCriteria, $criteria, $con);
     }
 
     /**
-     * Deletes all rows from the propiedad table.
+     * Deletes all rows from the consultorio table.
      *
      * @param      PropelPDO $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).
@@ -831,20 +600,20 @@ abstract class BasePropiedadPeer
     public static function doDeleteAll(PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
         $affectedRows = 0; // initialize var to track total num of affected rows
         try {
             // use transaction because $criteria could contain info
             // for more than one table or we could emulating ON DELETE CASCADE, etc.
             $con->beginTransaction();
-            $affectedRows += PropiedadPeer::doOnDeleteCascade(new Criteria(PropiedadPeer::DATABASE_NAME), $con);
-            $affectedRows += BasePeer::doDeleteAll(PropiedadPeer::TABLE_NAME, $con, PropiedadPeer::DATABASE_NAME);
+            $affectedRows += ConsultorioPeer::doOnDeleteCascade(new Criteria(ConsultorioPeer::DATABASE_NAME), $con);
+            $affectedRows += BasePeer::doDeleteAll(ConsultorioPeer::TABLE_NAME, $con, ConsultorioPeer::DATABASE_NAME);
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            PropiedadPeer::clearInstancePool();
-            PropiedadPeer::clearRelatedInstancePool();
+            ConsultorioPeer::clearInstancePool();
+            ConsultorioPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -855,9 +624,9 @@ abstract class BasePropiedadPeer
     }
 
     /**
-     * Performs a DELETE on the database, given a Propiedad or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Consultorio or Criteria object OR a primary key value.
      *
-     * @param      mixed $values Criteria or Propiedad object or primary key or array of primary keys
+     * @param      mixed $values Criteria or Consultorio object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param      PropelPDO $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -868,22 +637,22 @@ abstract class BasePropiedadPeer
      public static function doDelete($values, PropelPDO $con = null)
      {
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = clone $values;
-        } elseif ($values instanceof Propiedad) { // it's a model object
+        } elseif ($values instanceof Consultorio) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(PropiedadPeer::DATABASE_NAME);
-            $criteria->add(PropiedadPeer::IDPROPIEDAD, (array) $values, Criteria::IN);
+            $criteria = new Criteria(ConsultorioPeer::DATABASE_NAME);
+            $criteria->add(ConsultorioPeer::IDCONSULTORIO, (array) $values, Criteria::IN);
         }
 
         // Set the correct dbName
-        $criteria->setDbName(PropiedadPeer::DATABASE_NAME);
+        $criteria->setDbName(ConsultorioPeer::DATABASE_NAME);
 
         $affectedRows = 0; // initialize var to track total num of affected rows
 
@@ -894,23 +663,23 @@ abstract class BasePropiedadPeer
 
             // cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
             $c = clone $criteria;
-            $affectedRows += PropiedadPeer::doOnDeleteCascade($c, $con);
+            $affectedRows += ConsultorioPeer::doOnDeleteCascade($c, $con);
 
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
             if ($values instanceof Criteria) {
-                PropiedadPeer::clearInstancePool();
-            } elseif ($values instanceof Propiedad) { // it's a model object
-                PropiedadPeer::removeInstanceFromPool($values);
+                ConsultorioPeer::clearInstancePool();
+            } elseif ($values instanceof Consultorio) { // it's a model object
+                ConsultorioPeer::removeInstanceFromPool($values);
             } else { // it's a primary key, or an array of pks
                 foreach ((array) $values as $singleval) {
-                    PropiedadPeer::removeInstanceFromPool($singleval);
+                    ConsultorioPeer::removeInstanceFromPool($singleval);
                 }
             }
 
             $affectedRows += BasePeer::doDelete($criteria, $con);
-            PropiedadPeer::clearRelatedInstancePool();
+            ConsultorioPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -939,34 +708,28 @@ abstract class BasePropiedadPeer
         $affectedRows = 0;
 
         // first find the objects that are implicated by the $criteria
-        $objects = PropiedadPeer::doSelect($criteria, $con);
+        $objects = ConsultorioPeer::doSelect($criteria, $con);
         foreach ($objects as $obj) {
 
 
-            // delete related Articulovariantevalor objects
-            $criteria = new Criteria(ArticulovariantevalorPeer::DATABASE_NAME);
+            // delete related Consulta objects
+            $criteria = new Criteria(ConsultaPeer::DATABASE_NAME);
 
-            $criteria->add(ArticulovariantevalorPeer::IDPROPIEDAD, $obj->getIdpropiedad());
-            $affectedRows += ArticulovariantevalorPeer::doDelete($criteria, $con);
-
-            // delete related Propiedadvalor objects
-            $criteria = new Criteria(PropiedadvalorPeer::DATABASE_NAME);
-
-            $criteria->add(PropiedadvalorPeer::IDPROPIEDAD, $obj->getIdpropiedad());
-            $affectedRows += PropiedadvalorPeer::doDelete($criteria, $con);
+            $criteria->add(ConsultaPeer::IDCONSULTORIO, $obj->getIdconsultorio());
+            $affectedRows += ConsultaPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;
     }
 
     /**
-     * Validates all modified columns of given Propiedad object.
+     * Validates all modified columns of given Consultorio object.
      * If parameter $columns is either a single column name or an array of column names
      * than only those columns are validated.
      *
      * NOTICE: This does not apply to primary or foreign keys for now.
      *
-     * @param Propiedad $obj The object to validate.
+     * @param Consultorio $obj The object to validate.
      * @param      mixed $cols Column name or array of column names.
      *
      * @return mixed TRUE if all columns are valid or the error message of the first invalid column.
@@ -976,8 +739,8 @@ abstract class BasePropiedadPeer
         $columns = array();
 
         if ($cols) {
-            $dbMap = Propel::getDatabaseMap(PropiedadPeer::DATABASE_NAME);
-            $tableMap = $dbMap->getTable(PropiedadPeer::TABLE_NAME);
+            $dbMap = Propel::getDatabaseMap(ConsultorioPeer::DATABASE_NAME);
+            $tableMap = $dbMap->getTable(ConsultorioPeer::TABLE_NAME);
 
             if (! is_array($cols)) {
                 $cols = array($cols);
@@ -993,7 +756,7 @@ abstract class BasePropiedadPeer
 
         }
 
-        return BasePeer::doValidate(PropiedadPeer::DATABASE_NAME, PropiedadPeer::TABLE_NAME, $columns);
+        return BasePeer::doValidate(ConsultorioPeer::DATABASE_NAME, ConsultorioPeer::TABLE_NAME, $columns);
     }
 
     /**
@@ -1001,23 +764,23 @@ abstract class BasePropiedadPeer
      *
      * @param int $pk the primary key.
      * @param      PropelPDO $con the connection to use
-     * @return Propiedad
+     * @return Consultorio
      */
     public static function retrieveByPK($pk, PropelPDO $con = null)
     {
 
-        if (null !== ($obj = PropiedadPeer::getInstanceFromPool((string) $pk))) {
+        if (null !== ($obj = ConsultorioPeer::getInstanceFromPool((string) $pk))) {
             return $obj;
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria = new Criteria(PropiedadPeer::DATABASE_NAME);
-        $criteria->add(PropiedadPeer::IDPROPIEDAD, $pk);
+        $criteria = new Criteria(ConsultorioPeer::DATABASE_NAME);
+        $criteria->add(ConsultorioPeer::IDCONSULTORIO, $pk);
 
-        $v = PropiedadPeer::doSelect($criteria, $con);
+        $v = ConsultorioPeer::doSelect($criteria, $con);
 
         return !empty($v) > 0 ? $v[0] : null;
     }
@@ -1027,31 +790,31 @@ abstract class BasePropiedadPeer
      *
      * @param      array $pks List of primary keys
      * @param      PropelPDO $con the connection to use
-     * @return Propiedad[]
+     * @return Consultorio[]
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
     public static function retrieveByPKs($pks, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(PropiedadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ConsultorioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         $objs = null;
         if (empty($pks)) {
             $objs = array();
         } else {
-            $criteria = new Criteria(PropiedadPeer::DATABASE_NAME);
-            $criteria->add(PropiedadPeer::IDPROPIEDAD, $pks, Criteria::IN);
-            $objs = PropiedadPeer::doSelect($criteria, $con);
+            $criteria = new Criteria(ConsultorioPeer::DATABASE_NAME);
+            $criteria->add(ConsultorioPeer::IDCONSULTORIO, $pks, Criteria::IN);
+            $objs = ConsultorioPeer::doSelect($criteria, $con);
         }
 
         return $objs;
     }
 
-} // BasePropiedadPeer
+} // BaseConsultorioPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BasePropiedadPeer::buildTableMap();
+BaseConsultorioPeer::buildTableMap();
 

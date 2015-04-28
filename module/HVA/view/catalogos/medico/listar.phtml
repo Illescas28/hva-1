@@ -32,6 +32,7 @@
             <th>Apellido Paterno</th>
             <th>Apellido Materno</th>
             <th>Especialidad</th>
+            <th>Datos Completos</th>
             <th >Opciones</th>
         </tr>
     </thead>
@@ -43,6 +44,7 @@
             <td><?php echo $medico->getMedicoApellidopaterno() ?></td>
             <td><?php echo $medico->getMedicoApellidomaterno() ?></td>
             <td><?php echo $medico->getEspecialidad()->getEspecialidadNombre() ?></td>
+             <td><?php if($medico->getMedicoPerfilcompleto()) echo "<i style='color:#69f0ae' class='tiny mdi-action-done-all'></i>"; else echo "<i style='color:#e53935' class='tiny mdi-navigation-cancel'></i>" ?></td>
             <td>
                 <a class="tooltipped modal-trigger" data-position="left" data-tooltip="Visualizar" href='<?php echo "#view-modal-medico-".$medico->getIdMedico()?>'><i class="tiny mdi-image-remove-red-eye"></i></a>
                 &nbsp;&nbsp;
@@ -176,7 +178,7 @@
 </table>
 <script>
 $(document).ready(function(){
-        $("#tabla-medicos").tablesorter({headers:{4:{sorter:false}}});
+        $("#tabla-medicos").tablesorter({headers:{5:{sorter:false},4:{sorter:false}}});
         $("#tabla-medicos").filterTable({inputSelector: '#search-container input',minRows:2});
         $('.modal-trigger').leanModal();
 }); 

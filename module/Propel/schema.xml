@@ -323,15 +323,15 @@
     <column name="idconsulta" phpName="Idconsulta" type="INTEGER" primaryKey="true" required="true"/>
     <column name="idpaciente" phpName="Idpaciente" type="INTEGER" required="true"/>
     <column name="idmedico" phpName="Idmedico" type="INTEGER" required="true"/>
-    <column name="idcuarto" phpName="Idcuarto" type="INTEGER" required="true"/>
+    <column name="idconsultorio" phpName="Idconsultorio" type="INTEGER" required="true"/>
     <column name="consulta_fechaadmision" phpName="ConsultaFechaadmision" type="TIMESTAMP" required="true"/>
     <column name="consulta_fechasalida" phpName="ConsultaFechasalida" type="TIMESTAMP" required="false"/>
     <column name="consulta_diagnostico" phpName="ConsultaDiagnostico" type="LONGVARCHAR" required="false"/>
     <column name="consulta_observaciones" phpName="ConsultaObservaciones" type="LONGVARCHAR" required="false"/>
     <column name="consulta_status" phpName="ConsultaStatus" type="CHAR" sqlType="enum('pagada','no pagada','pendiente')" required="false" defaultValue="pendiente"/>
     <column name="consulta_total" phpName="ConsultaTotal" type="DECIMAL" size="10" scale="2" required="false"/>
-    <foreign-key foreignTable="cuarto" name="idcuarto_consulta" onDelete="CASCADE" onUpdate="CASCADE">
-      <reference local="idcuarto" foreign="idcuarto"/>
+    <foreign-key foreignTable="consultorio" name="idconsultorio_consulta" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="idconsultorio" foreign="idconsultorio"/>
     </foreign-key>
     <foreign-key foreignTable="medico" name="idmedico_consulta" onDelete="CASCADE" onUpdate="CASCADE">
       <reference local="idmedico" foreign="idmedico"/>
@@ -345,8 +345,8 @@
     <index name="idpaciente">
       <index-column name="idpaciente"/>
     </index>
-    <index name="idcuarto">
-      <index-column name="idcuarto"/>
+    <index name="idconsultorio">
+      <index-column name="idconsultorio"/>
     </index>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
@@ -364,6 +364,16 @@
     <index name="idconsulta">
       <index-column name="idconsulta"/>
     </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="consultorio" phpName="Consultorio" idMethod="native">
+    <column name="idconsultorio" phpName="Idconsultorio" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="consultorio_nombre" phpName="ConsultorioNombre" type="VARCHAR" size="300" required="true"/>
+    <column name="consultorio_descripcion" phpName="ConsultorioDescripcion" type="LONGVARCHAR" required="true"/>
+    <column name="consultorio_enuso" phpName="ConsultorioEnuso" type="BOOLEAN" size="1" required="true"/>
+    <column name="consultorio_extension" phpName="ConsultorioExtension" type="VARCHAR" size="45" required="false"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
@@ -637,6 +647,7 @@
     <column name="paciente_noexterior" phpName="PacienteNoexterior" type="VARCHAR" size="45" required="true"/>
     <column name="paciente_nointerior" phpName="PacienteNointerior" type="VARCHAR" size="45" required="true"/>
     <column name="paciente_colonia" phpName="PacienteColonia" type="VARCHAR" size="45" required="true"/>
+    <column name="paciente_codigopostal" phpName="PacienteCodigopostal" type="VARCHAR" size="5" required="true"/>
     <column name="paciente_ciudad" phpName="PacienteCiudad" type="VARCHAR" size="45" required="true"/>
     <column name="paciente_estado" phpName="PacienteEstado" type="VARCHAR" size="45" required="true"/>
     <column name="paciente_pais" phpName="PacientePais" type="VARCHAR" size="45" required="true"/>
@@ -681,7 +692,7 @@
     </vendor>
   </table>
   <table name="propiedad" phpName="Propiedad" idMethod="native">
-    <column name="idpropiedad" phpName="Idpropiedad" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="idpropiedad" phpName="Idpropiedad" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="idarticulo" phpName="Idarticulo" type="INTEGER" required="true"/>
     <column name="propiedad_nombre" phpName="PropiedadNombre" type="VARCHAR" size="100" required="true"/>
     <foreign-key foreignTable="articulo" name="idarticulo_propiedad" onDelete="CASCADE" onUpdate="CASCADE">

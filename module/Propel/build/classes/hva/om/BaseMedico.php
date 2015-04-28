@@ -2962,10 +2962,10 @@ abstract class BaseMedico extends BaseObject implements Persistent
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Consulta[] List of Consulta objects
      */
-    public function getConsultasJoinCuarto($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getConsultasJoinConsultorio($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = ConsultaQuery::create(null, $criteria);
-        $query->joinWith('Cuarto', $join_behavior);
+        $query->joinWith('Consultorio', $join_behavior);
 
         return $this->getConsultas($query, $con);
     }
